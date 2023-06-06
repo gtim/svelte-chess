@@ -40,7 +40,6 @@
 		"publint": "^0.1.9",
 		"svelte": "^3.54.0",
 		"svelte-check": "^3.0.1",
-		"svelte-chessground": "^0.2.8",
 		"tslib": "^2.4.1",
 		"typescript": "^5.0.0",
 		"vite": "^4.3.0",
@@ -50,6 +49,7 @@
 	"types": "./dist/index.d.ts",
 	"type": "module",
 	"dependencies": {
-		"chess.js": "^1.0.0-beta.6"
+		"chess.js": "^1.0.0-beta.6",
+		"svelte-chessground": "^0.2.8"
 	}
 }
