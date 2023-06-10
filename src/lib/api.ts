@@ -21,7 +21,11 @@ export class Api {
 				dests: this.getPossibleMoves(),
 				events: {
 					after: (orig,dest) => {
-						this.chessJS.move({ from: orig, to: dest });
+						const move = this.chessJS.move({ from: orig, to: dest });
+						if ( move.flags.includes('e') ) {
+							// remove en-passant pawn from chessground. TODO make smoother
+							this.cg.set({ fen: this.chessJS.fen() });
+						}
 						this._updateChessgroundWithPossibleMoves();
 						this.stateChangeCallback(this);
 					},
@@ -56,6 +60,10 @@ export class Api {
 			return false;
 		}
 		this.cg.move( move.from, move.to );
+		if ( move.flags.includes('e') ) {
+			// remove en-passant pawn from chessground. TODO make smoother
+			this.cg.set({ fen: this.chessJS.fen() });
+		}
 		this._updateChessgroundWithPossibleMoves();
 		this.stateChangeCallback(this);
 		return true;
