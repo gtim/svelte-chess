@@ -46,7 +46,7 @@ describe("move", () => {
 	});
 });
 
-describe("resetBoard", () => {
+describe("board manipulation", () => {
 	test("reset board", () => {
 		const initialFen = api.getFen();
 		api.resetBoard();
@@ -55,5 +55,18 @@ describe("resetBoard", () => {
 		expect( api.getFen() ).not.toEqual( initialFen );
 		api.resetBoard();
 		expect( api.getFen() ).toEqual( initialFen );
+	} );
+	test("undo last move", () => {
+		api.move('e4');
+		api.move('e5');
+		api.move('Bc4');
+		expect( api.getFen() ).toEqual( 'rnbqkbnr/pppp1ppp/8/4p3/2B1P3/8/PPPP1PPP/RNBQK1NR b KQkq - 1 2' );
+		api.undoLastMove();
+		expect( api.getFen() ).toEqual( 'rnbqkbnr/pppp1ppp/8/4p3/4P3/8/PPPP1PPP/RNBQKBNR w KQkq - 0 2' );
+		expect( api.move('Qh5') ).toBeTruthy();
+		expect( api.getFen() ).toEqual( 'rnbqkbnr/pppp1ppp/8/4p2Q/4P3/8/PPPP1PPP/RNB1KBNR b KQkq - 1 2' );
+		api.undoLastMove();
+		api.undoLastMove();
+		expect( api.getFen() ).toEqual( 'rnbqkbnr/pppppppp/8/8/4P3/8/PPPP1PPP/RNBQKBNR b KQkq - 0 1' );
 	} );
 });

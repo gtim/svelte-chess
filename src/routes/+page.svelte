@@ -13,6 +13,12 @@
 
 <div style="max-width:512px;margin:0 auto;">
 	<Chess bind:api={api}/>
+	<button on:click={()=>api.resetBoard()}>Reset board</button>
+	<button on:click={()=>api.undoLastMove()}>Undo last move</button>
 </div>
 
-<button on:click={api.resetBoard()}>Reset board</button>
+<style>
+	button {
+		margin-top:16px;
+	}
+</style>

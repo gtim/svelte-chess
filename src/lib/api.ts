@@ -61,6 +61,17 @@ export class Api {
 		this._updateChessgroundWithPossibleMoves();
 	}
 
+	// Undo last move
+	undoLastMove(): void {
+		this.chessJS.undo();
+		this.cg.set({
+			fen: this.chessJS.fen(),
+			turnColor: 'white',
+			lastMove: undefined,
+		});
+		this._updateChessgroundWithPossibleMoves();
+	}
+
 
 	private _updateChessgroundWithPossibleMoves() {
 		const cgColor = this.chessJS.turn() == 'w' ? 'white' : 'black';
