@@ -2,7 +2,7 @@
 
 Svelte chess component that combines chess.js and chessground for a fully playable chessboard.
 
-Alpha. Many parts of the API are still missing.
+Alpha, though all methods listed here are implemented.
 
 ## Usage
 
@@ -34,4 +34,5 @@ Example accessing the API for undo/restart buttons:
 * resetBoard
 * undoLastMove
 * toggleOrientation
+* getTurnColor
 

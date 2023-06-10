@@ -70,3 +70,21 @@ describe("board manipulation", () => {
 		expect( api.getFen() ).toEqual( 'rnbqkbnr/pppppppp/8/8/4P3/8/PPPP1PPP/RNBQKBNR b KQkq - 0 1' );
 	} );
 });
+
+describe("turn color", () => {
+	test("turn color", () => {
+		expect( api.getTurnColor() ).toEqual( 'w' );
+		api.move('e4');
+		expect( api.getTurnColor() ).toEqual( 'b' );
+		api.move('e5');
+		expect( api.getTurnColor() ).toEqual( 'w' );
+		api.move('Bc4');
+		expect( api.getTurnColor() ).toEqual( 'b' );
+		api.move('d6');
+		expect( api.getTurnColor() ).toEqual( 'w' );
+		api.undoLastMove();
+		expect( api.getTurnColor() ).toEqual( 'b' );
+		api.resetBoard();
+		expect( api.getTurnColor() ).toEqual( 'w' );
+	} );
+} );

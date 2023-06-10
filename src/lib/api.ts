@@ -77,6 +77,11 @@ export class Api {
 		this.cg.toggleOrientation();
 	}
 
+	// Get turn color
+	getTurnColor() {
+		return this.chessJS.turn();
+	}
+
 
 	private _updateChessgroundWithPossibleMoves() {
 		const cgColor = this.chessJS.turn() == 'w' ? 'white' : 'black';
