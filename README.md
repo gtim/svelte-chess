@@ -33,4 +33,5 @@ Example accessing the API for undo/restart buttons:
 * move
 * resetBoard
 * undoLastMove
+* toggleOrientation
 

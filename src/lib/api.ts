@@ -72,6 +72,11 @@ export class Api {
 		this._updateChessgroundWithPossibleMoves();
 	}
 
+	// Toggle board orientation
+	toggleOrientation(): void {
+		this.cg.toggleOrientation();
+	}
+
 
 	private _updateChessgroundWithPossibleMoves() {
 		const cgColor = this.chessJS.turn() == 'w' ? 'white' : 'black';
