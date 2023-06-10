@@ -50,6 +50,6 @@
 	"type": "module",
 	"dependencies": {
 		"chess.js": "^1.0.0-beta.6",
-		"svelte-chessground": "^0.2.8"
+		"svelte-chessground": "^1.0.0"
 	}
 }
