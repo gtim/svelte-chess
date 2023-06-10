@@ -6,6 +6,7 @@ import { Chessground } from 'svelte-chessground';
 vi.mock('svelte-chessground', () => {
 	const Chessground = vi.fn();
 	Chessground.prototype.move = vi.fn();
+	Chessground.prototype.set = vi.fn();
 	return { Chessground };
 });
 

@@ -7,6 +7,18 @@ export class Api {
 	constructor( cg: Chessground ) {
 		this.cg = cg;
 		this.chessJS = new ChessJS();
+		this.cg.set( {
+			movable: {
+				free: false,
+				dests: this.getPossibleMoves(),
+				events: {
+					after: (orig,dest) => {
+						this.chessJS.move({ from: orig, to: dest });
+						this._updateChessgroundWithPossibleMoves();
+					},
+				},
+			},
+		} );
 	}
 
 	// Find all legal moves
@@ -34,6 +46,20 @@ export class Api {
 			return false;
 		}
 		this.cg.move( move.from, move.to );
+		this._updateChessgroundWithPossibleMoves();
 		return true;
 	}
+
+
+	private _updateChessgroundWithPossibleMoves() {
+		const cgColor = this.chessJS.turn() == 'w' ? 'white' : 'black';
+		this.cg.set({
+			turnColor: cgColor,
+			movable: {
+				color: cgColor,
+				dests: this.getPossibleMoves(),
+			},
+		});
+	}
+
 }
