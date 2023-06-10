@@ -77,9 +77,14 @@ export class Api {
 		this.cg.toggleOrientation();
 	}
 
-	// Get turn color
+	// Get current turn's color
 	getTurnColor() {
 		return this.chessJS.turn();
+	}
+
+	// Get current move number (whole moves)
+	getMoveNumber() {
+		return this.chessJS.moveNumber();
 	}
 
 

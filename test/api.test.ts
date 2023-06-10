@@ -71,7 +71,7 @@ describe("board manipulation", () => {
 	} );
 });
 
-describe("turn color", () => {
+describe("board state", () => {
 	test("turn color", () => {
 		expect( api.getTurnColor() ).toEqual( 'w' );
 		api.move('e4');
@@ -86,5 +86,20 @@ describe("turn color", () => {
 		expect( api.getTurnColor() ).toEqual( 'b' );
 		api.resetBoard();
 		expect( api.getTurnColor() ).toEqual( 'w' );
+	} );
+	test("move number", () => {
+		expect( api.getMoveNumber() ).toEqual( 1 );
+		api.move('e4');
+		expect( api.getMoveNumber() ).toEqual( 1 );
+		api.move('e5');
+		expect( api.getMoveNumber() ).toEqual( 2 );
+		api.move('Bc4');
+		expect( api.getMoveNumber() ).toEqual( 2 );
+		api.move('d6');
+		expect( api.getMoveNumber() ).toEqual( 3 );
+		api.undoLastMove();
+		expect( api.getMoveNumber() ).toEqual( 2 );
+		api.resetBoard();
+		expect( api.getMoveNumber() ).toEqual( 1 );
 	} );
 } );

@@ -35,4 +35,5 @@ Example accessing the API for undo/restart buttons:
 * undoLastMove
 * toggleOrientation
 * getTurnColor
+* getMoveNumber
 
