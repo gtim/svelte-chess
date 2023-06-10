@@ -102,4 +102,15 @@ describe("board state", () => {
 		api.resetBoard();
 		expect( api.getMoveNumber() ).toEqual( 1 );
 	} );
+	test("move history", () => {
+		expect( api.getHistory() ).toEqual( [] );
+		api.move('e4');
+		api.move('e5');
+		expect( api.getHistory() ).toEqual( ['e4','e5'] );
+		api.move('a6');
+		api.move('Bc4');
+		expect( api.getHistory() ).toEqual( ['e4','e5','Bc4'] );
+		api.resetBoard();
+		expect( api.getHistory() ).toEqual( [] );
+	} );
 } );

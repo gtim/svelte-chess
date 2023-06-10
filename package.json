@@ -1,6 +1,6 @@
 {
 	"name": "svelte-chess",
-	"version": "0.1.2",
+	"version": "0.1.3",
 	"license": "GPL-3.0",
 	"scripts": {
 		"dev": "vite dev",

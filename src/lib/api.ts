@@ -87,6 +87,11 @@ export class Api {
 		return this.chessJS.moveNumber();
 	}
 
+	// Get history of moves
+	getHistory() {
+		return this.chessJS.history();
+	}
+
 
 	private _updateChessgroundWithPossibleMoves() {
 		const cgColor = this.chessJS.turn() == 'w' ? 'white' : 'black';
