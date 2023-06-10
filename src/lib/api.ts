@@ -4,9 +4,15 @@ import { Chess as ChessJS, SQUARES } from 'chess.js';
 export class Api {
 	cg: Chessground;
 	chessJS: ChessJS;
-	constructor( cg: Chessground, fen: string = 'rnbqkbnr/pppppppp/8/8/8/8/PPPPPPPP/RNBQKBNR w KQkq - 0 1' ) {
+	stateChangeCallback: (api:Api) => void;
+	constructor(
+		cg: Chessground,
+		fen: string = 'rnbqkbnr/pppppppp/8/8/8/8/PPPPPPPP/RNBQKBNR w KQkq - 0 1',
+		stateChangeCallback: (api:Api) => void = (api:Api)=>{}, // called when the game state (not visuals) changes
+	) {
 		this.cg = cg;
 		this.chessJS = new ChessJS( fen );
+		this.stateChangeCallback = stateChangeCallback;
 		this.cg.set( {
 			fen: fen,
 			turnColor: this.chessJS.turn() == 'w' ? 'white' : 'black',
@@ -17,10 +23,12 @@ export class Api {
 					after: (orig,dest) => {
 						this.chessJS.move({ from: orig, to: dest });
 						this._updateChessgroundWithPossibleMoves();
+						this.stateChangeCallback(this);
 					},
 				},
 			},
 		} );
+		this.stateChangeCallback(this);
 	}
 
 	// Find all legal moves
@@ -49,6 +57,7 @@ export class Api {
 		}
 		this.cg.move( move.from, move.to );
 		this._updateChessgroundWithPossibleMoves();
+		this.stateChangeCallback(this);
 		return true;
 	}
 
@@ -61,6 +70,7 @@ export class Api {
 			lastMove: undefined,
 		});
 		this._updateChessgroundWithPossibleMoves();
+		this.stateChangeCallback(this);
 	}
 
 	// Undo last move
@@ -72,6 +82,7 @@ export class Api {
 			lastMove: undefined,
 		});
 		this._updateChessgroundWithPossibleMoves();
+		this.stateChangeCallback(this);
 	}
 
 	// Toggle board orientation

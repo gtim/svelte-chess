@@ -4,9 +4,9 @@ Svelte chess component that combines chess.js and chessground for a fully playab
 
 Alpha, though all methods listed here are implemented.
 
-## Usage
+## Usage examples
 
-Create a playable chessboard:
+Create a simple, playable chessboard:
 
     <script>
         import {Chess} from 'svelte-chess';
@@ -14,7 +14,22 @@ Create a playable chessboard:
 
     <Chess />
 
-Accessing the board API for undo/restart buttons:
+Bindable svelte props:
+
+    <script>
+        import {Chess} from 'svelte-chess';
+        let fen, moveNumber, turnColor, history;
+    </script>    
+
+	<Chess bind:fen bind:moveNumber bind:turnColor bind:history/>
+    
+    <p>
+        It's move {moveNumber}, with {turnColor} to move.
+        Moves played: {history?.join(' ')}.
+        Current FEN: {fen}
+    </p>
+
+Access the board API for undo/restart buttons:
 
     <script>
         import {Chess} from 'svelte-chess';
@@ -29,6 +44,7 @@ Accessing the board API for undo/restart buttons:
 Start from a specific FEN:
 
     <Chess fen="rnbqkb1r/1p2pppp/p2p1n2/8/3NP3/2N5/PPP2PPP/R1BQKB1R w KQkq - 0 6" />
+
 
 ## API
 
