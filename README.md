@@ -14,7 +14,7 @@ Create a playable chessboard:
 
     <Chess />
 
-Example accessing the API for undo/restart buttons:
+Accessing the board API for undo/restart buttons:
 
     <script>
         import {Chess} from 'svelte-chess';
@@ -25,6 +25,10 @@ Example accessing the API for undo/restart buttons:
 
     <button on:click={()=>chessApi.resetBoard()}>Restart</button>
     <button on:click={()=>chessApi.undoLastMove()}>Undo</button>
+
+Start from a specific FEN:
+
+    <Chess fen="rnbqkb1r/1p2pppp/p2p1n2/8/3NP3/2N5/PPP2PPP/R1BQKB1R w KQkq - 0 6" />
 
 ## API
 

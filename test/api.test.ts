@@ -114,3 +114,13 @@ describe("board state", () => {
 		expect( api.getHistory() ).toEqual( [] );
 	} );
 } );
+
+describe("start from FEN", () => {
+	test( "start from FEN", () => {
+		api = new Api( new Chessground(), 'rnbqkb1r/1p2pppp/p2p1n2/8/3NP3/2N1B3/PPP2PPP/R2QKB1R b KQkq - 1 6' );
+		expect( api.getMoveNumber() ).toEqual(6);
+		expect( api.getTurnColor() ).toEqual('b');
+		expect( api.move('d6') ).toBeFalsy();
+		expect( api.move('Ng4') ).toBeTruthy();
+	} );
+} );
