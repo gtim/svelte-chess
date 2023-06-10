@@ -2,9 +2,14 @@
 
 Svelte chess component that combines chess.js and chessground for a fully playable chessboard.
 
-Alpha, though all methods listed here are implemented.
+This alpha version is under development. Everything described here is already
+implemented. See the end of this document for what remains.
 
 ## Usage examples
+
+Install:
+
+    npm install svelte-chess
 
 Create a simple, playable chessboard:
 
@@ -48,6 +53,9 @@ Start from a specific FEN:
 
 ## API
 
+The board state can be read and manipulated via the bindable `api` prop, which 
+implements the following methods:
+
 * getPossibleMoves
 * getFen
 * move
@@ -58,3 +66,11 @@ Start from a specific FEN:
 * getMoveNumber
 * getHistory
 
+## Not yet implemented
+
+* Events on move and on game end (mate/stalemate/repetition/insufficient)
+* Promotion dialog
+* Highlight king when checked
+* getPgn
+* Styling
+* Demo
