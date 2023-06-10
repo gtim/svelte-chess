@@ -1,21 +1,16 @@
 <script lang="ts">
 	import { Chessground } from 'svelte-chessground';
-	import { Chess as ChessJS, SQUARES } from 'chess.js';
+	import { Api } from '$lib/api.js';
 
-	const chessJS = new ChessJS();
+	import { onMount } from 'svelte';
 
-	// Find all legal moves
-	function possibleMoves(chess: ChessJS) {
-		const dests = new Map();
-		SQUARES.forEach(s => {
-			const ms = chess.moves({square: s, verbose: true});
-			if (ms.length) dests.set(s, ms.map(m => m.to));
-		});
-		return dests;
-	}
-	export function getPossibleMoves() {
-		return possibleMoves(chessJS);
-	}
+	let chessground: Chessground;
+	export let api: Api;
+
+	onMount( () => {
+		api = new Api( chessground );
+	} );
+	
 </script>
 
-<Chessground/>
+<Chessground bind:this={chessground}/>

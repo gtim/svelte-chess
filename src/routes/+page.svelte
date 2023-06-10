@@ -1,15 +1,16 @@
 <script lang="ts">
 	import Chess from '$lib/Chess.svelte';
+	import type { Api } from '$lib/api.js'; // TODO should be imported via Chess.svelte?
 
 	import { onMount } from 'svelte';
 
-	let chess:Chess;
+	let api: Api;
 
 	onMount( () => {
-		console.log(chess.getPossibleMoves());
+		api.move('e4');
 	} );
 </script>
 
 <div style="max-width:512px;margin:0 auto;">
-	<Chess bind:this={chess}/>
+	<Chess bind:api={api}/>
 </div>
