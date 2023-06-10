@@ -14,3 +14,5 @@
 <div style="max-width:512px;margin:0 auto;">
 	<Chess bind:api={api}/>
 </div>
+
+<button on:click={api.resetBoard()}>Reset board</button>

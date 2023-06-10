@@ -2,7 +2,7 @@ import {describe, expect} from 'vitest';
 import { Api } from '../src/lib/api.js';
 import { Chessground } from 'svelte-chessground';
 
-// Mock svelte-chessground: no need to mount components for these tests
+// Mock svelte-chessground: Chessground changes are *not* tested here
 vi.mock('svelte-chessground', () => {
 	const Chessground = vi.fn();
 	Chessground.prototype.move = vi.fn();
@@ -44,4 +44,16 @@ describe("move", () => {
 	test("1. d5 is illegal", () => {
 		expect( api.move('d5') ).toBeFalsy();
 	});
+});
+
+describe("resetBoard", () => {
+	test("reset board", () => {
+		const initialFen = api.getFen();
+		api.resetBoard();
+		expect( api.getFen() ).toEqual( initialFen );
+		api.move('e4');
+		expect( api.getFen() ).not.toEqual( initialFen );
+		api.resetBoard();
+		expect( api.getFen() ).toEqual( initialFen );
+	} );
 });

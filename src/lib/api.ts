@@ -50,6 +50,17 @@ export class Api {
 		return true;
 	}
 
+	// Reset board to the starting position
+	resetBoard(): void {
+		this.chessJS.reset();
+		this.cg.set({
+			fen: this.chessJS.fen(),
+			turnColor: 'white',
+			lastMove: undefined,
+		});
+		this._updateChessgroundWithPossibleMoves();
+	}
+
 
 	private _updateChessgroundWithPossibleMoves() {
 		const cgColor = this.chessJS.turn() == 'w' ? 'white' : 'black';
