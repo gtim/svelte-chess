@@ -1,18 +1,23 @@
 import type { Chessground } from 'svelte-chessground';
 import { Chess as ChessJS, SQUARES } from 'chess.js';
+import type { Square, PieceSymbol } from 'chess.js';
+export type { Square, PieceSymbol };
 
 export class Api {
 	cg: Chessground;
 	chessJS: ChessJS;
 	stateChangeCallback: (api:Api) => void;
+	promotionCallback: (sq:Square) => Promise<PieceSymbol>;
 	constructor(
 		cg: Chessground,
 		fen: string = 'rnbqkbnr/pppppppp/8/8/8/8/PPPPPPPP/RNBQKBNR w KQkq - 0 1',
 		stateChangeCallback: (api:Api) => void = (api:Api)=>{}, // called when the game state (not visuals) changes
+		promotionCallback: (sq:Square) => Promise<PieceSymbol>, // called before promotion
 	) {
 		this.cg = cg;
 		this.chessJS = new ChessJS( fen );
 		this.stateChangeCallback = stateChangeCallback;
+		this.promotionCallback = promotionCallback;
 		this.cg.set( {
 			fen: fen,
 			turnColor: this.chessJS.turn() == 'w' ? 'white' : 'black',
@@ -20,18 +25,33 @@ export class Api {
 				free: false,
 				dests: this.getPossibleMoves(),
 				events: {
-					after: (orig,dest) => {
-						const move = this.chessJS.move({ from: orig, to: dest });
-						if ( move.flags.includes('e') ) {
-							// remove en-passant pawn from chessground. TODO make smoother
-							this.cg.set({ fen: this.chessJS.fen() });
+					after: async (orig,dest) => {
+						if ( orig === 'a0' || dest === 'a0' ) {
+							// the Chessground square type (Key) includes a0
+							throw Error('invalid square');
 						}
-						this._updateChessgroundWithPossibleMoves();
-						this.stateChangeCallback(this);
+						if ( this._moveIsPromotion( orig, dest ) ) {
+							const promotion = await this.promotionCallback( dest );
+							this._afterChessgroundMove( orig, dest, promotion );
+						} else {
+							this._afterChessgroundMove( orig, dest );
+						}
 					},
 				},
 			},
 		} );
+		this.stateChangeCallback(this);
+	}
+	
+	// Called after a Chessground move to update Chess.js
+	private _afterChessgroundMove( from: Square, to: Square, promotion?: PieceSymbol ) {
+		const move = this.chessJS.move({ from, to, promotion });
+		if ( move.flags.includes('e') || move.flags.includes('p') ) {
+			// update chessground after en-passant or promotion.
+			// TODO make promotion smoother
+			this.cg.set({ fen: this.chessJS.fen() });
+		}
+		this._updateChessgroundWithPossibleMoves();
 		this.stateChangeCallback(this);
 	}
 
@@ -60,8 +80,9 @@ export class Api {
 			return false;
 		}
 		this.cg.move( move.from, move.to );
-		if ( move.flags.includes('e') ) {
-			// remove en-passant pawn from chessground. TODO make smoother
+		if ( move.flags.includes('e') || move.flags.includes('p') ) {
+			// update chessground after en-passant or promotion.
+			// TODO make promotion smoother
 			this.cg.set({ fen: this.chessJS.fen() });
 		}
 		this._updateChessgroundWithPossibleMoves();
@@ -123,6 +144,10 @@ export class Api {
 				dests: this.getPossibleMoves(),
 			},
 		});
+	}
+
+	private _moveIsPromotion( orig: Square, dest: Square ): boolean {
+		return this.chessJS.get(orig).type === 'p' && ( dest.charAt(1) == '1' || dest.charAt(1) == '8' );
 	}
 
 }

@@ -1,10 +1,13 @@
 <script lang="ts">
 	import { Chessground } from 'svelte-chessground';
+	import PromotionDialog from '$lib/PromotionDialog.svelte';
 	import { Api } from '$lib/api.js';
+	import type { Square, PieceSymbol } from '$lib/api.js';
 
 	import { onMount } from 'svelte';
 
 	let chessground: Chessground;
+	let container: HTMLElement;
 
 	// bindable read-only props
 	export let api: Api | undefined = undefined;
@@ -22,10 +25,28 @@
 		history = api.getHistory();
 	}
 
+	function promotionCallback( square: Square ): Promise<PieceSymbol> {
+		return new Promise((resolve, reject) => {
+			const element = new PromotionDialog({
+				target: container,
+				props: { 
+					square,
+					callback: (piece: PieceSymbol) => {
+						element.$destroy();
+						resolve( piece );
+					}
+				},
+			});
+		});
+	}
+
 	onMount( () => {
-		api = new Api( chessground, fen, stateChangeCallback );
+		api = new Api( chessground, fen, stateChangeCallback, promotionCallback );
 	} );
 	
 </script>
 
-<Chessground bind:this={chessground}/>
+<div style="position:relative;" bind:this={container}>
+	<Chessground bind:this={chessground}/>
+</div>
+

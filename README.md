@@ -1,9 +1,16 @@
 # svelte-chess
 
-Svelte chess component that combines chess.js and chessground for a fully playable chessboard.
+Svelte chess component that combines chess.js and chessground for a fully playable chessboard component.
 
 This alpha version is under development. Everything described here is already
 implemented. See the end of this document for what remains.
+
+## Features
+
+* Track state via bindable props, events or synchronous API
+* Pawn promotion dialog
+* Move history, undo moves
+* Fully typed
 
 ## Usage examples
 
@@ -69,7 +76,6 @@ implements the following methods:
 ## Not yet implemented
 
 * Events on move and on game end (mate/stalemate/repetition/insufficient)
-* Promotion dialog
 * Highlight king when checked
 * getPgn
 * Styling
