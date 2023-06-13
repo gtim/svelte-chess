@@ -4,7 +4,7 @@
 	import { flip } from 'svelte/animate' ;
 	import { fade } from 'svelte/transition';
 
-	let messages = [];
+	let messages: {title:string, details:string}[] = [];
 
 	function moveHandler( event: CustomEvent<Move> ) {
 		messages.unshift( {
