@@ -76,7 +76,6 @@ implements the following methods:
 ## Not yet implemented
 
 * Events on move and on game end (mate/stalemate/repetition/insufficient)
-* Highlight king when checked
 * getPgn
 * Styling
 * Demo

@@ -1,6 +1,6 @@
 import type { Chessground } from 'svelte-chessground';
 import { Chess as ChessJS, SQUARES } from 'chess.js';
-import type { Square, PieceSymbol } from 'chess.js';
+import type { Square, PieceSymbol, Move } from 'chess.js';
 export type { Square, PieceSymbol };
 
 export class Api {
@@ -30,26 +30,30 @@ export class Api {
 							// the Chessground square type (Key) includes a0
 							throw Error('invalid square');
 						}
+						let move: Move;
 						if ( this._moveIsPromotion( orig, dest ) ) {
 							const promotion = await this.promotionCallback( dest );
-							this._afterChessgroundMove( orig, dest, promotion );
+							move = this.chessJS.move({ from: orig, to: dest, promotion });
 						} else {
-							this._afterChessgroundMove( orig, dest );
+							move = this.chessJS.move({ from: orig, to: dest });
 						}
+						this._updateChessgroundAfterMove( move );
 					},
 				},
 			},
 		} );
 		this.stateChangeCallback(this);
 	}
-	
-	// Called after a Chessground move to update Chess.js
-	private _afterChessgroundMove( from: Square, to: Square, promotion?: PieceSymbol ) {
-		const move = this.chessJS.move({ from, to, promotion });
+
+	// Called after chess.js move and chessground move to update chess-logic details Chessground doesn't handle
+	private _updateChessgroundAfterMove( move: Move ) {
+		// reload FEN after en-passant or promotion. TODO make promotion smoother
 		if ( move.flags.includes('e') || move.flags.includes('p') ) {
-			// update chessground after en-passant or promotion.
-			// TODO make promotion smoother
 			this.cg.set({ fen: this.chessJS.fen() });
+		}
+		// highlight king if in check
+		if ( this.chessJS.inCheck() ) {
+			this.cg.set({ check: true });
 		}
 		this._updateChessgroundWithPossibleMoves();
 		this.stateChangeCallback(this);
@@ -72,7 +76,7 @@ export class Api {
 
 	// Make a move programmatically
 	move(moveSan: string): boolean {
-		let move;
+		let move: Move;
 		try {
 			move = this.chessJS.move( moveSan );
 		} catch ( err ) {
@@ -80,13 +84,7 @@ export class Api {
 			return false;
 		}
 		this.cg.move( move.from, move.to );
-		if ( move.flags.includes('e') || move.flags.includes('p') ) {
-			// update chessground after en-passant or promotion.
-			// TODO make promotion smoother
-			this.cg.set({ fen: this.chessJS.fen() });
-		}
-		this._updateChessgroundWithPossibleMoves();
-		this.stateChangeCallback(this);
+		this._updateChessgroundAfterMove( move );
 		return true;
 	}
 
