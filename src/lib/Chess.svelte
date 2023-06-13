@@ -2,9 +2,11 @@
 	import { Chessground } from 'svelte-chessground';
 	import PromotionDialog from '$lib/PromotionDialog.svelte';
 	import { Api } from '$lib/api.js';
-	import type { Square, PieceSymbol } from '$lib/api.js';
+	import type { Square, PieceSymbol, Move } from '$lib/api.js';
 
-	import { onMount } from 'svelte';
+	import { onMount, createEventDispatcher } from 'svelte';
+
+	const dispatch = createEventDispatcher<{move:Move}>();
 
 	let chessground: Chessground;
 	let container: HTMLElement;
@@ -40,8 +42,12 @@
 		});
 	}
 
+	function moveCallback( move: Move ) {
+		dispatch( 'move', move );
+	}
+
 	onMount( () => {
-		api = new Api( chessground, fen, stateChangeCallback, promotionCallback );
+		api = new Api( chessground, fen, stateChangeCallback, promotionCallback, moveCallback );
 	} );
 	
 </script>

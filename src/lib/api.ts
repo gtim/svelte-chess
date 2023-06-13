@@ -1,23 +1,18 @@
 import type { Chessground } from 'svelte-chessground';
 import { Chess as ChessJS, SQUARES } from 'chess.js';
 import type { Square, PieceSymbol, Move } from 'chess.js';
-export type { Square, PieceSymbol };
+export type { Square, PieceSymbol, Move };
 
 export class Api {
-	cg: Chessground;
 	chessJS: ChessJS;
-	stateChangeCallback: (api:Api) => void;
-	promotionCallback: (sq:Square) => Promise<PieceSymbol>;
 	constructor(
-		cg: Chessground,
+		private cg: Chessground,
 		fen: string = 'rnbqkbnr/pppppppp/8/8/8/8/PPPPPPPP/RNBQKBNR w KQkq - 0 1',
-		stateChangeCallback: (api:Api) => void = (api:Api)=>{}, // called when the game state (not visuals) changes
-		promotionCallback: (sq:Square) => Promise<PieceSymbol>, // called before promotion
+		private stateChangeCallback: (api:Api) => void, // called when the game state (not visuals) changes
+		private promotionCallback: (sq:Square) => Promise<PieceSymbol>, // called before promotion
+		private moveCallback: (move:Move) => void, // called after move
 	) {
-		this.cg = cg;
 		this.chessJS = new ChessJS( fen );
-		this.stateChangeCallback = stateChangeCallback;
-		this.promotionCallback = promotionCallback;
 		this.cg.set( {
 			fen: fen,
 			turnColor: this.chessJS.turn() == 'w' ? 'white' : 'black',
@@ -38,6 +33,7 @@ export class Api {
 							move = this.chessJS.move({ from: orig, to: dest });
 						}
 						this._updateChessgroundAfterMove( move );
+						this.moveCallback( move );
 					},
 				},
 			},
@@ -85,6 +81,7 @@ export class Api {
 		}
 		this.cg.move( move.from, move.to );
 		this._updateChessgroundAfterMove( move );
+		this.moveCallback( move );
 		return true;
 	}
 
