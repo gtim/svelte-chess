@@ -16,7 +16,7 @@
 </script>
 
 <div style="max-width:512px;margin:0 auto;">
-	<p>This example listens for <code>move</code> and <code>end</code> events.</p>
+	<p>This example listens for <code>move</code> events.</p>
 	<Chess on:move={moveHandler}/>
 	<div class="messages">
 		{#each messages as message (message.details)}

@@ -76,7 +76,7 @@ Listening for `move` events:
         import {Chess} from 'svelte-chess';
         function handleMove(event) {
             const move = event.detail;
-            console.log( `${move.color} played (${move.san})` );
+            console.log( `${move.color} played ${move.san}` );
         }
     </script>    
 
