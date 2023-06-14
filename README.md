@@ -21,7 +21,6 @@ Basic playable chessboard ([REPL](https://svelte.dev/repl/b1a489538165489aa2720a
     <script>
         import {Chess} from 'svelte-chess';
     </script>    
-
     <Chess />
 
 ## Props
@@ -47,9 +46,7 @@ Example using bindable props to monitor state ([REPL](https://svelte.dev/repl/d0
         import {Chess} from 'svelte-chess';
         let moveNumber, turnColor, history;
     </script>    
-
 	<Chess bind:moveNumber bind:turnColor bind:history/>
-    
     <p>
         It's move {moveNumber}, with {turnColor} to move.
         Moves played: {history?.join(' ')}.
@@ -86,9 +83,7 @@ Example using the API object for undo/restart buttons ([REPL](https://svelte.dev
         import {Chess} from 'svelte-chess';
         let chessApi;
     </script>    
-
     <Chess bind:api={chessApi}/>
-
     <button on:click={()=>chessApi.resetBoard()}>Restart</button>
     <button on:click={()=>chessApi.undoLastMove()}>Undo</button>
 
@@ -123,7 +118,6 @@ Listening for `move` and `gameOver` events ([REPL](https://svelte.dev/repl/6fc28
             console.log( `The game ended due to ${event.detail.reason}` );
         }
     </script>
-
     <Chess on:move={moveListener} on:gameOver={gameOverListener} />
 
 Svelte-chess exports the MoveEvent and GameOverEvent types.
