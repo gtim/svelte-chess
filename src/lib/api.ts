@@ -26,7 +26,7 @@ export class Api {
 				free: false,
 				dests: this.getPossibleMoves(),
 				events: {
-					after: this._chessgroundMoveCallback
+					after: (orig, dest) => { this._chessgroundMoveCallback(orig,dest) },
 				},
 			},
 		} );
@@ -91,6 +91,16 @@ export class Api {
 		this._checkForGameOver();
 	}
 
+	private _updateChessgroundWithPossibleMoves() {
+		const cgColor = this.chessJS.turn() == 'w' ? 'white' : 'black';
+		this.cg.set({
+			turnColor: cgColor,
+			movable: {
+				color: cgColor,
+				dests: this.getPossibleMoves(),
+			},
+		});
+	}
 	private _checkForGameOver() {
 		if ( this.chessJS.isCheckmate() ) {
 			const result = this.chessJS.turn() == 'w' ? 0 : 1;
@@ -171,17 +181,6 @@ export class Api {
 		return this.chessJS.history();
 	}
 
-
-	private _updateChessgroundWithPossibleMoves() {
-		const cgColor = this.chessJS.turn() == 'w' ? 'white' : 'black';
-		this.cg.set({
-			turnColor: cgColor,
-			movable: {
-				color: cgColor,
-				dests: this.getPossibleMoves(),
-			},
-		});
-	}
 
 
 }
