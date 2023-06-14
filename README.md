@@ -24,7 +24,24 @@ Basic playable chessboard ([REPL](https://svelte.dev/repl/b1a489538165489aa2720a
 
     <Chess />
 
-Bindable svelte props to monitor state reactively ([REPL](https://svelte.dev/repl/d0ec69dde1f84390ac8b4d5746db9505?version=3.59.1)):
+## Props
+
+Game state can be observed by binding to props or by calls to the API object.
+This table lists all available props along with their corresponding API calls.
+
+| Prop        | API call         | Bindable? | Value                                               |
+| ----------- | ---------------- | :-------: | --------------------------------------------------- |
+| `turnColor` | `getTurnColor()` |     ✓     | Current color to move: `w` or `b`                   |
+| `moveNumber`| `getMoveNumber()`|     ✓     | Current move number (whole moves)                   |
+| `history`   | `getHistory()`   |     ✓     | All moves: array of SAN strings, e.g. `['d4','Nf6']`|
+| `fen`       | `getFen()`       |     ✓     | Current position in [FEN](https://www.chessprogramming.org/Forsyth-Edwards_Notation) |
+| `api`       | n/a              |     ✓     | Api object (see next section)                       |
+
+All props are read-only, except for `fen`. The initial value of `fen` is used
+for the starting position. All bindable props are updated as soon as the game
+state changes.
+
+Example using bindable props to monitor state ([REPL](https://svelte.dev/repl/d0ec69dde1f84390ac8b4d5746db9505?version=3.59.1)):
 
     <script>
         import {Chess} from 'svelte-chess';
@@ -38,7 +55,32 @@ Bindable svelte props to monitor state reactively ([REPL](https://svelte.dev/rep
         Moves played: {history?.join(' ')}.
     </p>
 
-Undo/restart buttons using the API object ([REPL](https://svelte.dev/repl/7dd7b6454b12466e90ac78a842151311?version=3.59.1)):
+Starting from a specific FEN ([REPL](https://svelte.dev/repl/ebce18a71d774b2db987abc71f45648a?version=3.59.1)):
+
+    <Chess fen="rnbqkb1r/1p2pppp/p2p1n2/8/3NP3/2N5/PPP2PPP/R1BQKB1R w KQkq - 0 6" />
+
+
+## Board/Game API
+
+The board state can be read and manipulated via the bindable `api` prop, which 
+implements the following methods:
+
+Methods for reading game/board state:
+
+* `getTurnColor()`: Current color to move: `w` or `b`.
+* `getMoveNumber()`: Current move number (whole moves).
+* `getHistory()`: All moves played in the game, as an array of SAN strings, e.g. `['d4','Nf6','Bg5']`.
+* `getFen()`: Current position in [FEN](https://www.chessprogramming.org/Forsyth-Edwards_Notation).
+* `getPossibleMoves()`:
+
+Methods for manipulating game/board state:
+
+* `move()`
+* `resetBoard()`
+* `undoLastMove()`
+* `toggleOrientation()`
+
+Example using the API object for undo/restart buttons ([REPL](https://svelte.dev/repl/7dd7b6454b12466e90ac78a842151311?version=3.59.1)):
 
     <script>
         import {Chess} from 'svelte-chess';
@@ -50,26 +92,6 @@ Undo/restart buttons using the API object ([REPL](https://svelte.dev/repl/7dd7b6
     <button on:click={()=>chessApi.resetBoard()}>Restart</button>
     <button on:click={()=>chessApi.undoLastMove()}>Undo</button>
 
-Start from a specific FEN ([REPL](https://svelte.dev/repl/ebce18a71d774b2db987abc71f45648a?version=3.59.1)):
-
-    <Chess fen="rnbqkb1r/1p2pppp/p2p1n2/8/3NP3/2N5/PPP2PPP/R1BQKB1R w KQkq - 0 6" />
-
-## Props
-
-Game state can be observed by binding to props or by calls to the API object.
-This table lists all available props along with their corresponding API calls.
-
-| Prop        | API call         | Bindable? | Value                                             |
-| ----------- | ---------------- | :-------: | ------------------------------------------------- |
-| `turnColor` | `getTurnColor()` |     ✓     | Current player's color: `w` or `b`                |
-| `moveNumber`| `getMoveNumber()`|     ✓     | Current move number (whole moves)                 |
-| `history`   | `getHistory()`   |     ✓     | All moves: array of SAN strings.                  |
-| `fen`       | `getFen()`       |     ✓     | Current position in [FEN](https://www.chessprogramming.org/Forsyth-Edwards_Notation) |
-| `api`       | n/a              |     ✓     | Api object                                        |
-
-All props are read-only, except for `fen`. The initial value of `fen` is used
-for the starting position. All bindable props are updated as soon as the game
-state changes.
 
 ## Events
 
@@ -105,21 +127,6 @@ Listening for `move` and `gameOver` events ([REPL](https://svelte.dev/repl/6fc28
     <Chess on:move={moveListener} on:gameOver={gameOverListener} />
 
 Svelte-chess exports the MoveEvent and GameOverEvent types.
-
-## API
-
-The board state can be read and manipulated via the bindable `api` prop, which 
-implements the following methods:
-
-* getPossibleMoves
-* getFen
-* move
-* resetBoard
-* undoLastMove
-* toggleOrientation
-* getTurnColor
-* getMoveNumber
-* getHistory
 
 ## Not yet implemented
 
