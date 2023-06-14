@@ -16,7 +16,7 @@ Install:
 
     npm install svelte-chess
 
-Create a simple, playable chessboard:
+Create a simple, playable chessboard ([REPL](https://svelte.dev/repl/b1a489538165489aa2720a65b476a58b?version=3.59.1)):
 
     <script>
         import {Chess} from 'svelte-chess';
@@ -24,22 +24,21 @@ Create a simple, playable chessboard:
 
     <Chess />
 
-Bindable svelte props:
+Bindable svelte props ([REPL](https://svelte.dev/repl/d0ec69dde1f84390ac8b4d5746db9505?version=3.59.1)):
 
     <script>
         import {Chess} from 'svelte-chess';
-        let fen, moveNumber, turnColor, history;
+        let moveNumber, turnColor, history;
     </script>    
 
-	<Chess bind:fen bind:moveNumber bind:turnColor bind:history/>
+	<Chess bind:moveNumber bind:turnColor bind:history/>
     
     <p>
         It's move {moveNumber}, with {turnColor} to move.
         Moves played: {history?.join(' ')}.
-        Current FEN: {fen}
     </p>
 
-Access the board API for undo/restart buttons:
+Undo/restart buttons using the API object ([REPL](https://svelte.dev/repl/7dd7b6454b12466e90ac78a842151311?version=3.59.1)):
 
     <script>
         import {Chess} from 'svelte-chess';
@@ -51,7 +50,7 @@ Access the board API for undo/restart buttons:
     <button on:click={()=>chessApi.resetBoard()}>Restart</button>
     <button on:click={()=>chessApi.undoLastMove()}>Undo</button>
 
-Start from a specific FEN:
+Start from a specific FEN ([REPL](https://svelte.dev/repl/ebce18a71d774b2db987abc71f45648a?version=3.59.1)):
 
     <Chess fen="rnbqkb1r/1p2pppp/p2p1n2/8/3NP3/2N5/PPP2PPP/R1BQKB1R w KQkq - 0 6" />
 
@@ -71,7 +70,7 @@ A `gameOver` event is emitted after a move that ends the game. The GameOver obje
 * `reason`: `checkmate`, `stalemate`, `repetition`, `insufficient material` or `fifty-move rule`.
 * `result`: 1 for White win, 0 for Black win, or 0.5 for a draw.
 
-Listening for `move` and `gameOver` events:
+Listening for `move` and `gameOver` events ([REPL](https://svelte.dev/repl/6fc2874d1a594d76aede4834722e4f83?version=3.59.1)):
 
     <script>
         import {Chess} from 'svelte-chess';
