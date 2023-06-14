@@ -16,7 +16,7 @@ Install:
 
     npm install svelte-chess
 
-Create a simple, playable chessboard ([REPL](https://svelte.dev/repl/b1a489538165489aa2720a65b476a58b?version=3.59.1)):
+Basic playable chessboard ([REPL](https://svelte.dev/repl/b1a489538165489aa2720a65b476a58b?version=3.59.1)):
 
     <script>
         import {Chess} from 'svelte-chess';
@@ -24,7 +24,7 @@ Create a simple, playable chessboard ([REPL](https://svelte.dev/repl/b1a48953816
 
     <Chess />
 
-Bindable svelte props ([REPL](https://svelte.dev/repl/d0ec69dde1f84390ac8b4d5746db9505?version=3.59.1)):
+Bindable svelte props to monitor state reactively ([REPL](https://svelte.dev/repl/d0ec69dde1f84390ac8b4d5746db9505?version=3.59.1)):
 
     <script>
         import {Chess} from 'svelte-chess';
@@ -54,7 +54,26 @@ Start from a specific FEN ([REPL](https://svelte.dev/repl/ebce18a71d774b2db987ab
 
     <Chess fen="rnbqkb1r/1p2pppp/p2p1n2/8/3NP3/2N5/PPP2PPP/R1BQKB1R w KQkq - 0 6" />
 
+## Props
+
+Game state can be observed by binding to props or by calls to the API object.
+This table lists all available props along with their corresponding API calls.
+
+| Prop        | API call         | Bindable? | Value                                             |
+| ----------- | ---------------- | --------- | ------------------------------------------------- |
+| `turnColor` | `getTurnColor()` | ✓         | Current player's color: `w` or `b`                |
+| `moveNumber`| `getMoveNumber()`| ✓         | Current move number (whole moves)                 |
+| `history`   | `getHistory()`   | ✓         | All moves: array of SAN strings.                  |
+| `fen`       | `getFen()`       | ✓         | Current position in [FEN](https://www.chessprogramming.org/Forsyth-Edwards_Notation)] |
+| `api`       | n/a              | ✓         | Api object                                        |
+
+All props are read-only, except for `fen`. The initial value of `fen` is used
+for the starting position. All bindable props are updated as soon as the game
+state changes.
+
 ## Events
+
+In addition to props and API calls, the game state can be tracked through events.
 
 A `move` event is emitted after every move. The Move object in the event is inherited from Chess.js and contains:
 * `color`: `w` for White move or `b` for Black move.
