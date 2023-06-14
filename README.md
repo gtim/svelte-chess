@@ -60,12 +60,12 @@ Game state can be observed by binding to props or by calls to the API object.
 This table lists all available props along with their corresponding API calls.
 
 | Prop        | API call         | Bindable? | Value                                             |
-| ----------- | ---------------- | --------- | ------------------------------------------------- |
-| `turnColor` | `getTurnColor()` | ✓         | Current player's color: `w` or `b`                |
-| `moveNumber`| `getMoveNumber()`| ✓         | Current move number (whole moves)                 |
-| `history`   | `getHistory()`   | ✓         | All moves: array of SAN strings.                  |
-| `fen`       | `getFen()`       | ✓         | Current position in [FEN](https://www.chessprogramming.org/Forsyth-Edwards_Notation)] |
-| `api`       | n/a              | ✓         | Api object                                        |
+| ----------- | ---------------- | :-------: | ------------------------------------------------- |
+| `turnColor` | `getTurnColor()` |     ✓     | Current player's color: `w` or `b`                |
+| `moveNumber`| `getMoveNumber()`|     ✓     | Current move number (whole moves)                 |
+| `history`   | `getHistory()`   |     ✓     | All moves: array of SAN strings.                  |
+| `fen`       | `getFen()`       |     ✓     | Current position in [FEN](https://www.chessprogramming.org/Forsyth-Edwards_Notation) |
+| `api`       | n/a              |     ✓     | Api object                                        |
 
 All props are read-only, except for `fen`. The initial value of `fen` is used
 for the starting position. All bindable props are updated as soon as the game
