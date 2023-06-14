@@ -24,7 +24,7 @@ export class Api {
 			turnColor: this.chessJS.turn() == 'w' ? 'white' : 'black',
 			movable: {
 				free: false,
-				dests: this.getPossibleMoves(),
+				dests: this.possibleMovesDests(),
 				events: {
 					after: (orig, dest) => { this._chessgroundMoveCallback(orig,dest) },
 				},
@@ -97,7 +97,7 @@ export class Api {
 			turnColor: cgColor,
 			movable: {
 				color: cgColor,
-				dests: this.getPossibleMoves(),
+				dests: this.possibleMovesDests(),
 			},
 		});
 	}
@@ -122,8 +122,8 @@ export class Api {
 	 *
 	 */
 
-	// Find all legal moves
-	getPossibleMoves() {
+	// Find all legal moves in chessground "dests" format
+	possibleMovesDests() {
 		const dests = new Map();
 		SQUARES.forEach(s => {
 			const ms = this.chessJS.moves({square: s, verbose: true});
@@ -132,13 +132,8 @@ export class Api {
 		return dests;
 	}
 
-	// Get FEN of the current position
-	getFen(): string {
-		return this.chessJS.fen();
-	}
-
 	// Reset board to the starting position
-	resetBoard(): void {
+	reset(): void {
 		this.chessJS.reset();
 		this.cg.set({
 			fen: this.chessJS.fen(),
@@ -150,7 +145,7 @@ export class Api {
 	}
 
 	// Undo last move
-	undoLastMove(): void {
+	undo(): void {
 		this.chessJS.undo();
 		this.cg.set({
 			fen: this.chessJS.fen(),
@@ -166,18 +161,21 @@ export class Api {
 		this.cg.toggleOrientation();
 	}
 
-	// Get current turn's color
-	getTurnColor() {
+
+	/*
+	 * Methods passed through to chess.js
+	 */
+	
+	fen(): string {
+		return this.chessJS.fen();
+	}
+	turn() {
 		return this.chessJS.turn();
 	}
-
-	// Get current move number (whole moves)
-	getMoveNumber() {
+	moveNumber() {
 		return this.chessJS.moveNumber();
 	}
-
-	// Get history of moves
-	getHistory() {
+	history() {
 		return this.chessJS.history();
 	}
 

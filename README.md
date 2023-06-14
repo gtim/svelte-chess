@@ -28,13 +28,13 @@ Basic playable chessboard ([REPL](https://svelte.dev/repl/b1a489538165489aa2720a
 Game state can be observed by binding to props or by calls to the API object.
 This table lists all available props along with their corresponding API calls.
 
-| Prop        | API call         | Bindable? | Value                                               |
-| ----------- | ---------------- | :-------: | --------------------------------------------------- |
-| `turnColor` | `getTurnColor()` |     ✓     | Current color to move: `w` or `b`                   |
-| `moveNumber`| `getMoveNumber()`|     ✓     | Current move number (whole moves)                   |
-| `history`   | `getHistory()`   |     ✓     | All moves: array of SAN strings, e.g. `['d4','Nf6']`|
-| `fen`       | `getFen()`       |     ✓     | Current position in [FEN](https://www.chessprogramming.org/Forsyth-Edwards_Notation) |
-| `api`       | n/a              |     ✓     | Api object (see next section)                       |
+| Prop        | API call      | Bindable? | Value                                                 |
+| ----------- | ------------- | :-------: | ----------------------------------------------------- |
+| `turn`      | `turn()`      |     ✓     | Current color to move: `w` or `b`                     |
+| `moveNumber`| `moveNumber()`|     ✓     | Current move number (whole moves)                     |
+| `history`   | `history()`   |     ✓     | Array of all moves as SAN strings, e.g. `['d4','Nf6']`|
+| `fen`       | `fen()`       |     ✓     | Current position in [FEN](https://www.chessprogramming.org/Forsyth-Edwards_Notation) |
+| `api`       | n/a           |     ✓     | Api instance (see next section)                       |
 
 All props are read-only, except for `fen`. The initial value of `fen` is used
 for the starting position. All bindable props are updated as soon as the game
@@ -60,32 +60,31 @@ Starting from a specific FEN ([REPL](https://svelte.dev/repl/ebce18a71d774b2db98
 ## Board/Game API
 
 The board state can be read and manipulated via the bindable `api` prop, which 
-implements the following methods:
+implements the following methods. The API should closely resemble that of chess.js.
 
 Methods for reading game/board state:
 
-* `getTurnColor()`: Current color to move: `w` or `b`.
-* `getMoveNumber()`: Current move number (whole moves).
-* `getHistory()`: All moves played in the game, as an array of SAN strings, e.g. `['d4','Nf6','Bg5']`.
-* `getFen()`: Current position in [FEN](https://www.chessprogramming.org/Forsyth-Edwards_Notation).
-* `getPossibleMoves()`:
+* `turn()`: Current color to move: `w` or `b`.
+* `moveNumber()`: Current move number (whole moves).
+* `history()`: All moves played in the game, as an array of SAN strings, e.g. `['d4','Nf6','Bg5']`.
+* `fen()`: Current position in [FEN](https://www.chessprogramming.org/Forsyth-Edwards_Notation).
 
 Methods for manipulating game/board state:
 
 * `move()`
-* `resetBoard()`
-* `undoLastMove()`
+* `reset()`
+* `undo()`
 * `toggleOrientation()`
 
-Example using the API object for undo/restart buttons ([REPL](https://svelte.dev/repl/7dd7b6454b12466e90ac78a842151311?version=3.59.1)):
+Example using the API object for undo/reset buttons ([REPL](https://svelte.dev/repl/7dd7b6454b12466e90ac78a842151311?version=3.59.1)):
 
     <script>
         import {Chess} from 'svelte-chess';
         let chessApi;
     </script>    
     <Chess bind:api={chessApi}/>
-    <button on:click={()=>chessApi.resetBoard()}>Restart</button>
-    <button on:click={()=>chessApi.undoLastMove()}>Undo</button>
+    <button on:click={()=>chessApi.reset()}>Reset</button>
+    <button on:click={()=>chessApi.undo()}>Undo</button>
 
 
 ## Events

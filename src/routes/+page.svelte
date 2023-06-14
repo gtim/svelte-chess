@@ -7,8 +7,8 @@
 
 <div style="max-width:512px;margin:0 auto;">
 	<Chess bind:api={api} />
-	<button on:click={()=>api?.resetBoard()}>Reset board</button>
-	<button on:click={()=>api?.undoLastMove()}>Undo</button>
+	<button on:click={()=>api?.reset()}>Reset board</button>
+	<button on:click={()=>api?.undo()}>Undo</button>
 	<button on:click={()=>api?.toggleOrientation()}>Flip board</button>
 </div>
 

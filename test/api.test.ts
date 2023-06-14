@@ -15,9 +15,9 @@ beforeEach(() => {
 	api = new Api( new Chessground() );
 } );
 
-describe("getPossibleMoves", () => {
+describe("possibleMovesDests", () => {
 	test("correct moves from initial position", () => {
-		expect(api.getPossibleMoves()).toEqual(
+		expect(api.possibleMovesDests()).toEqual(
 			new Map( Object.entries( {
 				a2: ['a3','a4'],
 				b2: ['b3','b4'],
@@ -39,7 +39,7 @@ describe("move", () => {
 		expect( api.move('e4') ).toBeTruthy();
 		expect( api.move('e5') ).toBeTruthy();
 		expect( api.move('Nf3') ).toBeTruthy();
-		expect( api.getFen() ).toEqual( 'rnbqkbnr/pppp1ppp/8/4p3/4P3/5N2/PPPP1PPP/RNBQKB1R b KQkq - 1 2' );
+		expect( api.fen() ).toEqual( 'rnbqkbnr/pppp1ppp/8/4p3/4P3/5N2/PPPP1PPP/RNBQKB1R b KQkq - 1 2' );
 	});
 	test("1. d5 is illegal", () => {
 		expect( api.move('d5') ).toBeFalsy();
@@ -48,78 +48,78 @@ describe("move", () => {
 
 describe("board manipulation", () => {
 	test("reset board", () => {
-		const initialFen = api.getFen();
-		api.resetBoard();
-		expect( api.getFen() ).toEqual( initialFen );
+		const initialFen = api.fen();
+		api.reset();
+		expect( api.fen() ).toEqual( initialFen );
 		api.move('e4');
-		expect( api.getFen() ).not.toEqual( initialFen );
-		api.resetBoard();
-		expect( api.getFen() ).toEqual( initialFen );
+		expect( api.fen() ).not.toEqual( initialFen );
+		api.reset();
+		expect( api.fen() ).toEqual( initialFen );
 	} );
 	test("undo last move", () => {
 		api.move('e4');
 		api.move('e5');
 		api.move('Bc4');
-		expect( api.getFen() ).toEqual( 'rnbqkbnr/pppp1ppp/8/4p3/2B1P3/8/PPPP1PPP/RNBQK1NR b KQkq - 1 2' );
-		api.undoLastMove();
-		expect( api.getFen() ).toEqual( 'rnbqkbnr/pppp1ppp/8/4p3/4P3/8/PPPP1PPP/RNBQKBNR w KQkq - 0 2' );
+		expect( api.fen() ).toEqual( 'rnbqkbnr/pppp1ppp/8/4p3/2B1P3/8/PPPP1PPP/RNBQK1NR b KQkq - 1 2' );
+		api.undo();
+		expect( api.fen() ).toEqual( 'rnbqkbnr/pppp1ppp/8/4p3/4P3/8/PPPP1PPP/RNBQKBNR w KQkq - 0 2' );
 		expect( api.move('Qh5') ).toBeTruthy();
-		expect( api.getFen() ).toEqual( 'rnbqkbnr/pppp1ppp/8/4p2Q/4P3/8/PPPP1PPP/RNB1KBNR b KQkq - 1 2' );
-		api.undoLastMove();
-		api.undoLastMove();
-		expect( api.getFen() ).toEqual( 'rnbqkbnr/pppppppp/8/8/4P3/8/PPPP1PPP/RNBQKBNR b KQkq - 0 1' );
+		expect( api.fen() ).toEqual( 'rnbqkbnr/pppp1ppp/8/4p2Q/4P3/8/PPPP1PPP/RNB1KBNR b KQkq - 1 2' );
+		api.undo();
+		api.undo();
+		expect( api.fen() ).toEqual( 'rnbqkbnr/pppppppp/8/8/4P3/8/PPPP1PPP/RNBQKBNR b KQkq - 0 1' );
 	} );
 });
 
 describe("board state", () => {
 	test("turn color", () => {
-		expect( api.getTurnColor() ).toEqual( 'w' );
+		expect( api.turn() ).toEqual( 'w' );
 		api.move('e4');
-		expect( api.getTurnColor() ).toEqual( 'b' );
+		expect( api.turn() ).toEqual( 'b' );
 		api.move('e5');
-		expect( api.getTurnColor() ).toEqual( 'w' );
+		expect( api.turn() ).toEqual( 'w' );
 		api.move('Bc4');
-		expect( api.getTurnColor() ).toEqual( 'b' );
+		expect( api.turn() ).toEqual( 'b' );
 		api.move('d6');
-		expect( api.getTurnColor() ).toEqual( 'w' );
-		api.undoLastMove();
-		expect( api.getTurnColor() ).toEqual( 'b' );
-		api.resetBoard();
-		expect( api.getTurnColor() ).toEqual( 'w' );
+		expect( api.turn() ).toEqual( 'w' );
+		api.undo();
+		expect( api.turn() ).toEqual( 'b' );
+		api.reset();
+		expect( api.turn() ).toEqual( 'w' );
 	} );
 	test("move number", () => {
-		expect( api.getMoveNumber() ).toEqual( 1 );
+		expect( api.moveNumber() ).toEqual( 1 );
 		api.move('e4');
-		expect( api.getMoveNumber() ).toEqual( 1 );
+		expect( api.moveNumber() ).toEqual( 1 );
 		api.move('e5');
-		expect( api.getMoveNumber() ).toEqual( 2 );
+		expect( api.moveNumber() ).toEqual( 2 );
 		api.move('Bc4');
-		expect( api.getMoveNumber() ).toEqual( 2 );
+		expect( api.moveNumber() ).toEqual( 2 );
 		api.move('d6');
-		expect( api.getMoveNumber() ).toEqual( 3 );
-		api.undoLastMove();
-		expect( api.getMoveNumber() ).toEqual( 2 );
-		api.resetBoard();
-		expect( api.getMoveNumber() ).toEqual( 1 );
+		expect( api.moveNumber() ).toEqual( 3 );
+		api.undo();
+		expect( api.moveNumber() ).toEqual( 2 );
+		api.reset();
+		expect( api.moveNumber() ).toEqual( 1 );
 	} );
 	test("move history", () => {
-		expect( api.getHistory() ).toEqual( [] );
+		expect( api.history() ).toEqual( [] );
 		api.move('e4');
 		api.move('e5');
-		expect( api.getHistory() ).toEqual( ['e4','e5'] );
+		expect( api.history() ).toEqual( ['e4','e5'] );
 		api.move('a6');
 		api.move('Bc4');
-		expect( api.getHistory() ).toEqual( ['e4','e5','Bc4'] );
-		api.resetBoard();
-		expect( api.getHistory() ).toEqual( [] );
+		expect( api.history() ).toEqual( ['e4','e5','Bc4'] );
+		api.reset();
+		expect( api.history() ).toEqual( [] );
 	} );
 } );
 
 describe("start from FEN", () => {
 	test( "start from FEN", () => {
 		api = new Api( new Chessground(), 'rnbqkb1r/1p2pppp/p2p1n2/8/3NP3/2N1B3/PPP2PPP/R2QKB1R b KQkq - 1 6' );
-		expect( api.getMoveNumber() ).toEqual(6);
-		expect( api.getTurnColor() ).toEqual('b');
+		expect( api.moveNumber() ).toEqual(6);
+		expect( api.turn() ).toEqual('b');
 		expect( api.move('d6') ).toBeFalsy();
 		expect( api.move('Ng4') ).toBeTruthy();
 	} );

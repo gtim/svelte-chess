@@ -17,17 +17,17 @@
 	// bindable read-only props
 	export let api: Api | undefined = undefined;
 	export let moveNumber: number = 0;
-	export let turnColor = 'w';
+	export let turn = 'w';
 	export let history: string[] = [];
 
 	// Initial FEN; also bindable
 	export let fen = 'rnbqkbnr/pppppppp/8/8/8/8/PPPPPPPP/RNBQKBNR w KQkq - 0 1';
 
 	function stateChangeCallback(api: Api) {
-		fen = api.getFen();
-		moveNumber = api.getMoveNumber();
-		turnColor = api.getTurnColor();
-		history = api.getHistory();
+		fen = api.fen();
+		moveNumber = api.moveNumber();
+		turn = api.turn();
+		history = api.history();
 	}
 
 	function promotionCallback( square: Square ): Promise<PieceSymbol> {
