@@ -1,6 +1,5 @@
 <script lang="ts">
-	import Chess from '$lib/Chess.svelte';
-	import type { Api } from '$lib/api.js'; // TODO should be imported via Chess.svelte?
+	import Chess, { type Api } from '$lib/Chess.svelte';
 
 	let api: Api | undefined;
 </script>

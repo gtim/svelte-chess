@@ -10,9 +10,9 @@ Fully playable chess component for Svelte, combining the features of chess.js an
 * Detailed events on move and game end
 * Fully typed
 
-## Usage examples
+## Usage 
 
-Install:
+Installation:
 
     npm install svelte-chess
 
@@ -91,15 +91,7 @@ Example using the API object for undo/reset buttons ([REPL](https://svelte.dev/r
 
 In addition to props and API calls, the game state can be tracked through events.
 
-A `move` event is emitted after every move. The Move object in the event is inherited from Chess.js and contains:
-* `color`: `w` for White move or `b` for Black move.
-* `from` and `to`: Origin and destination squares, e.g. `g1` and `f3`.
-* `piece`: Piece symbol, one of `pnbrqk` (pawn, knight, bishop, rook, queen, king).
-* `captured` and `promotion`: Piece symbol of a capture or promotion, if applicable.
-* `san`: Standard algebraic notation, e.g. `Nf3`.
-* `lan`: Long algebraic notation, e.g. `g1f3`.
-* `before` and `after`: FEN of positions before and after the move.
-* `flags`: String of letters for each flag that applies to the move: `c` for standard capture, `e` for en passant capture, `n` for non-capture, `b` for two-square pawn move, `p` for promotion, `k` for kingside castling and `q` for queenside castling.
+A `move` event is dispatched after every move, containing the corresponding [#move](Move object).
 
 A `gameOver` event is emitted after a move that ends the game. The GameOver object has two keys:
 * `reason`: `checkmate`, `stalemate`, `repetition`, `insufficient material` or `fifty-move rule`.
@@ -120,6 +112,21 @@ Listening for `move` and `gameOver` events ([REPL](https://svelte.dev/repl/6fc28
     <Chess on:move={moveListener} on:gameOver={gameOverListener} />
 
 Svelte-chess exports the MoveEvent and GameOverEvent types.
+
+## Types
+
+### Move
+
+A `Move` describes a chess move. It is identical to the chess.js Move type. Properties:
+  - `color`: `w` for White move or `b` for Black move.
+  - `from` and `to`: Origin and destination squares, e.g. `g1` and `f3`.
+  - `piece`: Piece symbol, one of `pnbrqk` (pawn, knight, bishop, rook, queen, king).
+  - `captured` and `promotion`: Piece symbol of a capture or promotion, if applicable.
+  - `san`: Standard algebraic notation, e.g. `Nf3`.
+  - `lan`: Long algebraic notation, e.g. `g1f3`.
+  - `before` and `after`: FEN of positions before and after the move.
+  - `flags`: String of letters for each flag that applies to the move: `c` for standard capture, `e` for en passant capture, `n` for non-capture, `b` for two-square pawn move, `p` for promotion, `k` for kingside castling and `q` for queenside castling.
+
 
 ## Not yet implemented
 
