@@ -1,7 +1,7 @@
 <script lang="ts" context="module">
 	export type GameOverEvent = CustomEvent<GameOver>;
 	export type MoveEvent = CustomEvent<Move>;
-	export type { Api, Square, PieceSymbol, Move, Gameover };
+	export type { Api, Square, PieceSymbol, Move, GameOver };
 </script>
 <script lang="ts">
 	import { Chessground } from 'svelte-chessground';
