@@ -1,14 +1,19 @@
 <script lang="ts">
-	import Chess from '$lib/Chess.svelte';
-	import type { Move } from '$lib/api.js';
+	import Chess, { type MoveEvent, type GameOverEvent } from '$lib/Chess.svelte';
 	import { flip } from 'svelte/animate' ;
 	import { fade } from 'svelte/transition';
 
 	let messages: {title:string, details:string}[] = [];
-
-	function moveHandler( event: CustomEvent<Move> ) {
+	function moveHandler( event: MoveEvent ) {
 		messages.unshift( {
-			title: "Move: " + event.detail.san,
+			title: "MoveEvent: " + event.detail.san,
+			details: JSON.stringify(event.detail, null, 2)
+		} );
+		messages = messages;
+	}
+	function gameOverHandler( event: GameOverEvent ) {
+		messages.unshift( {
+			title: "GameOverEvent: " + event.detail.reason,
 			details: JSON.stringify(event.detail, null, 2)
 		} );
 		messages = messages;
@@ -16,8 +21,9 @@
 </script>
 
 <div style="max-width:512px;margin:0 auto;">
-	<p>This example listens for <code>move</code> events.</p>
-	<Chess on:move={moveHandler}/>
+	<p>This example listens for <code>move</code> and <code>gameOver</code> events.</p>
+	<Chess on:move={moveHandler} on:gameOver={gameOverHandler} />
+</div>
 	<div class="messages">
 		{#each messages as message (message.details)}
 			<div animate:flip in:fade title="{message.details}">
@@ -25,7 +31,6 @@
 			</div>
 		{/each}
 	</div>
-</div>
 
 <style>
 	div.messages {
@@ -33,6 +38,7 @@
 		display:flex;
 		flex-wrap:wrap;
 		gap:8px;
+		justify-content:center;
 	}
 	div.messages div {
 		padding:8px 12px;

@@ -2,15 +2,12 @@
 
 Svelte chess component that combines chess.js and chessground for a fully playable chessboard component.
 
-This alpha version is under development. Everything described here is already
-implemented. See the end of this document for what remains.
-
 ## Features
 
 * Track state via bindable props, events or synchronous API
 * Pawn promotion dialog
 * Move history, undo moves
-* Events on moves
+* Detailed events on move and game end
 * Fully typed
 
 ## Usage examples
@@ -70,17 +67,26 @@ A `move` event is emitted after every move. The Move object in the event is inhe
 * `before` and `after`: FEN of positions before and after the move.
 * `flags`: String of letters for each flag that applies to the move: `c` for standard capture, `e` for en passant capture, `n` for non-capture, `b` for two-square pawn move, `p` for promotion, `k` for kingside castling and `q` for queenside castling.
 
-Listening for `move` events:
+A `gameOver` event is emitted after a move that ends the game. The GameOver object has two keys:
+* `reason`: `checkmate`, `stalemate`, `repetition`, `insufficient material` or `fifty-move rule`.
+* `result`: 1 for White win, 0 for Black win, or 0.5 for a draw.
+
+Listening for `move` and `gameOver` events:
 
     <script>
         import {Chess} from 'svelte-chess';
-        function handleMove(event) {
+        function moveListener(event) {
             const move = event.detail;
             console.log( `${move.color} played ${move.san}` );
         }
-    </script>    
+        function gameOverListener(event) {
+            console.log( `The game ended due to ${event.detail.reason}` );
+        }
+    </script>
 
-    <Chess on:move={handleMove} />
+    <Chess on:move={moveListener} on:gameOver={gameOverListener} />
+
+Svelte-chess exports the MoveEvent and GameOverEvent types.
 
 ## API
 
@@ -99,7 +105,6 @@ implements the following methods:
 
 ## Not yet implemented
 
-* Events on game end (mate/stalemate/repetition/insufficient)
 * getPgn
 * Styling
 * Demo

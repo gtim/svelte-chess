@@ -1,12 +1,15 @@
+<script lang="ts" context="module">
+	export type GameOverEvent = CustomEvent<GameOver>;
+	export type MoveEvent = CustomEvent<Move>;
+</script>
 <script lang="ts">
 	import { Chessground } from 'svelte-chessground';
 	import PromotionDialog from '$lib/PromotionDialog.svelte';
-	import { Api } from '$lib/api.js';
-	import type { Square, PieceSymbol, Move } from '$lib/api.js';
+	import { Api, type Square, type PieceSymbol, type Move, type GameOver } from '$lib/api.js';
 
 	import { onMount, createEventDispatcher } from 'svelte';
 
-	const dispatch = createEventDispatcher<{move:Move}>();
+	const dispatch = createEventDispatcher<{ move: Move, gameOver: GameOver }>();
 
 	let chessground: Chessground;
 	let container: HTMLElement;
@@ -45,9 +48,12 @@
 	function moveCallback( move: Move ) {
 		dispatch( 'move', move );
 	}
+	function gameOverCallback( gameOver: GameOver ) {
+		dispatch( 'gameOver', gameOver );
+	}
 
 	onMount( () => {
-		api = new Api( chessground, fen, stateChangeCallback, promotionCallback, moveCallback );
+		api = new Api( chessground, fen, stateChangeCallback, promotionCallback, moveCallback, gameOverCallback );
 	} );
 	
 </script>
