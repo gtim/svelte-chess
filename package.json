@@ -1,7 +1,16 @@
 {
 	"name": "svelte-chess",
+	"description": "Fully playable chess component for Svelte.",
+	"keywords": [
+		"chess",
+		"svelte",
+		"chessground",
+		"chess.js"
+	],
 	"version": "0.5.0",
 	"license": "GPL-3.0",
+	"homepage": "https://github.com/gtim/svelte-chess#readme",
+	"bugs": "https://github.com/gtim/svelte-chess/issues",
 	"scripts": {
 		"dev": "vite dev",
 		"build": "vite build && npm run package",
