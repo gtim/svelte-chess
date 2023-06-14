@@ -44,11 +44,11 @@ Example using bindable props to monitor state ([REPL](https://svelte.dev/repl/d0
 
     <script>
         import {Chess} from 'svelte-chess';
-        let moveNumber, turnColor, history;
+        let moveNumber, turn, history;
     </script>    
-	<Chess bind:moveNumber bind:turnColor bind:history/>
+	<Chess bind:moveNumber bind:turn bind:history/>
     <p>
-        It's move {moveNumber}, with {turnColor} to move.
+        It's move {moveNumber}, with {turn} to move.
         Moves played: {history?.join(' ')}.
     </p>
 
