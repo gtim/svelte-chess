@@ -66,7 +66,8 @@ Methods for reading game/board state:
 
 * `turn()`: Current color to move: `w` or `b`.
 * `moveNumber()`: Current move number (whole moves).
-* `history()`: All moves played in the game, as an array of SAN strings, e.g. `['d4','Nf6','Bg5']`.
+* `history()`: All moves played in the game, as an array of SAN strings, e.g. `['d4','Nf6','Bg5']`. 
+* `history({verbose: true})`: All moves played in the game, as an array of [#move](Move objects).
 * `fen()`: Current position in [FEN](https://www.chessprogramming.org/Forsyth-Edwards_Notation).
 
 Methods for manipulating game/board state:

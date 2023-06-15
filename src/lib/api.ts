@@ -175,8 +175,12 @@ export class Api {
 	moveNumber() {
 		return this.chessJS.moveNumber();
 	}
-	history() {
-		return this.chessJS.history();
+	history(): string[]
+	history({ verbose }: { verbose: true }): Move[]
+	history({ verbose }: { verbose: false }): string[]
+	history({ verbose }: { verbose: boolean }): string[] | Move[]
+	history({ verbose = false }: { verbose?: boolean } = {}) {
+		return this.chessJS.history({ verbose });
 	}
 
 

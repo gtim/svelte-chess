@@ -7,7 +7,7 @@
 		"chessground",
 		"chess.js"
 	],
-	"version": "0.6.3",
+	"version": "0.6.4",
 	"license": "GPL-3.0",
 	"homepage": "https://github.com/gtim/svelte-chess#readme",
 	"bugs": "https://github.com/gtim/svelte-chess/issues",

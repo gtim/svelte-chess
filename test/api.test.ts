@@ -102,16 +102,50 @@ describe("board state", () => {
 		api.reset();
 		expect( api.moveNumber() ).toEqual( 1 );
 	} );
-	test("move history", () => {
-		expect( api.history() ).toEqual( [] );
+	test("move history, verbose", () => {
+		expect( api.history({verbose:true}) ).toEqual( [] );
 		api.move('e4');
 		api.move('e5');
-		expect( api.history() ).toEqual( ['e4','e5'] );
+		expect( api.history({verbose:true}) ).toEqual( [
+			{
+				after: 'rnbqkbnr/pppppppp/8/8/4P3/8/PPPP1PPP/RNBQKBNR b KQkq - 0 1',
+				before: 'rnbqkbnr/pppppppp/8/8/8/8/PPPPPPPP/RNBQKBNR w KQkq - 0 1',
+				color: 'w',
+				flags: 'b',
+				from: 'e2',
+				lan: 'e2e4',
+				piece: 'p',
+				san: 'e4',
+				to: 'e4',
+			},
+			{
+				after: 'rnbqkbnr/pppp1ppp/8/4p3/4P3/8/PPPP1PPP/RNBQKBNR w KQkq - 0 2',
+				before: 'rnbqkbnr/pppppppp/8/8/4P3/8/PPPP1PPP/RNBQKBNR b KQkq - 0 1',
+				color: 'b',
+				flags: 'b',
+				from: 'e7',
+				lan: 'e7e5',
+				piece: 'p',
+				san: 'e5',
+				to: 'e5',
+			}
+		] );
 		api.move('a6');
 		api.move('Bc4');
-		expect( api.history() ).toEqual( ['e4','e5','Bc4'] );
+		expect( api.history({verbose:true}) ).toHaveLength(3);
+		expect( (api.history({verbose:true}))[2] ).toEqual( {
+			before: 'rnbqkbnr/pppp1ppp/8/4p3/4P3/8/PPPP1PPP/RNBQKBNR w KQkq - 0 2',
+			after: 'rnbqkbnr/pppp1ppp/8/4p3/2B1P3/8/PPPP1PPP/RNBQK1NR b KQkq - 1 2',
+			color: 'w',
+			piece: 'b',
+			from: 'f1',
+			to: 'c4',
+			san: 'Bc4',
+			flags: 'n',
+			lan: 'f1c4',
+		});
 		api.reset();
-		expect( api.history() ).toEqual( [] );
+		expect( api.history({verbose:true}) ).toEqual( [] );
 	} );
 } );
 
