@@ -173,11 +173,12 @@ describe("game end", () => {
 		expect( api.isGameOver() ).toBeFalsy();
 		expect( api.move('Ng1') ).toBeTruthy();
 		expect( api.isGameOver() ).toBeFalsy();
+		expect( api.possibleMovesDests() ).not.toEqual( new Map() );
 		expect( api.move('Ng8') ).toBeTruthy();
 		expect( api.isGameOver() ).toBeTruthy();
 		expect( api.move('Nf3') ).toBeFalsy();
 		expect( api.isGameOver() ).toBeTruthy();
-		expect( api.possibleMovesDests() ).toEqual([]);
+		expect( api.possibleMovesDests() ).toEqual( new Map() );
 	} );
 	test("game ends after checkmate", () => {
 		expect( api.move('f4') ).toBeTruthy();
@@ -186,9 +187,10 @@ describe("game end", () => {
 		expect( api.isGameOver() ).toBeFalsy();
 		expect( api.move('g4') ).toBeTruthy();
 		expect( api.isGameOver() ).toBeFalsy();
+		expect( api.possibleMovesDests() ).not.toEqual( new Map( ));
 		expect( api.move('Qh4') ).toBeTruthy();
 		expect( api.isGameOver() ).toBeTruthy();
-		expect( api.possibleMovesDests() ).toEqual([]);
+		expect( api.possibleMovesDests() ).toEqual( new Map( ));
 	} );
 } );
 
