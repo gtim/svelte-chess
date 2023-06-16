@@ -204,6 +204,9 @@ export class Api {
 	history({ verbose = false }: { verbose?: boolean } = {}) {
 		return this.chessJS.history({ verbose });
 	}
+	board() {
+		return this.chessJS.board();
+	}
 
 
 

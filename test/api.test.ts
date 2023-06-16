@@ -151,6 +151,55 @@ describe("board state", () => {
 		api.reset();
 		expect( api.history({verbose:true}) ).toEqual( [] );
 	} );
+	test("board()", () => {
+		api.move('e4');
+		const board = api.board();
+		expect( board ).toHaveLength(8);
+		expect( board[0] ).toEqual( [
+			{ square: 'a8', type: 'r', color: 'b' },
+			{ square: 'b8', type: 'n', color: 'b' },
+			{ square: 'c8', type: 'b', color: 'b' },
+			{ square: 'd8', type: 'q', color: 'b' },
+			{ square: 'e8', type: 'k', color: 'b' },
+			{ square: 'f8', type: 'b', color: 'b' },
+			{ square: 'g8', type: 'n', color: 'b' },
+			{ square: 'h8', type: 'r', color: 'b' }
+		]);
+		expect( board[1] ).toEqual( [
+			{ square: 'a7', type: 'p', color: 'b' },
+			{ square: 'b7', type: 'p', color: 'b' },
+			{ square: 'c7', type: 'p', color: 'b' },
+			{ square: 'd7', type: 'p', color: 'b' },
+			{ square: 'e7', type: 'p', color: 'b' },
+			{ square: 'f7', type: 'p', color: 'b' },
+			{ square: 'g7', type: 'p', color: 'b' },
+			{ square: 'h7', type: 'p', color: 'b' }
+		] );
+		expect( board[2] ).toEqual( [ null, null, null, null, null, null, null, null ] );
+		expect( board[3] ).toEqual( [ null, null, null, null, null, null, null, null ] );
+		expect( board[4] ).toEqual( [ null, null, null, null, { square: 'e4', type: 'p', color: 'w' }, null, null, null ] );
+		expect( board[5] ).toEqual( [ null, null, null, null, null, null, null, null ] );
+		expect( board[6] ).toEqual( [
+			{ square: 'a2', type: 'p', color: 'w' },
+			{ square: 'b2', type: 'p', color: 'w' },
+			{ square: 'c2', type: 'p', color: 'w' },
+			{ square: 'd2', type: 'p', color: 'w' },
+			null,
+			{ square: 'f2', type: 'p', color: 'w' },
+			{ square: 'g2', type: 'p', color: 'w' },
+			{ square: 'h2', type: 'p', color: 'w' }
+		] );
+		expect( board[7] ).toEqual( [
+			{ square: 'a1', type: 'r', color: 'w' },
+			{ square: 'b1', type: 'n', color: 'w' },
+			{ square: 'c1', type: 'b', color: 'w' },
+			{ square: 'd1', type: 'q', color: 'w' },
+			{ square: 'e1', type: 'k', color: 'w' },
+			{ square: 'f1', type: 'b', color: 'w' },
+			{ square: 'g1', type: 'n', color: 'w' },
+			{ square: 'h1', type: 'r', color: 'w' }
+		] );
+	} );
 } );
 
 describe("game end", () => {

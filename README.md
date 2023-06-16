@@ -58,13 +58,13 @@ Starting from a specific FEN ([REPL](https://svelte.dev/repl/ebce18a71d774b2db98
 
 ## Methods
 
-The board state can be read and manipulated via method calls to the Chess 
-component itself. The API should closely resemble that of chess.js. 
+The board state can be read and manipulated via method calls to the Chess component itself. 
 
 Methods for reading game/board state:
 
 * `getHistory()`: Same as the `history` prop. All moves played in the game, as an array of SAN strings, e.g. `['d4','Nf6','Bg5']`.
 * `getHistory({verbose: true})`: All moves played in the game, as an array of [#move](Move objects).
+* `getBoard()`: An 8x8 array of the current position. Each element is null (empty square) or an object on the form `{ square: 'd8', type: 'q', color: 'b' }`.
 
 Methods for manipulating game/board state:
 

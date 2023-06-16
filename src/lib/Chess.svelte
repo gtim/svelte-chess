@@ -47,6 +47,10 @@
 		if ( ! api ) throw new Error( 'component not mounted yet' );
 		return api.history({verbose});
 	}
+	export function getBoard() {
+		if ( ! api ) throw new Error( 'component not mounted yet' );
+		return api.board();
+	}
 	export function undo(): Move | null {
 		if ( ! api ) throw new Error( 'component not mounted yet' );
 		return api.undo();
