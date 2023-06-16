@@ -114,13 +114,15 @@ Svelte-chess exports the MoveEvent and GameOverEvent types.
 The stylesheet shipped with Chessground is used by default. To restyle the 
 board, pass the `className` prop and import a stylesheet.
 
-Example with custom stylesheet ([REPL](https://svelte.dev/repl/5aa2c1b9dc534458a578ef77338ce393?version=3.59.1)):
+Example with custom stylesheet:
 
     <script>
         import { Chess } from 'svelte-chess';
     </script>
     <link rel="stylesheet" href="/my-style.css" />
     <Chess className="my-class" />
+
+A sample stylesheet can be found in [/static/style-paper.css](https://github.com/gtim/svelte-chess/blob/main/static/style-paper.css).
 
 ## Types
 
