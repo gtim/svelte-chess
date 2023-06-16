@@ -153,6 +153,45 @@ describe("board state", () => {
 	} );
 } );
 
+describe("game end", () => {
+	test("game ends after repetition", () => {
+		expect( api.move('e4') ).toBeTruthy();
+		expect( api.isGameOver() ).toBeFalsy();
+		expect( api.move('e5') ).toBeTruthy();
+		expect( api.isGameOver() ).toBeFalsy();
+		expect( api.move('Nf3') ).toBeTruthy();
+		expect( api.isGameOver() ).toBeFalsy();
+		expect( api.move('Nf6') ).toBeTruthy();
+		expect( api.isGameOver() ).toBeFalsy();
+		expect( api.move('Ng1') ).toBeTruthy();
+		expect( api.isGameOver() ).toBeFalsy();
+		expect( api.move('Ng8') ).toBeTruthy();
+		expect( api.isGameOver() ).toBeFalsy();
+		expect( api.move('Nf3') ).toBeTruthy();
+		expect( api.isGameOver() ).toBeFalsy();
+		expect( api.move('Nf6') ).toBeTruthy();
+		expect( api.isGameOver() ).toBeFalsy();
+		expect( api.move('Ng1') ).toBeTruthy();
+		expect( api.isGameOver() ).toBeFalsy();
+		expect( api.move('Ng8') ).toBeTruthy();
+		expect( api.isGameOver() ).toBeTruthy();
+		expect( api.move('Nf3') ).toBeFalsy();
+		expect( api.isGameOver() ).toBeTruthy();
+		expect( api.possibleMovesDests() ).toEqual([]);
+	} );
+	test("game ends after checkmate", () => {
+		expect( api.move('f4') ).toBeTruthy();
+		expect( api.isGameOver() ).toBeFalsy();
+		expect( api.move('e6') ).toBeTruthy();
+		expect( api.isGameOver() ).toBeFalsy();
+		expect( api.move('g4') ).toBeTruthy();
+		expect( api.isGameOver() ).toBeFalsy();
+		expect( api.move('Qh4') ).toBeTruthy();
+		expect( api.isGameOver() ).toBeTruthy();
+		expect( api.possibleMovesDests() ).toEqual([]);
+	} );
+} );
+
 describe("start from FEN", () => {
 	test( "start from FEN", () => {
 		api = new Api( new Chessground(), 'rnbqkb1r/1p2pppp/p2p1n2/8/3NP3/2N1B3/PPP2PPP/R2QKB1R b KQkq - 1 6' );

@@ -10,6 +10,7 @@ export type GameOver = {
 
 export class Api {
 	private chessJS: ChessJS;
+	private gameIsOver: boolean = false;
 	constructor(
 		private cg: Chessground,
 		fen: string = 'rnbqkbnr/pppppppp/8/8/8/8/PPPPPPPP/RNBQKBNR w KQkq - 0 1',
@@ -19,6 +20,7 @@ export class Api {
 		private gameOverCallback: ( gameOver:GameOver ) => void = (go)=>{}, // called after game-ending move
 	) {
 		this.chessJS = new ChessJS( fen );
+		this._checkForGameOver();
 		this.cg.set( {
 			fen: fen,
 			turnColor: this.chessJS.turn() == 'w' ? 'white' : 'black',
@@ -60,6 +62,9 @@ export class Api {
 	// Make a move programmatically
 	move(moveSan: string): boolean {
 		let move: Move;
+		if ( this.gameIsOver ) {
+			return false;
+		}
 		try {
 			move = this.chessJS.move( moveSan );
 		} catch ( err ) {
@@ -81,14 +86,14 @@ export class Api {
 		if ( this.chessJS.inCheck() ) {
 			this.cg.set({ check: true });
 		}
-		// set legal moves
-		this._updateChessgroundWithPossibleMoves();
-		// update state props
-		this.stateChangeCallback(this);
 		// dispatch move event
 		this.moveCallback( move );
 		// dispatch gameOver event if applicable
 		this._checkForGameOver();
+		// set legal moves
+		this._updateChessgroundWithPossibleMoves();
+		// update state props
+		this.stateChangeCallback(this);
 	}
 
 	private _updateChessgroundWithPossibleMoves() {
@@ -105,15 +110,22 @@ export class Api {
 		if ( this.chessJS.isCheckmate() ) {
 			const result = this.chessJS.turn() == 'w' ? 0 : 1;
 			this.gameOverCallback( { reason: 'checkmate', result } );
+			this.gameIsOver = true;
 		} else if ( this.chessJS.isStalemate() ) {
 			this.gameOverCallback( { reason: 'stalemate', result: 0.5 } );
+			this.gameIsOver = true;
 		} else if ( this.chessJS.isInsufficientMaterial() ) {
 			this.gameOverCallback( { reason: 'insufficient material', result: 0.5 } );
+			this.gameIsOver = true;
 		} else if ( this.chessJS.isThreefoldRepetition() ) {
 			this.gameOverCallback( { reason: 'repetition', result: 0.5 } );
+			this.gameIsOver = true;
 		} else if ( this.chessJS.isDraw() ) {
 			// use isDraw until chess.js exposes isFiftyMoveDraw()
 			this.gameOverCallback( { reason: 'fifty-move rule', result: 0.5 } );
+			this.gameIsOver = true;
+		} else {
+			this.gameIsOver = false;
 		}
 	}
 
@@ -125,10 +137,12 @@ export class Api {
 	// Find all legal moves in chessground "dests" format
 	possibleMovesDests() {
 		const dests = new Map();
-		SQUARES.forEach(s => {
-			const ms = this.chessJS.moves({square: s, verbose: true});
-			if (ms.length) dests.set(s, ms.map(m => m.to));
-		});
+		if ( ! this.gameIsOver ) {
+			SQUARES.forEach(s => {
+				const ms = this.chessJS.moves({square: s, verbose: true});
+				if (ms.length) dests.set(s, ms.map(m => m.to));
+			});
+		}
 		return dests;
 	}
 
@@ -140,6 +154,7 @@ export class Api {
 			turnColor: 'white',
 			lastMove: undefined,
 		});
+		this.gameIsOver = false;
 		this._updateChessgroundWithPossibleMoves();
 		this.stateChangeCallback(this);
 	}
@@ -152,6 +167,7 @@ export class Api {
 			turnColor: this.chessJS.turn() == 'w' ? 'white' : 'black',
 			lastMove: undefined,
 		});
+		this.gameIsOver = false;
 		this._updateChessgroundWithPossibleMoves();
 		this.stateChangeCallback(this);
 		return move;
@@ -160,6 +176,11 @@ export class Api {
 	// Toggle board orientation
 	toggleOrientation(): void {
 		this.cg.toggleOrientation();
+	}
+
+	// Check if game is over (checkmate, stalemate, repetition, insufficient material, fifty-move rule)
+	isGameOver(): boolean {
+		return this.gameIsOver;
 	}
 
 

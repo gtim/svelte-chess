@@ -23,6 +23,7 @@
 	export let moveNumber: number = 0;
 	export let turn = 'w';
 	export let history: string[] = [];
+	export let isGameOver: boolean = false;
 
 	// Initial FEN; also bindable
 	export let fen = 'rnbqkbnr/pppppppp/8/8/8/8/PPPPPPPP/RNBQKBNR w KQkq - 0 1';
@@ -68,6 +69,7 @@
 		moveNumber = api.moveNumber();
 		turn = api.turn();
 		history = api.history();
+		isGameOver = api.isGameOver();
 	}
 
 	function promotionCallback( square: Square ): Promise<PieceSymbol> {
