@@ -3,6 +3,7 @@
 
 	export let square: Square;
 	export let callback: (promotion: PieceSymbol) => void;
+	export let className: string | undefined = undefined;
 
 	const left = 100 * squareToFileNumber(square) / 8;
 	const white = square.charAt(1) === '8';
@@ -22,7 +23,7 @@
 
 </script>
 
-<div class="dialog">
+<div class="dialog {className}">
 	{#each pieces as piece, i}
 		{@const top = white ? i * 12.5 : 100 - 12.5*(i+1)}
 		<div class="square" style="margin-left:{left}%;margin-top:{top}%;">

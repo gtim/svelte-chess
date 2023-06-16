@@ -7,9 +7,10 @@ Fully playable chess component for Svelte, combining the features of chess.js an
 * Track game state via bindable props
 * Pawn promotion dialog
 * Undo moves
+* Fully restylable
 * Move history
-* Detailed events on move and game end
-* Fully typed
+* Detailed events
+* Typed
 
 ## Usage 
 
@@ -28,16 +29,17 @@ Basic playable chessboard ([REPL](https://svelte.dev/repl/b1a489538165489aa2720a
 
 Game state can be observed by binding to props. 
 
-| Prop        | Bindable? | Value                                                 |
-| ----------- | :-------: | ----------------------------------------------------- |
-| `turn`      |     ✓     | Current color to move: `w` or `b`                     |
-| `moveNumber`|     ✓     | Current move number (whole moves)                     |
-| `history`   |     ✓     | Array of all moves as SAN strings, e.g. `['d4','Nf6']`|
-| `fen`       |     ✓     | Current position in [FEN](https://www.chessprogramming.org/Forsyth-Edwards_Notation) |
-| `isGameOver`|     ✓     | True if the game is over. Listen for the [gameOver event](#events) for more details. |
+| Prop        | Bindable and readable | Writable | Value                                                                                |
+| ----------- | :-------------------: | :------: | ------------------------------------------------------------------------------------ |
+| `turn`      |           ✓           |          | Current color to move: `w` or `b`                                                    |
+| `moveNumber`|           ✓           |          | Current move number (whole moves)                                                    |
+| `history`   |           ✓           |          | Array of all moves as SAN strings, e.g. `['d4','Nf6']`                               |
+| `isGameOver`|           ✓           |          | True if the game is over. Listen for the [gameOver event](#events) for more details. |
+| `fen`       |           ✓           |    ✓     | Current position in [FEN](https://www.chessprogramming.org/Forsyth-Edwards_Notation) |
+| `className` |                       |    ✓     | CSS class applied to children instead of default (see [Styling](#styling)).          |
 
-All props are read-only, except for `fen`. The initial value of `fen` is used
-for the starting position.
+All readable props are bindable and updated whenever the game state changes.
+Writable props are only used when the component is created.
 
 Example using bindable props to monitor state ([REPL](https://svelte.dev/repl/d0ec69dde1f84390ac8b4d5746db9505?version=3.59.1)):
 
@@ -91,7 +93,7 @@ A `gameOver` event is emitted after a move that ends the game. The GameOver obje
 * `reason`: `checkmate`, `stalemate`, `repetition`, `insufficient material` or `fifty-move rule`.
 * `result`: 1 for White win, 0 for Black win, or 0.5 for a draw.
 
-Listening for `move` and `gameOver` events ([REPL](https://svelte.dev/repl/6fc2874d1a594d76aede4834722e4f83?version=3.59.1)):
+Example listening for `move` and `gameOver` events ([REPL](https://svelte.dev/repl/6fc2874d1a594d76aede4834722e4f83?version=3.59.1)):
 
     <script>
         import {Chess} from 'svelte-chess';
@@ -106,6 +108,19 @@ Listening for `move` and `gameOver` events ([REPL](https://svelte.dev/repl/6fc28
     <Chess on:move={moveListener} on:gameOver={gameOverListener} />
 
 Svelte-chess exports the MoveEvent and GameOverEvent types.
+
+## Styling
+
+The stylesheet shipped with Chessground is used by default. To restyle the 
+board, pass the `className` prop and import a stylesheet.
+
+Example with custom stylesheet ([REPL](https://svelte.dev/repl/5aa2c1b9dc534458a578ef77338ce393?version=3.59.1)):
+
+    <script>
+        import { Chess } from 'svelte-chess';
+    </script>
+    <link rel="stylesheet" href="/my-style.css" />
+    <Chess className="my-class" />
 
 ## Types
 
@@ -124,5 +139,5 @@ A `Move` describes a chess move. It is identical to the chess.js Move type. Prop
 
 ## Not yet implemented
 
-* Styling
 * Demo
+* Programmatically draw arrows/circles on the board

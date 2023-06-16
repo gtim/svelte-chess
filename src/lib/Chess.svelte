@@ -28,6 +28,9 @@
 	// Initial FEN; also bindable
 	export let fen = 'rnbqkbnr/pppppppp/8/8/8/8/PPPPPPPP/RNBQKBNR w KQkq - 0 1';
 
+	// non-bindable
+	export let className: string | undefined = undefined;
+
 	// API: only accessible through props and methods
 	let api: Api | undefined = undefined;
 
@@ -109,6 +112,6 @@
 </script>
 
 <div style="position:relative;" bind:this={container}>
-	<Chessground bind:this={chessground}/>
+	<Chessground bind:this={chessground} {className}/>
 </div>
 
