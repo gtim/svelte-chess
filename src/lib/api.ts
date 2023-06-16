@@ -74,20 +74,12 @@ export class Api {
 	}
 
 	// Make a move programmatically
-	move(moveSan: string): boolean {
-		let move: Move;
-		if ( this.gameIsOver ) {
-			return false;
-		}
-		try {
-			move = this.chessJS.move( moveSan );
-		} catch ( err ) {
-			// illegal move
-			return false;
-		}
+	move(moveSan: string) {
+		if ( this.gameIsOver )
+			throw new Error(`Invalid move: Game is over.`);
+		const move = this.chessJS.move( moveSan ); // throws on illegal move
 		this.cg.move( move.from, move.to );
 		this._updateChessgroundAfterMove( move );
-		return true;
 	}
 
 	// Called after chess.js move and chessground move to update chess-logic details Chessground doesn't handle

@@ -39,9 +39,9 @@
 		if ( ! api ) throw new Error( 'component not mounted yet' );
 		api.load( newFen );
 	}
-	export function move(moveSan: string): boolean {
+	export function move(moveSan: string) {
 		if ( ! api ) throw new Error( 'component not mounted yet' );
-		return api.move(moveSan);
+		api.move(moveSan);
 	}
 	export function getHistory(): string[]
 	export function getHistory({ verbose }: { verbose: true }): Move[]

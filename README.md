@@ -67,8 +67,8 @@ Methods for reading game/board state:
 
 Methods for manipulating game/board state:
 
-* `move( san )`: Make a move programmatically. Argument is the move in [short algebraic notation](https://en.wikipedia.org/wiki/Algebraic_notation_(chess)), e.g. `Nf3`. Returns true if successful, or false if the move was illegal.
-* `load( fen )`: Loads a position from FEN. Throws an exception if the FEN could not be parsed.
+* `move( san )`: Make a move programmatically. Argument is the move in [short algebraic notation](https://en.wikipedia.org/wiki/Algebraic_notation_(chess)), e.g. `Nf3`. Throws an error if the move is illegal or malformed.
+* `load( fen )`: Loads a position from FEN. Throws an error if the FEN could not be parsed.
 * `reset()`: Resets the game to the initial position.
 * `undo()`: Undoes the last move and returns it.
 * `toggleOrientation()`: Flips the board.

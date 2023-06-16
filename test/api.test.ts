@@ -36,13 +36,13 @@ describe("possibleMovesDests", () => {
 
 describe("move", () => {
 	test("play 1. e4 e5 2. Nf3", () => {
-		expect( api.move('e4') ).toBeTruthy();
-		expect( api.move('e5') ).toBeTruthy();
-		expect( api.move('Nf3') ).toBeTruthy();
+		api.move('e4');
+		api.move('e5');
+		api.move('Nf3');
 		expect( api.fen() ).toEqual( 'rnbqkbnr/pppp1ppp/8/4p3/4P3/5N2/PPPP1PPP/RNBQKB1R b KQkq - 1 2' );
 	});
 	test("1. d5 is illegal", () => {
-		expect( api.move('d5') ).toBeFalsy();
+		expect( () => api.move('d5') ).toThrowError();
 	});
 });
 
@@ -65,7 +65,7 @@ describe("board manipulation", () => {
 		move = api.undo();
 		expect( move.san ).toEqual( 'Bc4' );
 		expect( api.fen() ).toEqual( 'rnbqkbnr/pppp1ppp/8/4p3/4P3/8/PPPP1PPP/RNBQKBNR w KQkq - 0 2' );
-		expect( api.move('Qh5') ).toBeTruthy();
+		api.move('Qh5');
 		expect( api.fen() ).toEqual( 'rnbqkbnr/pppp1ppp/8/4p2Q/4P3/8/PPPP1PPP/RNB1KBNR b KQkq - 1 2' );
 		move = api.undo();
 		expect( move.san ).toEqual( 'Qh5' );
@@ -134,7 +134,7 @@ describe("board state", () => {
 				to: 'e5',
 			}
 		] );
-		api.move('a6');
+		expect( () => api.move('a6') ).toThrowError();
 		api.move('Bc4');
 		expect( api.history({verbose:true}) ).toHaveLength(3);
 		expect( (api.history({verbose:true}))[2] ).toEqual( {
@@ -204,40 +204,40 @@ describe("board state", () => {
 
 describe("game end", () => {
 	test("game ends after repetition", () => {
-		expect( api.move('e4') ).toBeTruthy();
+		api.move('e4');
 		expect( api.isGameOver() ).toBeFalsy();
-		expect( api.move('e5') ).toBeTruthy();
+		api.move('e5');
 		expect( api.isGameOver() ).toBeFalsy();
-		expect( api.move('Nf3') ).toBeTruthy();
+		api.move('Nf3');
 		expect( api.isGameOver() ).toBeFalsy();
-		expect( api.move('Nf6') ).toBeTruthy();
+		api.move('Nf6');
 		expect( api.isGameOver() ).toBeFalsy();
-		expect( api.move('Ng1') ).toBeTruthy();
+		api.move('Ng1');
 		expect( api.isGameOver() ).toBeFalsy();
-		expect( api.move('Ng8') ).toBeTruthy();
+		api.move('Ng8');
 		expect( api.isGameOver() ).toBeFalsy();
-		expect( api.move('Nf3') ).toBeTruthy();
+		api.move('Nf3');
 		expect( api.isGameOver() ).toBeFalsy();
-		expect( api.move('Nf6') ).toBeTruthy();
+		api.move('Nf6');
 		expect( api.isGameOver() ).toBeFalsy();
-		expect( api.move('Ng1') ).toBeTruthy();
+		api.move('Ng1');
 		expect( api.isGameOver() ).toBeFalsy();
 		expect( api.possibleMovesDests() ).not.toEqual( new Map() );
-		expect( api.move('Ng8') ).toBeTruthy();
+		api.move('Ng8');
 		expect( api.isGameOver() ).toBeTruthy();
-		expect( api.move('Nf3') ).toBeFalsy();
+		expect( () => api.move('Nf3') ).toThrowError();
 		expect( api.isGameOver() ).toBeTruthy();
 		expect( api.possibleMovesDests() ).toEqual( new Map() );
 	} );
 	test("game ends after checkmate", () => {
-		expect( api.move('f4') ).toBeTruthy();
+		api.move('f4');
 		expect( api.isGameOver() ).toBeFalsy();
-		expect( api.move('e6') ).toBeTruthy();
+		api.move('e6');
 		expect( api.isGameOver() ).toBeFalsy();
-		expect( api.move('g4') ).toBeTruthy();
+		api.move('g4');
 		expect( api.isGameOver() ).toBeFalsy();
 		expect( api.possibleMovesDests() ).not.toEqual( new Map( ));
-		expect( api.move('Qh4') ).toBeTruthy();
+		api.move('Qh4');
 		expect( api.isGameOver() ).toBeTruthy();
 		expect( api.possibleMovesDests() ).toEqual( new Map( ));
 	} );
@@ -248,7 +248,7 @@ describe("start from FEN", () => {
 		api = new Api( new Chessground(), 'rnbqkb1r/1p2pppp/p2p1n2/8/3NP3/2N1B3/PPP2PPP/R2QKB1R b KQkq - 1 6' );
 		expect( api.moveNumber() ).toEqual(6);
 		expect( api.turn() ).toEqual('b');
-		expect( api.move('d6') ).toBeFalsy();
-		expect( api.move('Ng4') ).toBeTruthy();
+		expect( () => api.move('d6') ).toThrowError();
+		api.move('Ng4');
 	} );
 } );
