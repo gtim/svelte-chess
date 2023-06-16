@@ -4,9 +4,10 @@ Fully playable chess component for Svelte, combining the features of chess.js an
 
 ## Features
 
-* Track game state via bindable props or synchronous API
+* Track game state via bindable props
 * Pawn promotion dialog
-* Move history, undo moves
+* Undo moves
+* Move history
 * Detailed events on move and game end
 * Fully typed
 
