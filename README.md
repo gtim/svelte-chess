@@ -2,7 +2,7 @@
 
 Fully playable chess component for Svelte, combining chess.js and chessground.
 
-![Svelte-chess screenshots](https://github.com/gtim/svelte-chess/blob/main/static/screenshot.jpg?raw=true)
+![Svelte-chess screenshots](https://github.com/gtim/svelte-chess/blob/main/static/screenshot.png?raw=true)
 
 ## Features
 
