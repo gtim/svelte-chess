@@ -1,6 +1,8 @@
 # svelte-chess
 
-Fully playable chess component for Svelte, combining the features of chess.js and chessground.
+Fully playable chess component for Svelte, combining chess.js and chessground.
+
+![Svelte-chess screenshots](https://github.com/gtim/svelte-chess/blob/main/static/screenshot.jpg?raw=true)
 
 ## Features
 
@@ -139,7 +141,14 @@ A `Move` describes a chess move. It is identical to the chess.js Move type. Prop
   - `flags`: String of letters for each flag that applies to the move: `c` for standard capture, `e` for en passant capture, `n` for non-capture, `b` for two-square pawn move, `p` for promotion, `k` for kingside castling and `q` for queenside castling.
 
 
-## Not yet implemented
+## Future
 
-* Demo
+Not yet implemented:
+
 * Programmatically draw arrows/circles on the board
+* orientation prop
+* inCheck prop
+
+Bugs:
+
+* Promotion dialog misplaced when the board is flipped
