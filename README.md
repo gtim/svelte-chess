@@ -27,6 +27,8 @@ Basic playable chessboard ([REPL](https://svelte.dev/repl/b1a489538165489aa2720a
     </script>    
     <Chess />
 
+Interact with the game via [props](#props), [methods](#methods) or [events](#events).
+
 ## Props
 
 Game state can be observed by binding to props. 
