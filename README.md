@@ -37,8 +37,7 @@ Game state can be observed by binding to props.
 | `isGameOver`|     ✓     | True if the game is over. Listen for the [gameOver event](#events) for more details. |
 
 All props are read-only, except for `fen`. The initial value of `fen` is used
-for the starting position. All bindable props are updated as soon as the game
-state changes.
+for the starting position.
 
 Example using bindable props to monitor state ([REPL](https://svelte.dev/repl/d0ec69dde1f84390ac8b4d5746db9505?version=3.59.1)):
 
@@ -69,6 +68,7 @@ Methods for reading game/board state:
 Methods for manipulating game/board state:
 
 * `move( san )`: Make a move programmatically. Argument is the move in [short algebraic notation](https://en.wikipedia.org/wiki/Algebraic_notation_(chess)), e.g. `Nf3`. Returns true if successful, or false if the move was illegal.
+* `load( fen )`: Loads a position from FEN. Throws an exception if the FEN could not be parsed.
 * `reset()`: Resets the game to the initial position.
 * `undo()`: Undoes the last move and returns it.
 * `toggleOrientation()`: Flips the board.

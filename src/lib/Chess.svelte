@@ -35,6 +35,10 @@
 	 * Methods -- passed to API
 	 */
 
+	export function load(newFen: string) {
+		if ( ! api ) throw new Error( 'component not mounted yet' );
+		api.load( newFen );
+	}
 	export function move(moveSan: string): boolean {
 		if ( ! api ) throw new Error( 'component not mounted yet' );
 		return api.move(moveSan);

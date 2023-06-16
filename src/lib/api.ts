@@ -19,19 +19,33 @@ export class Api {
 		private moveCallback: (move:Move) => void = (m)=>{}, // called after move
 		private gameOverCallback: ( gameOver:GameOver ) => void = (go)=>{}, // called after game-ending move
 	) {
+		this.cg.set( { movable: { free: false } } );
 		this.chessJS = new ChessJS( fen );
+		this.load( fen );
+	}
+
+	// Load FEN. Throws exception on invalid FEN.
+	load( fen: string ) {
+		this.chessJS.load( fen );
 		this._checkForGameOver();
+		this.cg.set( { animation: { enabled: false } } );
+		const cgColor = this.chessJS.turn() == 'w' ? 'white' : 'black';
 		this.cg.set( {
 			fen: fen,
-			turnColor: this.chessJS.turn() == 'w' ? 'white' : 'black',
+			turnColor: cgColor,
+			check: this.chessJS.inCheck(),
+			lastMove: undefined,
+			selected: undefined,
 			movable: {
 				free: false,
+				color: cgColor,
 				dests: this.possibleMovesDests(),
 				events: {
 					after: (orig, dest) => { this._chessgroundMoveCallback(orig,dest) },
 				},
 			},
 		} );
+		this.cg.set( { animation: { enabled: true } } );
 		this.stateChangeCallback(this);
 	}
 
@@ -148,15 +162,7 @@ export class Api {
 
 	// Reset board to the starting position
 	reset(): void {
-		this.chessJS.reset();
-		this.cg.set({
-			fen: this.chessJS.fen(),
-			turnColor: 'white',
-			lastMove: undefined,
-		});
-		this.gameIsOver = false;
-		this._updateChessgroundWithPossibleMoves();
-		this.stateChangeCallback(this);
+		this.load( 'rnbqkbnr/pppppppp/8/8/8/8/PPPPPPPP/RNBQKBNR w KQkq - 0 1' );
 	}
 
 	// Undo last move
