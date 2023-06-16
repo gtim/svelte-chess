@@ -1,7 +1,7 @@
 <script lang="ts" context="module">
 	export type GameOverEvent = CustomEvent<GameOver>;
 	export type MoveEvent = CustomEvent<Move>;
-	export type { Api, Square, PieceSymbol, Move, GameOver };
+	export type { Square, PieceSymbol, Move, GameOver };
 </script>
 <script lang="ts">
 	import { Chessground } from 'svelte-chessground';
@@ -15,14 +15,53 @@
 	let chessground: Chessground;
 	let container: HTMLElement;
 
+	/*
+	 * Props
+	 */
+
 	// bindable read-only props
-	export let api: Api | undefined = undefined;
 	export let moveNumber: number = 0;
 	export let turn = 'w';
 	export let history: string[] = [];
 
 	// Initial FEN; also bindable
 	export let fen = 'rnbqkbnr/pppppppp/8/8/8/8/PPPPPPPP/RNBQKBNR w KQkq - 0 1';
+
+	// API: only accessible through props and methods
+	let api: Api | undefined = undefined;
+
+	/*
+	 * Methods -- passed to API
+	 */
+
+	export function move(moveSan: string): boolean {
+		if ( ! api ) throw new Error( 'component not mounted yet' );
+		return api.move(moveSan);
+	}
+	export function getHistory(): string[]
+	export function getHistory({ verbose }: { verbose: true }): Move[]
+	export function getHistory({ verbose }: { verbose: false }): string[]
+	export function getHistory({ verbose }: { verbose: boolean }): string[] | Move[]
+	export function getHistory({ verbose = false }: { verbose?: boolean } = {}) {
+		if ( ! api ) throw new Error( 'component not mounted yet' );
+		return api.history({verbose});
+	}
+	export function undo(): Move | null {
+		if ( ! api ) throw new Error( 'component not mounted yet' );
+		return api.undo();
+	}
+	export function reset(): void {
+		if ( ! api ) throw new Error( 'component not mounted yet' );
+		api.reset();
+	}
+	export function toggleOrientation(): void {
+		if ( ! api ) throw new Error( 'component not mounted yet' );
+		api.toggleOrientation();
+	}
+
+	/*
+	 * API Construction
+	 */
 
 	function stateChangeCallback(api: Api) {
 		fen = api.fen();

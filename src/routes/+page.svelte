@@ -1,14 +1,13 @@
 <script lang="ts">
-	import Chess, { type Api } from '$lib/Chess.svelte';
-
-	let api: Api | undefined;
+	import Chess from '$lib/Chess.svelte';
+	let chess: Chess;
 </script>
 
 <div style="max-width:512px;margin:0 auto;">
-	<Chess bind:api={api} />
-	<button on:click={()=>api?.reset()}>Reset board</button>
-	<button on:click={()=>api?.undo()}>Undo</button>
-	<button on:click={()=>api?.toggleOrientation()}>Flip board</button>
+	<Chess bind:this={chess} />
+	<button on:click={()=>chess?.reset()}>Reset board</button>
+	<button on:click={()=>chess?.undo()}>Undo</button>
+	<button on:click={()=>chess?.toggleOrientation()}>Flip board</button>
 </div>
 
 <style>

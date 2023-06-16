@@ -25,16 +25,14 @@ Basic playable chessboard ([REPL](https://svelte.dev/repl/b1a489538165489aa2720a
 
 ## Props
 
-Game state can be observed by binding to props or by calls to the API object.
-This table lists all available props along with their corresponding API calls.
+Game state can be observed by binding to props. 
 
-| Prop        | API call      | Bindable? | Value                                                 |
-| ----------- | ------------- | :-------: | ----------------------------------------------------- |
-| `turn`      | `turn()`      |     ✓     | Current color to move: `w` or `b`                     |
-| `moveNumber`| `moveNumber()`|     ✓     | Current move number (whole moves)                     |
-| `history`   | `history()`   |     ✓     | Array of all moves as SAN strings, e.g. `['d4','Nf6']`|
-| `fen`       | `fen()`       |     ✓     | Current position in [FEN](https://www.chessprogramming.org/Forsyth-Edwards_Notation) |
-| `api`       | n/a           |     ✓     | Api instance (see next section)                       |
+| Prop        | Bindable? | Value                                                 |
+| ----------- | :-------: | ----------------------------------------------------- |
+| `turn`      |     ✓     | Current color to move: `w` or `b`                     |
+| `moveNumber`|     ✓     | Current move number (whole moves)                     |
+| `history`   |     ✓     | Array of all moves as SAN strings, e.g. `['d4','Nf6']`|
+| `fen`       |     ✓     | Current position in [FEN](https://www.chessprogramming.org/Forsyth-Edwards_Notation) |
 
 All props are read-only, except for `fen`. The initial value of `fen` is used
 for the starting position. All bindable props are updated as soon as the game
@@ -56,41 +54,34 @@ Starting from a specific FEN ([REPL](https://svelte.dev/repl/ebce18a71d774b2db98
 
     <Chess fen="rnbqkb1r/1p2pppp/p2p1n2/8/3NP3/2N5/PPP2PPP/R1BQKB1R w KQkq - 0 6" />
 
+## Methods
 
-## Board/Game API
-
-The board state can be read and manipulated via the bindable `api` prop, which 
-implements the following methods. The API should closely resemble that of chess.js.
+The board state can be read and manipulated via method calls to the Chess 
+component itself. The API should closely resemble that of chess.js. 
 
 Methods for reading game/board state:
 
-* `turn()`: Current color to move: `w` or `b`.
-* `moveNumber()`: Current move number (whole moves).
-* `history()`: All moves played in the game, as an array of SAN strings, e.g. `['d4','Nf6','Bg5']`. 
-* `history({verbose: true})`: All moves played in the game, as an array of [#move](Move objects).
-* `fen()`: Current position in [FEN](https://www.chessprogramming.org/Forsyth-Edwards_Notation).
+* `getHistory()`: Same as the `history` prop. All moves played in the game, as an array of SAN strings, e.g. `['d4','Nf6','Bg5']`.
+* `getHistory({verbose: true})`: All moves played in the game, as an array of [#move](Move objects).
 
 Methods for manipulating game/board state:
 
 * `move( san )`: Make a move programmatically. Argument is the move in [short algebraic notation](https://en.wikipedia.org/wiki/Algebraic_notation_(chess)), e.g. `Nf3`. Returns true if successful, or false if the move was illegal.
 * `reset()`: Resets the game to the initial position.
 * `undo()`: Undoes the last move and returns it.
-* `toggleOrientation()`
+* `toggleOrientation()`: Flips the board.
 
-Example using the API object for undo/reset buttons ([REPL](https://svelte.dev/repl/7dd7b6454b12466e90ac78a842151311?version=3.59.1)):
+Example implementing undo/reset buttons ([REPL](https://svelte.dev/repl/7dd7b6454b12466e90ac78a842151311?version=3.59.1)):
 
     <script>
         import {Chess} from 'svelte-chess';
-        let chessApi;
+        let chess;
     </script>    
-    <Chess bind:api={chessApi}/>
-    <button on:click={()=>chessApi.reset()}>Reset</button>
-    <button on:click={()=>chessApi.undo()}>Undo</button>
-
+    <Chess bind:this={chess}/>
+    <button on:click={()=>chess?.reset()}>Reset</button>
+    <button on:click={()=>chess?.undo()}>Undo</button>
 
 ## Events
-
-In addition to props and API calls, the game state can be tracked through events.
 
 A `move` event is dispatched after every move, containing the corresponding [#move](Move object).
 
@@ -131,6 +122,5 @@ A `Move` describes a chess move. It is identical to the chess.js Move type. Prop
 
 ## Not yet implemented
 
-* getPgn
 * Styling
 * Demo
