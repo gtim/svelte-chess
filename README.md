@@ -34,7 +34,7 @@ Game state can be observed by binding to props.
 | `moveNumber`|     ✓     | Current move number (whole moves)                     |
 | `history`   |     ✓     | Array of all moves as SAN strings, e.g. `['d4','Nf6']`|
 | `fen`       |     ✓     | Current position in [FEN](https://www.chessprogramming.org/Forsyth-Edwards_Notation) |
-| `isGameOver`|     ✓     | True if the game is over. Listen for the [#events](gameOver event) for more details. |
+| `isGameOver`|     ✓     | True if the game is over. Listen for the [gameOver event](#events) for more details. |
 
 All props are read-only, except for `fen`. The initial value of `fen` is used
 for the starting position. All bindable props are updated as soon as the game
