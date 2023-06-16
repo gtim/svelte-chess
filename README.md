@@ -74,7 +74,7 @@ Methods for manipulating game/board state:
 
 * `move( san )`: Make a move programmatically. Argument is the move in [short algebraic notation](https://en.wikipedia.org/wiki/Algebraic_notation_(chess)), e.g. `Nf3`. Returns true if successful, or false if the move was illegal.
 * `reset()`: Resets the game to the initial position.
-* `undo()`: Undoes the last move. 
+* `undo()`: Undoes the last move and returns it.
 * `toggleOrientation()`
 
 Example using the API object for undo/reset buttons ([REPL](https://svelte.dev/repl/7dd7b6454b12466e90ac78a842151311?version=3.59.1)):

@@ -57,16 +57,20 @@ describe("board manipulation", () => {
 		expect( api.fen() ).toEqual( initialFen );
 	} );
 	test("undo last move", () => {
+		let move;
 		api.move('e4');
 		api.move('e5');
 		api.move('Bc4');
 		expect( api.fen() ).toEqual( 'rnbqkbnr/pppp1ppp/8/4p3/2B1P3/8/PPPP1PPP/RNBQK1NR b KQkq - 1 2' );
-		api.undo();
+		move = api.undo();
+		expect( move.san ).toEqual( 'Bc4' );
 		expect( api.fen() ).toEqual( 'rnbqkbnr/pppp1ppp/8/4p3/4P3/8/PPPP1PPP/RNBQKBNR w KQkq - 0 2' );
 		expect( api.move('Qh5') ).toBeTruthy();
 		expect( api.fen() ).toEqual( 'rnbqkbnr/pppp1ppp/8/4p2Q/4P3/8/PPPP1PPP/RNB1KBNR b KQkq - 1 2' );
-		api.undo();
-		api.undo();
+		move = api.undo();
+		expect( move.san ).toEqual( 'Qh5' );
+		move = api.undo();
+		expect( move.san ).toEqual( 'e5' );
 		expect( api.fen() ).toEqual( 'rnbqkbnr/pppppppp/8/8/4P3/8/PPPP1PPP/RNBQKBNR b KQkq - 0 1' );
 	} );
 });

@@ -145,8 +145,8 @@ export class Api {
 	}
 
 	// Undo last move
-	undo(): void {
-		this.chessJS.undo();
+	undo(): Move | null {
+		const move = this.chessJS.undo();
 		this.cg.set({
 			fen: this.chessJS.fen(),
 			turnColor: this.chessJS.turn() == 'w' ? 'white' : 'black',
@@ -154,6 +154,7 @@ export class Api {
 		});
 		this._updateChessgroundWithPossibleMoves();
 		this.stateChangeCallback(this);
+		return move;
 	}
 
 	// Toggle board orientation
