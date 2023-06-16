@@ -68,7 +68,7 @@ The board state can be read and manipulated via method calls to the Chess compon
 Methods for reading game/board state:
 
 * `getHistory()`: Same as the `history` prop. All moves played in the game, as an array of SAN strings, e.g. `['d4','Nf6','Bg5']`.
-* `getHistory({verbose: true})`: All moves played in the game, as an array of [#move](Move objects).
+* `getHistory({verbose: true})`: All moves played in the game, as an array of [Move objects](#move).
 * `getBoard()`: An 8x8 array of the current position. Each element is null (empty square) or an object on the form `{ square: 'd8', type: 'q', color: 'b' }`.
 
 Methods for manipulating game/board state:
