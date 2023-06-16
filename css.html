@@ -5,25 +5,22 @@
 		<link rel="icon" href="./favicon.png" />
 		<meta name="viewport" content="width=device-width, initial-scale=1" />
 		
-		<link href="./_app/immutable/assets/2.4240d37b.css" rel="stylesheet">
 		<link href="./_app/immutable/assets/Chess.cf3e9293.css" rel="stylesheet">
 		<link rel="modulepreload" href="./_app/immutable/entry/start.780469ca.js">
 		<link rel="modulepreload" href="./_app/immutable/chunks/index.18b0dfda.js">
 		<link rel="modulepreload" href="./_app/immutable/chunks/singletons.90801d99.js">
 		<link rel="modulepreload" href="./_app/immutable/entry/app.32770e34.js">
 		<link rel="modulepreload" href="./_app/immutable/nodes/0.7e9b30cf.js">
-		<link rel="modulepreload" href="./_app/immutable/nodes/2.545b86dc.js">
+		<link rel="modulepreload" href="./_app/immutable/nodes/3.90480544.js">
 		<link rel="modulepreload" href="./_app/immutable/chunks/Chess.519cee7d.js">
 	</head>
 	<body data-sveltekit-preload-data="hover">
 		<div>
 
 
-<div style="max-width:512px;margin:0 auto;"><div style="position:relative;"><div class="cg-wrap cg-default-style svelte-d0p6kd"></div></div>
-	<button class="svelte-1d7yk7v">Reset board</button>
-	<button class="svelte-1d7yk7v">Undo</button>
-	<button class="svelte-1d7yk7v">Flip board</button>
-</div>
+<link rel="stylesheet" href="/style-paper.css">
+
+<div style="max-width:512px;margin:0 auto;"><div style="position:relative;"><div class="cg-wrap cg-paper svelte-d0p6kd"></div></div></div>
 
 
 			
@@ -43,7 +40,7 @@
 						import("./_app/immutable/entry/app.32770e34.js")
 					]).then(([kit, app]) => {
 						kit.start(app, element, {
-							node_ids: [0, 2],
+							node_ids: [0, 3],
 							data,
 							form: null,
 							error: null
