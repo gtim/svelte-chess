@@ -91,7 +91,7 @@ Example implementing undo/reset buttons ([REPL](https://svelte.dev/repl/7dd7b645
 
 ## Events
 
-A `move` event is dispatched after every move, containing the corresponding [#move](Move object).
+A `move` event is dispatched after every move, containing the corresponding [Move object](#move).
 
 A `gameOver` event is emitted after a move that ends the game. The GameOver object has two keys:
 * `reason`: `checkmate`, `stalemate`, `repetition`, `insufficient material` or `fifty-move rule`.
