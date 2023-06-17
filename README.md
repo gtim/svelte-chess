@@ -40,7 +40,7 @@ Game state can be observed by binding to props.
 | `history`   |           ✓           |          | Array of all moves as SAN strings, e.g. `['d4','Nf6']`                               |
 | `isGameOver`|           ✓           |          | True if the game is over. Listen for the [gameOver event](#events) for more details. |
 | `fen`       |           ✓           |    ✓     | Current position in [FEN](https://www.chessprogramming.org/Forsyth-Edwards_Notation) |
-| `className` |                       |    ✓     | CSS class applied to children instead of default (see [Styling](#styling)).          |
+| `class` |                       |    ✓     | CSS class applied to children instead of default (see [Styling](#styling)).          |
 
 All readable props are bindable and updated whenever the game state changes.
 Writable props are only used when the component is created.
@@ -116,7 +116,7 @@ Svelte-chess exports the MoveEvent and GameOverEvent types.
 ## Styling
 
 The stylesheet shipped with Chessground is used by default. To restyle the 
-board, pass the `className` prop and import a stylesheet.
+board, pass the `class` prop and import a stylesheet.
 
 Example with custom stylesheet:
 
@@ -124,7 +124,7 @@ Example with custom stylesheet:
         import { Chess } from 'svelte-chess';
     </script>
     <link rel="stylesheet" href="/my-style.css" />
-    <Chess className="my-class" />
+    <Chess class="my-class" />
 
 A sample stylesheet can be found in [/static/style-paper.css](https://github.com/gtim/svelte-chess/blob/main/static/style-paper.css).
 
