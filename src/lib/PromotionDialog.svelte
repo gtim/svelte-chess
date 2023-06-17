@@ -3,7 +3,8 @@
 
 	export let square: Square;
 	export let callback: (promotion: PieceSymbol) => void;
-	export let className: string | undefined = undefined;
+	let className: string | undefined = undefined;
+	export { className as class };
 
 	const left = 100 * squareToFileNumber(square) / 8;
 	const white = square.charAt(1) === '8';

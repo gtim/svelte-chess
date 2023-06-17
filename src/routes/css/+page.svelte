@@ -5,5 +5,5 @@
 <link rel="stylesheet" href="./style-paper.css" />
 
 <div style="max-width:512px;margin:0 auto;">
-	<Chess className="cg-paper" />
+	<Chess class="cg-paper" />
 </div>

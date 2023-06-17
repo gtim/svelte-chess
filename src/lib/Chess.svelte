@@ -29,7 +29,8 @@
 	export let fen = 'rnbqkbnr/pppppppp/8/8/8/8/PPPPPPPP/RNBQKBNR w KQkq - 0 1';
 
 	// non-bindable
-	export let className: string | undefined = undefined;
+	let className: string | undefined = undefined;
+	export { className as class };
 
 	// API: only accessible through props and methods
 	let api: Api | undefined = undefined;
