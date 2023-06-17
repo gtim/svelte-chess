@@ -92,6 +92,7 @@
 				target: container,
 				props: { 
 					square,
+					orientation,
 					callback: (piece: PieceSymbol) => {
 						element.$destroy();
 						resolve( piece );

@@ -1,12 +1,13 @@
 <script lang="ts">
-	import type { Square, PieceSymbol } from '$lib/api.js';
+	import type { Square, Color, PieceSymbol } from '$lib/api.js';
 
 	export let square: Square;
+	export let orientation: Color = 'w';
 	export let callback: (promotion: PieceSymbol) => void;
 	let className: string | undefined = undefined;
 	export { className as class };
 
-	const left = 100 * squareToFileNumber(square) / 8;
+	const marginLeft = 100 / 8 * ( orientation === 'w' ? squareToFileNumber(square) : 7 - squareToFileNumber(square) );
 	const white = square.charAt(1) === '8';
 	const black = ! white;
 
@@ -26,8 +27,9 @@
 
 <div class="dialog {className}">
 	{#each pieces as piece, i}
-		{@const top = white ? i * 12.5 : 100 - 12.5*(i+1)}
-		<div class="square" style="margin-left:{left}%;margin-top:{top}%;">
+		{@const putPiecesFromTop = white && orientation === 'w' || black && orientation === 'b'}
+		{@const marginTop = putPiecesFromTop ? i * 12.5 : 100 - 12.5*(i+1)}
+		<div class="square" style="margin-left:{marginLeft}%;margin-top:{marginTop}%;">
 			<div
 				class="piece {piece}" class:white class:black
 				on:click={()=>callback(piece)}

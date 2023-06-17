@@ -146,12 +146,6 @@ A `Move` describes a chess move. It is identical to the chess.js Move type. Prop
 
 ## Future
 
-Bugs:
-
-* Promotion dialog misplaced when the board is flipped
-
-Not yet implemented features:
-
 * Programmatically draw arrows/circles on the board
 * inCheck prop
 * Stockfish?
