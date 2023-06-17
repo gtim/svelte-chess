@@ -40,7 +40,7 @@ Game state can be observed by binding to props.
 | `history`    |           ✓           |          | Array of all moves as SAN strings, e.g. `['d4','Nf6']`                               |
 | `isGameOver` |           ✓           |          | True if the game is over. Listen for the [gameOver event](#events) for more details. |
 | `fen`        |           ✓           |    ✓     | Current position in [FEN](https://www.chessprogramming.org/Forsyth-Edwards_Notation) |
-| `orientation`|           ✓           |    ✓     | Orientation of the board: `w` for White at bottom, `b` for Black.                    |
+| `orientation`|           ✓           |    ✓     | Orientation of the board: `w` or `b`.                                                |
 | `class`      |                       |    ✓     | CSS class applied to children instead of default (see [Styling](#styling)).          |
 
 All readable props are bindable and updated whenever the game state changes.
