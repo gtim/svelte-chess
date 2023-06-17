@@ -33,14 +33,15 @@ Interact with the game via [props](#props), [methods](#methods) or [events](#eve
 
 Game state can be observed by binding to props. 
 
-| Prop        | Bindable and readable | Writable | Value                                                                                |
-| ----------- | :-------------------: | :------: | ------------------------------------------------------------------------------------ |
-| `turn`      |           ✓           |          | Current color to move: `w` or `b`                                                    |
-| `moveNumber`|           ✓           |          | Current move number (whole moves)                                                    |
-| `history`   |           ✓           |          | Array of all moves as SAN strings, e.g. `['d4','Nf6']`                               |
-| `isGameOver`|           ✓           |          | True if the game is over. Listen for the [gameOver event](#events) for more details. |
-| `fen`       |           ✓           |    ✓     | Current position in [FEN](https://www.chessprogramming.org/Forsyth-Edwards_Notation) |
-| `class` |                       |    ✓     | CSS class applied to children instead of default (see [Styling](#styling)).          |
+| Prop         | Bindable and readable | Writable | Value                                                                                |
+| ------------ | :-------------------: | :------: | ------------------------------------------------------------------------------------ |
+| `turn`       |           ✓           |          | Current color to move: `w` or `b`                                                    |
+| `moveNumber` |           ✓           |          | Current move number (whole moves)                                                    |
+| `history`    |           ✓           |          | Array of all moves as SAN strings, e.g. `['d4','Nf6']`                               |
+| `isGameOver` |           ✓           |          | True if the game is over. Listen for the [gameOver event](#events) for more details. |
+| `fen`        |           ✓           |    ✓     | Current position in [FEN](https://www.chessprogramming.org/Forsyth-Edwards_Notation) |
+| `orientation`|           ✓           |    ✓     | Orientation of the board: `w` for White at bottom, `b` for Black.                    |
+| `class`      |                       |    ✓     | CSS class applied to children instead of default (see [Styling](#styling)).          |
 
 All readable props are bindable and updated whenever the game state changes.
 Writable props are only used when the component is created.
@@ -152,6 +153,5 @@ Bugs:
 Not yet implemented features:
 
 * Programmatically draw arrows/circles on the board
-* orientation prop
 * inCheck prop
 * Stockfish?

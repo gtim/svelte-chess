@@ -1,7 +1,7 @@
 import type { Chessground } from 'svelte-chessground';
 import { Chess as ChessJS, SQUARES } from 'chess.js';
-import type { Square, PieceSymbol, Move } from 'chess.js';
-export type { Square, PieceSymbol, Move };
+import type { Square, PieceSymbol, Move, Color } from 'chess.js';
+export type { Square, PieceSymbol, Move, Color };
 
 export type GameOver = {
 	reason: "checkmate" | "stalemate" | "repetition" | "insufficient material" | "fifty-move rule",
@@ -18,8 +18,12 @@ export class Api {
 		private promotionCallback: (sq:Square) => Promise<PieceSymbol> = async (sq)=>'q', // called before promotion
 		private moveCallback: (move:Move) => void = (m)=>{}, // called after move
 		private gameOverCallback: ( gameOver:GameOver ) => void = (go)=>{}, // called after game-ending move
+		private _orientation: Color = 'w',
 	) {
-		this.cg.set( { movable: { free: false } } );
+		this.cg.set( {
+			orientation: Api._colorToCgColor( _orientation ),
+			movable: { free: false },
+		} );
 		this.chessJS = new ChessJS( fen );
 		this.load( fen );
 	}
@@ -171,9 +175,16 @@ export class Api {
 		return move;
 	}
 
-	// Toggle board orientation
+	// Board orientation
 	toggleOrientation(): void {
-		this.cg.toggleOrientation();
+		this._orientation = this._orientation === 'w' ? 'b' : 'w';
+		this.cg.set({
+			orientation: Api._colorToCgColor( this._orientation ),
+		});
+		this.stateChangeCallback(this);
+	}
+	orientation(): Color {
+		return this._orientation;
 	}
 
 	// Check if game is over (checkmate, stalemate, repetition, insufficient material, fifty-move rule)
@@ -206,6 +217,13 @@ export class Api {
 		return this.chessJS.board();
 	}
 
-
+	// Convert between chess.js color (w/b) and chessground color (white/black).
+	// Chess.js color is always used internally.
+	static _colorToCgColor( chessjsColor: Color ): 'white' | 'black' {
+		return chessjsColor === 'w' ? 'white' : 'black';
+	}
+	static _cgColorToColor( chessgroundColor: 'white' | 'black' ): Color {
+		return chessgroundColor === 'white' ? 'w' : 'b';
+	}
 
 }
