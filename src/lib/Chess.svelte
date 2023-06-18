@@ -22,6 +22,7 @@
 	// bindable read-only props
 	export let moveNumber: number = 0;
 	export let turn = 'w';
+	export let inCheck: boolean = false;
 	export let history: string[] = [];
 	export let isGameOver: boolean = false;
 
@@ -82,6 +83,7 @@
 		orientation = api.orientation();
 		moveNumber = api.moveNumber();
 		turn = api.turn();
+		inCheck = api.inCheck();
 		history = api.history();
 		isGameOver = api.isGameOver();
 	}

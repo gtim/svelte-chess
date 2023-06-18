@@ -38,6 +38,7 @@ Game state can be observed by binding to props.
 | `turn`       |           ✓           |          | Current color to move: `w` or `b`                                                    |
 | `moveNumber` |           ✓           |          | Current move number (whole moves)                                                    |
 | `history`    |           ✓           |          | Array of all moves as SAN strings, e.g. `['d4','Nf6']`                               |
+| `inCheck`    |           ✓           |          | True if the player to move is in check.                                              |
 | `isGameOver` |           ✓           |          | True if the game is over. Listen for the [gameOver event](#events) for more details. |
 | `fen`        |           ✓           |    ✓     | Current position in [FEN](https://www.chessprogramming.org/Forsyth-Edwards_Notation) |
 | `orientation`|           ✓           |    ✓     | Orientation of the board: `w` or `b`.                                                |
@@ -147,6 +148,5 @@ A `Move` describes a chess move. It is identical to the chess.js Move type. Prop
 ## Future
 
 * Programmatically draw arrows/circles on the board
-* inCheck prop
 * Chessground config: coordinates and autoCastle
 * Stockfish?

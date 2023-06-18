@@ -206,6 +206,9 @@ export class Api {
 	moveNumber() {
 		return this.chessJS.moveNumber();
 	}
+	inCheck() {
+		return this.chessJS.inCheck();
+	}
 	history(): string[]
 	history({ verbose }: { verbose: true }): Move[]
 	history({ verbose }: { verbose: false }): string[]
