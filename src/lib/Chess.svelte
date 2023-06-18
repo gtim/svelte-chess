@@ -21,7 +21,7 @@
 
 	// bindable read-only props
 	export let moveNumber: number = 0;
-	export let turn = 'w';
+	export let turn: Color = 'w';
 	export let inCheck: boolean = false;
 	export let history: string[] = [];
 	export let isGameOver: boolean = false;

@@ -1,6 +1,6 @@
 <script lang="ts">
-	import Chess from '$lib/Chess.svelte';
-	let fen:string, moveNumber:number, turn:string, history:string[], inCheck:boolean;
+	import Chess, { type Color } from '$lib/Chess.svelte';
+	let fen:string, moveNumber:number, turn:Color, history:string[], inCheck:boolean;
 </script>
 
 <div style="max-width:512px;margin:0 auto;">
