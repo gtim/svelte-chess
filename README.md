@@ -148,4 +148,5 @@ A `Move` describes a chess move. It is identical to the chess.js Move type. Prop
 
 * Programmatically draw arrows/circles on the board
 * inCheck prop
+* Chessground config: coordinates and autoCastle
 * Stockfish?
