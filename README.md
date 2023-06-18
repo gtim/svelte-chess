@@ -39,7 +39,7 @@ Game state can be observed by binding to props.
 | `moveNumber` |           ✓           |          | Current move number (whole moves)                                                    |
 | `history`    |           ✓           |          | Array of all moves as SAN strings, e.g. `['d4','Nf6']`                               |
 | `inCheck`    |           ✓           |          | True if the player to move is in check.                                              |
-| `isGameOver` |           ✓           |          | True if the game is over. Listen for the [gameOver event](#events) for more details. |
+| `isGameOver` |           ✓           |          | True if the game is over. See also the [gameOver event](#events).                    |
 | `fen`        |           ✓           |    ✓     | Current position in [FEN](https://www.chessprogramming.org/Forsyth-Edwards_Notation) |
 | `orientation`|           ✓           |    ✓     | Orientation of the board: `w` or `b`.                                                |
 | `class`      |                       |    ✓     | CSS class applied to children instead of default (see [Styling](#styling)).          |
