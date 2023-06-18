@@ -33,7 +33,7 @@ export class Api {
 		this.chessJS.load( fen );
 		this._checkForGameOver();
 		this.cg.set( { animation: { enabled: false } } );
-		const cgColor = this.chessJS.turn() == 'w' ? 'white' : 'black';
+		const cgColor = Api._colorToCgColor( this.chessJS.turn() );
 		this.cg.set( {
 			fen: fen,
 			turnColor: cgColor,
@@ -107,7 +107,7 @@ export class Api {
 	}
 
 	private _updateChessgroundWithPossibleMoves() {
-		const cgColor = this.chessJS.turn() == 'w' ? 'white' : 'black';
+		const cgColor = Api._colorToCgColor( this.chessJS.turn() );
 		this.cg.set({
 			turnColor: cgColor,
 			movable: {
@@ -166,7 +166,7 @@ export class Api {
 		const move = this.chessJS.undo();
 		this.cg.set({
 			fen: this.chessJS.fen(),
-			turnColor: this.chessJS.turn() == 'w' ? 'white' : 'black',
+			turnColor: Api._colorToCgColor( this.chessJS.turn() ),
 			lastMove: undefined,
 		});
 		this.gameIsOver = false;
