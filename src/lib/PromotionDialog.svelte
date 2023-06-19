@@ -12,6 +12,8 @@
 	const black = ! white;
 
 	const pieces: PieceSymbol[] = ['q','n','r','b'];
+	const pieceNames: { [key in PieceSymbol]: string } = { q: 'queen', n: 'knight', r: 'rook', b: 'bishop', p: 'pawn', k: 'king' };
+		
 
 	function squareToFileNumber( square: Square ): number { // a-h -> 0-7
 		return square.charCodeAt(0) - 97;
@@ -34,7 +36,7 @@
 				class="piece {piece}" class:white class:black
 				on:click={()=>callback(piece)}
 				on:keydown={(e)=>keyboardCallback(e,piece)}
-				role="button" tabindex="0"
+				role="button" tabindex="0" aria-label="Promote to {pieceNames[piece]}"
 			></div>
 		</div>
 	{/each}
