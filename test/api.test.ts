@@ -121,6 +121,8 @@ describe("board state", () => {
 				piece: 'p',
 				san: 'e4',
 				to: 'e4',
+				check: false,
+				checkmate: false,
 			},
 			{
 				after: 'rnbqkbnr/pppp1ppp/8/4p3/4P3/8/PPPP1PPP/RNBQKBNR w KQkq - 0 2',
@@ -132,6 +134,8 @@ describe("board state", () => {
 				piece: 'p',
 				san: 'e5',
 				to: 'e5',
+				check: false,
+				checkmate: false,
 			}
 		] );
 		expect( () => api.move('a6') ).toThrowError();
@@ -147,10 +151,35 @@ describe("board state", () => {
 			san: 'Bc4',
 			flags: 'n',
 			lan: 'f1c4',
+			check: false,
+			checkmate: false,
 		});
 		api.reset();
 		expect( api.history({verbose:true}) ).toEqual( [] );
 	} );
+	test("move history, verbose, check/checkmate", () => {
+		api.move('e4');
+		api.move('e5');
+		api.move('Bc4');
+		api.move('Bc5');
+		api.move('Qf3');
+		api.move('Bxf2');
+		api.move('Qxf2');
+		api.move('d6');
+		api.move('Qxf7');
+		const history = api.history({verbose:true});
+		expect( history ).toHaveLength(9);
+		expect( history[0] ).toContain( { check: false, checkmate: false } );
+		expect( history[1] ).toContain( { check: false, checkmate: false } );
+		expect( history[2] ).toContain( { check: false, checkmate: false } );
+		expect( history[3] ).toContain( { check: false, checkmate: false } );
+		expect( history[4] ).toContain( { check: false, checkmate: false } );
+		expect( history[5] ).toContain( { check: true,  checkmate: false } );
+		expect( history[6] ).toContain( { check: false, checkmate: false } );
+		expect( history[7] ).toContain( { check: false, checkmate: false } );
+		expect( history[8] ).toContain( { check: true,  checkmate: true  } );
+	} );
+
 	test("board()", () => {
 		api.move('e4');
 		const board = api.board();

@@ -1,7 +1,12 @@
 import type { Chessground } from 'svelte-chessground';
 import { Chess as ChessJS, SQUARES } from 'chess.js';
-import type { Square, PieceSymbol, Move, Color } from 'chess.js';
-export type { Square, PieceSymbol, Move, Color };
+import type { Square, PieceSymbol, Color, Move as CjsMove } from 'chess.js';
+export type { Square, PieceSymbol, Color };
+
+export type Move = CjsMove & {
+	check: boolean,
+	checkmate: boolean,
+};
 
 export type GameOver = {
 	reason: "checkmate" | "stalemate" | "repetition" | "insufficient material" | "fifty-move rule",
@@ -63,13 +68,14 @@ export class Api {
 			// the Chessground square type (Key) includes a0
 			throw Error('invalid square');
 		}
-		let move: Move;
+		let cjsMove: CjsMove;
 		if ( this._moveIsPromotion( orig, dest ) ) {
 			const promotion = await this.promotionCallback( dest );
-			move = this.chessJS.move({ from: orig, to: dest, promotion });
+			cjsMove = this.chessJS.move({ from: orig, to: dest, promotion });
 		} else {
-			move = this.chessJS.move({ from: orig, to: dest });
+			cjsMove = this.chessJS.move({ from: orig, to: dest });
 		}
+		const move = Api._cjsMoveToMove( cjsMove );
 		this._updateChessgroundAfterMove( move );
 	}
 
@@ -81,7 +87,8 @@ export class Api {
 	move(moveSan: string) {
 		if ( this.gameIsOver )
 			throw new Error(`Invalid move: Game is over.`);
-		const move = this.chessJS.move( moveSan ); // throws on illegal move
+		const cjsMove = this.chessJS.move( moveSan ); // throws on illegal move
+		const move = Api._cjsMoveToMove( cjsMove );
 		this.cg.move( move.from, move.to );
 		this._updateChessgroundAfterMove( move );
 	}
@@ -93,7 +100,7 @@ export class Api {
 			this.cg.set({ fen: this.chessJS.fen() });
 		}
 		// highlight king if in check
-		if ( this.chessJS.inCheck() ) {
+		if ( move.check ) {
 			this.cg.set({ check: true });
 		}
 		// dispatch move event
@@ -163,7 +170,8 @@ export class Api {
 
 	// Undo last move
 	undo(): Move | null {
-		const move = this.chessJS.undo();
+		const cjsMove = this.chessJS.undo();
+		const move = cjsMove ? Api._cjsMoveToMove( cjsMove ) : null;
 		this.cg.set({
 			fen: this.chessJS.fen(),
 			turnColor: Api._colorToCgColor( this.chessJS.turn() ),
@@ -214,7 +222,11 @@ export class Api {
 	history({ verbose }: { verbose: false }): string[]
 	history({ verbose }: { verbose: boolean }): string[] | Move[]
 	history({ verbose = false }: { verbose?: boolean } = {}) {
-		return this.chessJS.history({ verbose });
+		if ( verbose ) {
+			return this.chessJS.history({ verbose }).map( Api._cjsMoveToMove );
+		} else {
+			return this.chessJS.history({ verbose });
+		}
 	}
 	board() {
 		return this.chessJS.board();
@@ -228,5 +240,14 @@ export class Api {
 	static _cgColorToColor( chessgroundColor: 'white' | 'black' ): Color {
 		return chessgroundColor === 'white' ? 'w' : 'b';
 	}
+
+	// Convert chess.js move (CjsMove) to svelte-chess Move.
+	// Only difference is check:boolean and checkmate:boolean in the latter.
+	static _cjsMoveToMove( cjsMove: CjsMove ): Move {
+		const lastSanChar = cjsMove.san.slice(-1);
+		const checkmate = lastSanChar === '#';
+		const check     = lastSanChar === '+' || checkmate;
+		return { ...cjsMove, check, checkmate };
+	};
 
 }

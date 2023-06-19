@@ -134,7 +134,7 @@ A sample stylesheet can be found in [/static/style-paper.css](https://github.com
 
 ### Move
 
-A `Move` describes a chess move. It is identical to the chess.js Move type. Properties:
+A `Move` describes a chess move. Properties:
   - `color`: `w` for White move or `b` for Black move.
   - `from` and `to`: Origin and destination squares, e.g. `g1` and `f3`.
   - `piece`: Piece symbol, one of `pnbrqk` (pawn, knight, bishop, rook, queen, king).
@@ -143,6 +143,8 @@ A `Move` describes a chess move. It is identical to the chess.js Move type. Prop
   - `lan`: Long algebraic notation, e.g. `g1f3`.
   - `before` and `after`: FEN of positions before and after the move.
   - `flags`: String of letters for each flag that applies to the move: `c` for standard capture, `e` for en passant capture, `n` for non-capture, `b` for two-square pawn move, `p` for promotion, `k` for kingside castling and `q` for queenside castling.
+  - `check`: True if the move put the opponent in check (or checkmate).
+  - `checkmate`: True if the move put the opponent in checkmate.
 
 
 ## Future
