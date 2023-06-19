@@ -3,7 +3,7 @@ import { render, screen, fireEvent, waitFor } from '@testing-library/svelte';
 
 describe("PromotionDialog Component", () => {
 
-	test("all four piece options show up", () => {
+	test("all four piece options displayed", () => {
 		render( PromotionDialog, {
 			square: 'a1',
 			callback: (piece: PieceSymbol) => {},
@@ -44,15 +44,13 @@ describe("PromotionDialog Component", () => {
 		expect( screen.getByRole( 'button', { name: /queen/ } ).className.split(' ') ).toContain( 'white' );
 	});
 
-	const piecesWithSymbols = [
-		[ 'queen',  'q' ],
-		[ 'knight', 'n' ],
-		[ 'rook',   'r' ],
-		[ 'bishop', 'b' ],
-	];
-	for ( const [ piece, symbol ] of piecesWithSymbols ) {
-		test(`clicking ${piece} calls back with ${symbol}`, async () => {
-			const callback = vi.fn();//(piece: PieceSymbol) => {};
+	test.each([
+		{ piece: 'queen',  symbol: 'q' },
+		{ piece: 'knight', symbol: 'n' },
+		{ piece: 'rook',   symbol: 'r' },
+		{ piece: 'bishop', symbol: 'b' },
+	])( 'clicking $piece calls back with $symbol', async ({piece,symbol}) => {
+			const callback = vi.fn();
 			render( PromotionDialog, {
 				square: 'a1',
 				callback
@@ -60,8 +58,7 @@ describe("PromotionDialog Component", () => {
 			const button = screen.getByRole( 'button', { name: new RegExp(piece) } );
 			fireEvent.click( button );
 			await waitFor( () => expect(callback).toHaveBeenLastCalledWith(symbol) );
-		});
-	}
+	});
 
 });
 
@@ -70,81 +67,32 @@ describe("button positions", () => {
 	// Tests marginTop and marginLeft on specific elements.
 	// Would preferably test div screen position directly.
 
-	test( 'button positions for white pawn', async () => {
+	test.each([
+		{ square: 'c8', orientation: 'w', marginLeft: '25%',   marginsTop: ['0%','12.5%','25%','37.5%'] },
+		{ square: 'c1', orientation: 'w', marginLeft: '25%',   marginsTop: ['87.5%','75%','62.5%','50%'] },
+		{ square: 'c8', orientation: 'b', marginLeft: '62.5%', marginsTop: ['87.5%','75%','62.5%','50%'] },
+		{ square: 'c1', orientation: 'b', marginLeft: '62.5%', marginsTop: ['0%','12.5%','25%','37.5%'] },
+		{ square: 'h8', orientation: 'w', marginLeft: '87.5%', marginsTop: ['0%','12.5%','25%','37.5%'] },
+		{ square: 'h1', orientation: 'w', marginLeft: '87.5%', marginsTop: ['87.5%','75%','62.5%','50%'] },
+		{ square: 'h8', orientation: 'b', marginLeft: '0%',    marginsTop: ['87.5%','75%','62.5%','50%'] },
+		{ square: 'h1', orientation: 'b', marginLeft: '0%',    marginsTop: ['0%','12.5%','25%','37.5%'] },
+	])( 'button positions for promotion $square, $orientation orientation', async ({square,orientation,marginLeft,marginsTop}) => {
 		render( PromotionDialog, {
-			square: 'c8',
-			orientation: 'w',
+			square,
+			orientation,
 			callback: (piece: PieceSymbol) => {},
 		});
 		const queenStyle  = screen.getByRole( 'button', { name: /queen/  } ).parentElement.style;
 		const knightStyle = screen.getByRole( 'button', { name: /knight/ } ).parentElement.style;
 		const rookStyle   = screen.getByRole( 'button', { name: /rook/   } ).parentElement.style;
 		const bishopStyle = screen.getByRole( 'button', { name: /bishop/ } ).parentElement.style;
-		expect(  queenStyle.marginTop ).toEqual( '0%' );
-		expect( knightStyle.marginTop ).toEqual( '12.5%' );
-		expect(   rookStyle.marginTop ).toEqual( '25%' );
-		expect( bishopStyle.marginTop ).toEqual( '37.5%' );
-		expect(  queenStyle.marginLeft ).toEqual( '25%' );
-		expect( knightStyle.marginLeft ).toEqual( '25%' );
-		expect(   rookStyle.marginLeft ).toEqual( '25%' );
-		expect( bishopStyle.marginLeft ).toEqual( '25%' );
+		expect(  queenStyle.marginTop ).toEqual( marginsTop[0] );
+		expect( knightStyle.marginTop ).toEqual( marginsTop[1] );
+		expect(   rookStyle.marginTop ).toEqual( marginsTop[2] );
+		expect( bishopStyle.marginTop ).toEqual( marginsTop[3] );
+		expect(  queenStyle.marginLeft ).toEqual( marginLeft );
+		expect( knightStyle.marginLeft ).toEqual( marginLeft );
+		expect(   rookStyle.marginLeft ).toEqual( marginLeft );
+		expect( bishopStyle.marginLeft ).toEqual( marginLeft );
 	} );
-	test( 'button positions for black pawn', async () => {
-		render( PromotionDialog, {
-			square: 'c1',
-			orientation: 'w',
-			callback: (piece: PieceSymbol) => {},
-		});
-		const queenStyle  = screen.getByRole( 'button', { name: /queen/  } ).parentElement.style;
-		const knightStyle = screen.getByRole( 'button', { name: /knight/ } ).parentElement.style;
-		const rookStyle   = screen.getByRole( 'button', { name: /rook/   } ).parentElement.style;
-		const bishopStyle = screen.getByRole( 'button', { name: /bishop/ } ).parentElement.style;
-		expect(  queenStyle.marginTop ).toEqual( '87.5%' );
-		expect( knightStyle.marginTop ).toEqual( '75%' );
-		expect(   rookStyle.marginTop ).toEqual( '62.5%' );
-		expect( bishopStyle.marginTop ).toEqual( '50%' );
-		expect(  queenStyle.marginLeft ).toEqual( '25%' );
-		expect( knightStyle.marginLeft ).toEqual( '25%' );
-		expect(   rookStyle.marginLeft ).toEqual( '25%' );
-		expect( bishopStyle.marginLeft ).toEqual( '25%' );
-	} );
-	test( 'button positions for white pawn, flipped board', async () => {
-		render( PromotionDialog, {
-			square: 'c8',
-			orientation: 'b',
-			callback: (piece: PieceSymbol) => {},
-		});
-		const queenStyle  = screen.getByRole( 'button', { name: /queen/  } ).parentElement.style;
-		const knightStyle = screen.getByRole( 'button', { name: /knight/ } ).parentElement.style;
-		const rookStyle   = screen.getByRole( 'button', { name: /rook/   } ).parentElement.style;
-		const bishopStyle = screen.getByRole( 'button', { name: /bishop/ } ).parentElement.style;
-		expect(  queenStyle.marginTop ).toEqual( '87.5%' );
-		expect( knightStyle.marginTop ).toEqual( '75%' );
-		expect(   rookStyle.marginTop ).toEqual( '62.5%' );
-		expect( bishopStyle.marginTop ).toEqual( '50%' );
-		expect(  queenStyle.marginLeft ).toEqual( '62.5%' );
-		expect( knightStyle.marginLeft ).toEqual( '62.5%' );
-		expect(   rookStyle.marginLeft ).toEqual( '62.5%' );
-		expect( bishopStyle.marginLeft ).toEqual( '62.5%' );
-	} );
-	test( 'button positions for black pawn, flipped board', async () => {
-		render( PromotionDialog, {
-			square: 'c1',
-			orientation: 'b',
-			callback: (piece: PieceSymbol) => {},
-		});
-		const queenStyle  = screen.getByRole( 'button', { name: /queen/  } ).parentElement.style;
-		const knightStyle = screen.getByRole( 'button', { name: /knight/ } ).parentElement.style;
-		const rookStyle   = screen.getByRole( 'button', { name: /rook/   } ).parentElement.style;
-		const bishopStyle = screen.getByRole( 'button', { name: /bishop/ } ).parentElement.style;
-		expect(  queenStyle.marginTop ).toEqual( '0%' );
-		expect( knightStyle.marginTop ).toEqual( '12.5%' );
-		expect(   rookStyle.marginTop ).toEqual( '25%' );
-		expect( bishopStyle.marginTop ).toEqual( '37.5%' );
-		expect(  queenStyle.marginLeft ).toEqual( '62.5%' );
-		expect( knightStyle.marginLeft ).toEqual( '62.5%' );
-		expect(   rookStyle.marginLeft ).toEqual( '62.5%' );
-		expect( bishopStyle.marginLeft ).toEqual( '62.5%' );
-	} );
-
 });
