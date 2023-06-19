@@ -1,17 +1,16 @@
-# svelte-chess
+# Svelte-chess: Playable chess component 
 
-Fully playable chess component for Svelte, combining chess.js and chessground.
+Fully playable chess component for Svelte, combining chess logic from [chess.js](https://github.com/jhlywa/chess.js) and chessboard display from [chessground](https://github.com/lichess-org/chessground).
 
 ![Svelte-chess screenshots](https://github.com/gtim/svelte-chess/blob/main/static/screenshot.png?raw=true)
 
 ## Features
 
-* Track game state via bindable props
+* Track game state via props or detailed events
 * Pawn promotion dialog
 * Undo moves
 * Fully restylable
 * Move history
-* Detailed events
 * Typed
 
 ## Usage 
@@ -29,7 +28,7 @@ Basic playable chessboard ([REPL](https://svelte.dev/repl/b1a489538165489aa2720a
 
 Interact with the game via [props](#props), [methods](#methods) or [events](#events).
 
-## Props
+### Props
 
 Game state can be observed by binding to props. 
 
@@ -63,7 +62,7 @@ Starting from a specific FEN ([REPL](https://svelte.dev/repl/ebce18a71d774b2db98
 
     <Chess fen="rnbqkb1r/1p2pppp/p2p1n2/8/3NP3/2N5/PPP2PPP/R1BQKB1R w KQkq - 0 6" />
 
-## Methods
+### Methods
 
 The board state can be read and manipulated via method calls to the Chess component itself. 
 
@@ -91,7 +90,7 @@ Example implementing undo/reset buttons ([REPL](https://svelte.dev/repl/7dd7b645
     <button on:click={()=>chess?.reset()}>Reset</button>
     <button on:click={()=>chess?.undo()}>Undo</button>
 
-## Events
+### Events
 
 A `move` event is dispatched after every move, containing the corresponding [Move object](#move).
 
@@ -115,7 +114,7 @@ Example listening for `move` and `gameOver` events ([REPL](https://svelte.dev/re
 
 Svelte-chess exports the MoveEvent and GameOverEvent types.
 
-## Styling
+### Styling
 
 The stylesheet shipped with Chessground is used by default. To restyle the 
 board, pass the `class` prop and import a stylesheet.
