@@ -20,11 +20,11 @@
 	 */
 
 	// bindable read-only props
-	export let moveNumber: number = 0;
+	export let moveNumber = 0;
 	export let turn: Color = 'w';
-	export let inCheck: boolean = false;
+	export let inCheck = false;
 	export let history: string[] = [];
-	export let isGameOver: boolean = false;
+	export let isGameOver = false;
 
 	// Initial values used, also bindable
 	export let fen = 'rnbqkbnr/pppppppp/8/8/8/8/PPPPPPPP/RNBQKBNR w KQkq - 0 1';
@@ -89,7 +89,7 @@
 	}
 
 	function promotionCallback( square: Square ): Promise<PieceSymbol> {
-		return new Promise((resolve, reject) => {
+		return new Promise((resolve) => {
 			const element = new PromotionDialog({
 				target: container,
 				props: { 

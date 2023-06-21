@@ -15,10 +15,10 @@ export type GameOver = {
 
 export class Api {
 	private chessJS: ChessJS;
-	private gameIsOver: boolean = false;
+	private gameIsOver = false;
 	constructor(
 		private cg: Chessground,
-		fen: string = 'rnbqkbnr/pppppppp/8/8/8/8/PPPPPPPP/RNBQKBNR w KQkq - 0 1',
+		fen = 'rnbqkbnr/pppppppp/8/8/8/8/PPPPPPPP/RNBQKBNR w KQkq - 0 1',
 		private stateChangeCallback: (api:Api) => void = (api)=>{}, // called when the game state (not visuals) changes
 		private promotionCallback: (sq:Square) => Promise<PieceSymbol> = async (sq)=>'q', // called before promotion
 		private moveCallback: (move:Move) => void = (m)=>{}, // called after move
@@ -248,6 +248,6 @@ export class Api {
 		const checkmate = lastSanChar === '#';
 		const check     = lastSanChar === '+' || checkmate;
 		return { ...cjsMove, check, checkmate };
-	};
+	}
 
 }
