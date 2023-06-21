@@ -7,6 +7,7 @@
 	import { Chessground } from 'svelte-chessground';
 	import PromotionDialog from '$lib/PromotionDialog.svelte';
 	import { Api, type Square, type Color, type PieceSymbol, type Move, type GameOver } from '$lib/api.js';
+	import type { Engine } from '$lib/engine.js';
 
 	import { onMount, createEventDispatcher } from 'svelte';
 
@@ -31,6 +32,7 @@
 	export let orientation: Color = 'w';
 
 	// non-bindable
+	export let engine: Engine | undefined = undefined;
 	let className: string | undefined = undefined;
 	export { className as class };
 
@@ -112,6 +114,9 @@
 	}
 
 	onMount( () => {
+		if ( engine ) {
+			engine.initialize();
+		}
 		api = new Api( chessground, fen, stateChangeCallback, promotionCallback, moveCallback, gameOverCallback, orientation );
 	} );
 	
