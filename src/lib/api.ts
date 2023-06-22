@@ -30,6 +30,7 @@ export class Api {
 		this.cg.set( {
 			orientation: Api._colorToCgColor( _orientation ),
 			movable: { free: false },
+			premovable: { enabled: false },
 		} );
 		this.chessJS = new ChessJS( fen );
 		this.load( fen );

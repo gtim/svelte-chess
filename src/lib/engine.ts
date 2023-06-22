@@ -5,7 +5,6 @@
 //   on:uci to forward all uci messages
 //   bug: wrong king is hilighted when engine checks
 //   default opening book
-//   premoves?
 //   how to test with web worker?
 import type { Color } from '$lib/api.js';
 
