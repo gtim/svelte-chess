@@ -92,13 +92,23 @@ export class Api {
 	}
 
 	// Make a move programmatically
-	move(moveSan: string) {
+	// argument is either a short algebraic notation (SAN) string
+	// or an object with from/to/promotion (see chess.js move())
+	move( moveSanOrObj: string | { from: string, to: string, promotion?: string } ) {
 		if ( this.gameIsOver )
-			throw new Error(`Invalid move: Game is over.`);
-		const cjsMove = this.chessJS.move( moveSan ); // throws on illegal move
+			throw new Error('Invalid move: Game is over.');
+		const cjsMove = this.chessJS.move( moveSanOrObj ); // throws on illegal move
 		const move = Api._cjsMoveToMove( cjsMove );
 		this.cg.move( move.from, move.to );
 		this._postMoveHook( move );
+	}
+	// Make a move programmatically from long algebraic notation (LAN) string,
+	// as returned by UCI engines.
+	moveLan( moveLan: string ) {
+		const from = moveLan.slice(0,2);
+		const to = moveLan.slice(2,4);
+		const promotion = moveLan.charAt(4) || undefined;
+		this.move( { from, to, promotion } );
 	}
 
 	// Called after a move (chess.js or chessground) to:
@@ -124,9 +134,10 @@ export class Api {
 		this.stateChangeCallback(this);
 		
 		// engine move
-		if ( this.engine && this.chessJS.turn() === 'b' ) {
-			console.log('engine move');
-			this.engine.getMove( this.chessJS.fen() );
+		if ( this.engine && this.chessJS.turn() === this.engine.getColor() ) {
+			this.engine.getMove( this.chessJS.fen() ).then( (lan) => {
+				this.moveLan(lan);
+			});
 		}
 
 	}

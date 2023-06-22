@@ -1,7 +1,10 @@
 // TODO:
 //   don't allow UI interaction until engine loaded? 
+//   disable chessground interaction on engine's turn
+//   make move() etc disable engine if it was currently searching for a move?
 //   UCI isready after initialization and move
 //   on:uci to forward all uci messages
+//   bug: wrong king is hilighted when engine checks
 //   default opening book
 import type { Color } from '$lib/api.js';
 
@@ -68,6 +71,8 @@ export class Engine {
 
 	getMove( fen: string ): Promise<string> {
 		return new Promise((resolve) => {
+			if ( ! this.stockfish )
+				throw new Error('Engine not initialised');
 			this.state = State.FindingMove;
 			this.stockfish.postMessage('position fen ' + fen);
 			this.stockfish.postMessage(`go depth ${this.depth} movetime ${this.moveTime}`);
@@ -81,5 +86,8 @@ export class Engine {
 		});
 	}
 
+	getColor() {
+		return this.color;
+	}
 
 }
