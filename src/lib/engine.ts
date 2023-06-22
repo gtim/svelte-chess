@@ -1,24 +1,38 @@
+// TODO:
+//   don't allow UI interaction until engine loaded? 
+//   UCI isready after initialization and move
+//   on:uci to forward all uci messages
+//   default opening book
+import type { Color } from '$lib/api.js';
+
 export interface EngineOptions {
 	//skill?: number, // 1-20
 	moveTime?: number, // Maximum time in ms to spend on a move
 	depth?: number, // Maximum depth to search per move
+	color?: Color,
 };
 
 enum State {
 	Uninitialised,
 	Initialising,
-	Initialised,
+	Waiting,
+	FindingMove,
 };
 
 export class Engine {
-	private moveTime: number;
-	private depth: number;
 	private stockfish: Worker | undefined;
 	private state = State.Uninitialised;
-	private onUciOk: ( () => void ) | undefined = undefined; // callback on receiving "uciok", used during initialisation
+	private moveTime: number;
+	private depth: number;
+	private color: Color;
+	// Callbacks used when waiting for specific UCI messages
+	private onUciOk: ( () => void ) | undefined = undefined; // "uciok" marks end of initialisation
+	private onBestMove: ( (uci:string) => void ) | undefined = undefined; // "uciok", used during initialisation
+	// Constructor
 	constructor( options: EngineOptions = {} ) {
 		this.moveTime = options.moveTime || 2000;
 		this.depth = options.depth || 40;
+		this.color = options.color || 'b';
 	}
 
 	// Initialise Stockfish. Resolve promise after receiving uciok.
@@ -28,10 +42,10 @@ export class Engine {
 			// NOTE: stockfish.js is not part of the npm package due to its size (1-2 MB).
 			// You can find the file here: https://github.com/gtim/svelte-chess/tree/main/static
 			this.stockfish = new Worker('stockfish.js');
-			this.stockfish.addEventListener('message', (e)=>this.onUci(e) );
+			this.stockfish.addEventListener('message', (e)=>this._onUci(e) );
 			this.onUciOk = () => {
 				if ( this.state === State.Initialising ) {
-					this.state = State.Initialised;
+					this.state = State.Waiting;
 					this.onUciOk = undefined;
 					resolve();
 				}
@@ -41,11 +55,31 @@ export class Engine {
 	}
 
 	// Callback when receiving UCI messages from Stockfish.
-	onUci( { data }: { data: string } ): void {
+	private _onUci( { data }: { data: string } ): void {
 		const uci = data;
 		console.log('UCI: ' + uci);
 		if ( this.onUciOk && uci === 'uciok' ) {
 			this.onUciOk();
 		}
+		if ( this.onBestMove && uci.slice(0,8) === 'bestmove' ) {
+			this.onBestMove( uci );
+		}
 	}
+
+	getMove( fen: string ): Promise<string> {
+		return new Promise((resolve) => {
+			this.state = State.FindingMove;
+			this.stockfish.postMessage('position fen ' + fen);
+			this.stockfish.postMessage(`go depth ${this.depth} movetime ${this.moveTime}`);
+			this.onBestMove = ( uci: string ) => {
+				const uciArray = uci.split(' ');
+				const bestMoveLan = uciArray[1];
+				this.state = State.Waiting;
+				this.onBestMove = undefined;
+				resolve( bestMoveLan );
+			};
+		});
+	}
+
+
 }

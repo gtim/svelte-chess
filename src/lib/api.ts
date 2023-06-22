@@ -84,7 +84,7 @@ export class Api {
 			cjsMove = this.chessJS.move({ from: orig, to: dest });
 		}
 		const move = Api._cjsMoveToMove( cjsMove );
-		this._updateChessgroundAfterMove( move );
+		this._postMoveHook( move );
 	}
 
 	private _moveIsPromotion( orig: Square, dest: Square ): boolean {
@@ -98,11 +98,14 @@ export class Api {
 		const cjsMove = this.chessJS.move( moveSan ); // throws on illegal move
 		const move = Api._cjsMoveToMove( cjsMove );
 		this.cg.move( move.from, move.to );
-		this._updateChessgroundAfterMove( move );
+		this._postMoveHook( move );
 	}
 
-	// Called after chess.js move and chessground move to update chess-logic details Chessground doesn't handle
-	private _updateChessgroundAfterMove( move: Move ) {
+	// Called after a move (chess.js or chessground) to:
+	// 1. update chess-logic details Chessground doesn't handle
+	// 2. dispatch events
+	// 3. play engine move 
+	private _postMoveHook( move: Move ) {
 		// reload FEN after en-passant or promotion. TODO make promotion smoother
 		if ( move.flags.includes('e') || move.flags.includes('p') ) {
 			this.cg.set({ fen: this.chessJS.fen() });
@@ -119,6 +122,13 @@ export class Api {
 		this._updateChessgroundWithPossibleMoves();
 		// update state props
 		this.stateChangeCallback(this);
+		
+		// engine move
+		if ( this.engine && this.chessJS.turn() === 'b' ) {
+			console.log('engine move');
+			this.engine.getMove( this.chessJS.fen() );
+		}
+
 	}
 
 	private _updateChessgroundWithPossibleMoves() {
