@@ -2,6 +2,7 @@ import type { Chessground } from 'svelte-chessground';
 import { Chess as ChessJS, SQUARES } from 'chess.js';
 import type { Square, PieceSymbol, Color, Move as CjsMove } from 'chess.js';
 export type { Square, PieceSymbol, Color };
+import type { Engine } from '$lib/engine.js';
 
 export type Move = CjsMove & {
 	check: boolean,
@@ -24,6 +25,7 @@ export class Api {
 		private moveCallback: (move:Move) => void = (m)=>{}, // called after move
 		private gameOverCallback: ( gameOver:GameOver ) => void = (go)=>{}, // called after game-ending move
 		private _orientation: Color = 'w',
+		private engine: Engine | undefined = undefined,
 	) {
 		this.cg.set( {
 			orientation: Api._colorToCgColor( _orientation ),
@@ -31,6 +33,12 @@ export class Api {
 		} );
 		this.chessJS = new ChessJS( fen );
 		this.load( fen );
+	}
+
+	async init() {
+		if ( this.engine ) {
+			this.engine.init();
+		}
 	}
 
 	// Load FEN. Throws exception on invalid FEN.

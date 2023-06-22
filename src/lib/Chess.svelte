@@ -113,11 +113,9 @@
 		dispatch( 'gameOver', gameOver );
 	}
 
-	onMount( () => {
-		if ( engine ) {
-			engine.initialize();
-		}
-		api = new Api( chessground, fen, stateChangeCallback, promotionCallback, moveCallback, gameOverCallback, orientation );
+	onMount( async () => {
+		api = new Api( chessground, fen, stateChangeCallback, promotionCallback, moveCallback, gameOverCallback, orientation, engine );
+		await api.init();
 	} );
 	
 </script>
