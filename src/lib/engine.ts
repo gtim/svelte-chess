@@ -6,13 +6,14 @@
 //   bug: wrong king is hilighted when engine checks
 //   default opening book
 //   premoves?
+//   how to test with web worker?
 import type { Color } from '$lib/api.js';
 
 export interface EngineOptions {
 	//skill?: number, // 1-20
 	moveTime?: number, // Maximum time in ms to spend on a move
 	depth?: number, // Maximum depth to search per move
-	color?: Color,
+	color?: Color | 'both',
 };
 
 enum State {
@@ -27,7 +28,7 @@ export class Engine {
 	private state = State.Uninitialised;
 	private moveTime: number;
 	private depth: number;
-	private color: Color;
+	private color: Color | 'both';
 	// Callbacks used when waiting for specific UCI messages
 	private onUciOk: ( () => void ) | undefined = undefined; // "uciok" marks end of initialisation
 	private onBestMove: ( (uci:string) => void ) | undefined = undefined; // "uciok", used during initialisation

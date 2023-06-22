@@ -117,8 +117,7 @@ export class Api {
 	// - play engine move 
 	private _postMoveAdmin( move: Move ) {
 
-		const enginePlaysNextMove = this.engine && this.chessJS.turn() === this.engine.getColor();
-		// disable
+		const enginePlaysNextMove = this.engine && ( this.engine.getColor() === 'both' || this.engine.getColor() === this.chessJS.turn() );
 
 		// reload FEN after en-passant or promotion. TODO make promotion smoother
 		if ( move.flags.includes('e') || move.flags.includes('p') ) {
@@ -142,9 +141,10 @@ export class Api {
 		this.stateChangeCallback(this);
 		
 		// engine move
-		if ( enginePlaysNextMove ) {
+		if ( enginePlaysNextMove && ! this.gameIsOver ) {
 			this.engine?.getMove( this.chessJS.fen() ).then( (lan) => {
 				this.moveLan(lan);
+				console.log('then end');
 			});
 		}
 
