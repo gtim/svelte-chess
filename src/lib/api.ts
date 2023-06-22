@@ -84,7 +84,7 @@ export class Api {
 			cjsMove = this.chessJS.move({ from: orig, to: dest });
 		}
 		const move = Api._cjsMoveToMove( cjsMove );
-		this._postMoveHook( move );
+		this._postMoveAdmin( move );
 	}
 
 	private _moveIsPromotion( orig: Square, dest: Square ): boolean {
@@ -100,7 +100,7 @@ export class Api {
 		const cjsMove = this.chessJS.move( moveSanOrObj ); // throws on illegal move
 		const move = Api._cjsMoveToMove( cjsMove );
 		this.cg.move( move.from, move.to );
-		this._postMoveHook( move );
+		this._postMoveAdmin( move );
 	}
 	// Make a move programmatically from long algebraic notation (LAN) string,
 	// as returned by UCI engines.
@@ -112,10 +112,14 @@ export class Api {
 	}
 
 	// Called after a move (chess.js or chessground) to:
-	// 1. update chess-logic details Chessground doesn't handle
-	// 2. dispatch events
-	// 3. play engine move 
-	private _postMoveHook( move: Move ) {
+	// - update chess-logic details Chessground doesn't handle
+	// - dispatch events
+	// - play engine move 
+	private _postMoveAdmin( move: Move ) {
+
+		const enginePlaysNextMove = this.engine && this.chessJS.turn() === this.engine.getColor();
+		// disable
+
 		// reload FEN after en-passant or promotion. TODO make promotion smoother
 		if ( move.flags.includes('e') || move.flags.includes('p') ) {
 			this.cg.set({ fen: this.chessJS.fen() });
@@ -129,13 +133,17 @@ export class Api {
 		// dispatch gameOver event if applicable
 		this._checkForGameOver();
 		// set legal moves
-		this._updateChessgroundWithPossibleMoves();
+		if ( enginePlaysNextMove ) {
+			this.cg.set({ movable: { dests: new Map() } }); // no legal moves
+		} else {
+			this._updateChessgroundWithPossibleMoves();
+		}
 		// update state props
 		this.stateChangeCallback(this);
 		
 		// engine move
-		if ( this.engine && this.chessJS.turn() === this.engine.getColor() ) {
-			this.engine.getMove( this.chessJS.fen() ).then( (lan) => {
+		if ( enginePlaysNextMove ) {
+			this.engine?.getMove( this.chessJS.fen() ).then( (lan) => {
 				this.moveLan(lan);
 			});
 		}

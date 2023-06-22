@@ -1,11 +1,11 @@
 // TODO:
 //   don't allow UI interaction until engine loaded? 
-//   disable chessground interaction on engine's turn
 //   make move() etc disable engine if it was currently searching for a move?
 //   UCI isready after initialization and move
 //   on:uci to forward all uci messages
 //   bug: wrong king is hilighted when engine checks
 //   default opening book
+//   premoves?
 import type { Color } from '$lib/api.js';
 
 export interface EngineOptions {
