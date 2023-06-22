@@ -38,7 +38,11 @@ export class Api {
 
 	async init() {
 		if ( this.engine ) {
-			this.engine.init();
+			this.engine.init().then( () => {
+				if ( this._enginePlaysNextMove() ) {
+					this.playEngineMove()
+				}
+			} );
 		}
 	}
 
@@ -57,7 +61,7 @@ export class Api {
 			movable: {
 				free: false,
 				color: cgColor,
-				dests: this.possibleMovesDests(),
+				dests: this._enginePlaysNextMove() ? new Map() : this.possibleMovesDests(),
 				events: {
 					after: (orig, dest) => { this._chessgroundMoveCallback(orig,dest) },
 				},
@@ -118,8 +122,6 @@ export class Api {
 	// - play engine move 
 	private _postMoveAdmin( move: Move ) {
 
-		const enginePlaysNextMove = this.engine && ( this.engine.getColor() === 'both' || this.engine.getColor() === this.chessJS.turn() );
-
 		// reload FEN after en-passant or promotion. TODO make promotion smoother
 		if ( move.flags.includes('e') || move.flags.includes('p') ) {
 			this.cg.set({ fen: this.chessJS.fen() });
@@ -133,7 +135,7 @@ export class Api {
 		// dispatch gameOver event if applicable
 		this._checkForGameOver();
 		// set legal moves
-		if ( enginePlaysNextMove ) {
+		if ( this._enginePlaysNextMove() ) {
 			this.cg.set({ movable: { dests: new Map() } }); // no legal moves
 		} else {
 			this._updateChessgroundWithPossibleMoves();
@@ -142,13 +144,23 @@ export class Api {
 		this.stateChangeCallback(this);
 		
 		// engine move
-		if ( enginePlaysNextMove && ! this.gameIsOver ) {
-			this.engine?.getMove( this.chessJS.fen() ).then( (lan) => {
-				this.moveLan(lan);
-				console.log('then end');
-			});
+		if ( ! this.gameIsOver && this._enginePlaysNextMove() ) {
+			this.playEngineMove();
 		}
 
+	}
+
+	private playEngineMove() {
+		if ( ! this.engine ) {
+			throw Error('playEngineMove called without initialised engine');
+		}
+		this.engine.getMove( this.chessJS.fen() ).then( (lan) => {
+			this.moveLan(lan);
+		});
+	}
+
+	private _enginePlaysNextMove() {
+		return this.engine && ( this.engine.getColor() === 'both' || this.engine.getColor() === this.chessJS.turn() );
 	}
 
 	private _updateChessgroundWithPossibleMoves() {

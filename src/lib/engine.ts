@@ -1,6 +1,7 @@
 // TODO:
 //   don't allow UI interaction until engine loaded? 
 //   make move() etc disable engine if it was currently searching for a move?
+//   fix undo interaction with engine
 //   UCI isready after initialization and move
 //   on:uci to forward all uci messages
 //   bug: wrong king is hilighted when engine checks
