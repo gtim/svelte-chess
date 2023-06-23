@@ -42,7 +42,7 @@ Game state can be observed by binding to props.
 | `isGameOver` |           ✓           |          | True if the game is over. See also the [gameOver event](#events).                    |
 | `fen`        |           ✓           |    ✓     | Current position in [FEN](https://www.chessprogramming.org/Forsyth-Edwards_Notation) |
 | `orientation`|           ✓           |    ✓     | Orientation of the board: `w` or `b`.                                                |
-| `engine`     |                       |    ✓     | Options for the Stockfish chess AI. See [Engine](#engine-stockfish)).                |
+| `engine`     |                       |    ✓     | Options for the Stockfish chess AI. See [Engine](#engine--stockfish)).               |
 | `class`      |                       |    ✓     | CSS class applied to children instead of default (see [Styling](#styling)).          |
 
 All readable props are bindable and updated whenever the game state changes.
