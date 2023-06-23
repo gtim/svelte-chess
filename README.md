@@ -120,7 +120,7 @@ Svelte-chess exports the MoveEvent and GameOverEvent types.
 
 Svelte-chess can be used to play against the chess AI Stockfish 14. You need to download the Stockfish web worker script separately: [stockfish.js web worker (1.6MB)](https://raw.githubusercontent.com/gtim/svelte-chess/stockfish/static/stockfish.js) and serve it at `/stockfish.js`. If you're using SvelteKit, do this by putting it in the static folder.
 
-Example playing White versus Stockfish ([live](https://gtim.github.io/svelte-chess/stockfish)):
+Example playing Black versus Stockfish ([live](https://gtim.github.io/svelte-chess/stockfish)):
 
     <script>
         import Chess, { Engine } from 'svelte-chess';
