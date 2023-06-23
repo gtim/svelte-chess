@@ -1,5 +1,6 @@
 <script lang="ts">
 	import Chess, { Engine } from '$lib/Chess.svelte';
+	// Note: stockfish.js must be manually downloaded (see Readme)
 </script>
 
 <div style="max-width:512px;margin:0 auto;">
