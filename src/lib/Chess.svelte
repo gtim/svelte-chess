@@ -2,11 +2,13 @@
 	export type GameOverEvent = CustomEvent<GameOver>;
 	export type MoveEvent = CustomEvent<Move>;
 	export type { Square, Color, PieceSymbol, Move, GameOver };
+	export { Engine } from '$lib/engine.js';
 </script>
 <script lang="ts">
 	import { Chessground } from 'svelte-chessground';
 	import PromotionDialog from '$lib/PromotionDialog.svelte';
 	import { Api, type Square, type Color, type PieceSymbol, type Move, type GameOver } from '$lib/api.js';
+	import type { Engine } from '$lib/engine.js';
 
 	import { onMount, createEventDispatcher } from 'svelte';
 
@@ -31,6 +33,7 @@
 	export let orientation: Color = 'w';
 
 	// non-bindable
+	export let engine: Engine | undefined = undefined;
 	let className: string | undefined = undefined;
 	export { className as class };
 
@@ -111,8 +114,9 @@
 		dispatch( 'gameOver', gameOver );
 	}
 
-	onMount( () => {
-		api = new Api( chessground, fen, stateChangeCallback, promotionCallback, moveCallback, gameOverCallback, orientation );
+	onMount( async () => {
+		api = new Api( chessground, fen, stateChangeCallback, promotionCallback, moveCallback, gameOverCallback, orientation, engine );
+		await api.init();
 	} );
 	
 </script>

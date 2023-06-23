@@ -2,6 +2,7 @@ import type { Chessground } from 'svelte-chessground';
 import { Chess as ChessJS, SQUARES } from 'chess.js';
 import type { Square, PieceSymbol, Color, Move as CjsMove } from 'chess.js';
 export type { Square, PieceSymbol, Color };
+import type { Engine } from '$lib/engine.js';
 
 export type Move = CjsMove & {
 	check: boolean,
@@ -24,13 +25,25 @@ export class Api {
 		private moveCallback: (move:Move) => void = (m)=>{}, // called after move
 		private gameOverCallback: ( gameOver:GameOver ) => void = (go)=>{}, // called after game-ending move
 		private _orientation: Color = 'w',
+		private engine: Engine | undefined = undefined,
 	) {
 		this.cg.set( {
 			orientation: Api._colorToCgColor( _orientation ),
 			movable: { free: false },
+			premovable: { enabled: false },
 		} );
 		this.chessJS = new ChessJS( fen );
 		this.load( fen );
+	}
+
+	async init() {
+		if ( this.engine ) {
+			this.engine.init().then( () => {
+				if ( this._enginePlaysNextMove() ) {
+					this.playEngineMove()
+				}
+			} );
+		}
 	}
 
 	// Load FEN. Throws exception on invalid FEN.
@@ -48,7 +61,7 @@ export class Api {
 			movable: {
 				free: false,
 				color: cgColor,
-				dests: this.possibleMovesDests(),
+				dests: this._enginePlaysNextMove() ? new Map() : this.possibleMovesDests(),
 				events: {
 					after: (orig, dest) => { this._chessgroundMoveCallback(orig,dest) },
 				},
@@ -76,7 +89,7 @@ export class Api {
 			cjsMove = this.chessJS.move({ from: orig, to: dest });
 		}
 		const move = Api._cjsMoveToMove( cjsMove );
-		this._updateChessgroundAfterMove( move );
+		this._postMoveAdmin( move );
 	}
 
 	private _moveIsPromotion( orig: Square, dest: Square ): boolean {
@@ -84,17 +97,31 @@ export class Api {
 	}
 
 	// Make a move programmatically
-	move(moveSan: string) {
+	// argument is either a short algebraic notation (SAN) string
+	// or an object with from/to/promotion (see chess.js move())
+	move( moveSanOrObj: string | { from: string, to: string, promotion?: string } ) {
 		if ( this.gameIsOver )
-			throw new Error(`Invalid move: Game is over.`);
-		const cjsMove = this.chessJS.move( moveSan ); // throws on illegal move
+			throw new Error('Invalid move: Game is over.');
+		const cjsMove = this.chessJS.move( moveSanOrObj ); // throws on illegal move
 		const move = Api._cjsMoveToMove( cjsMove );
 		this.cg.move( move.from, move.to );
-		this._updateChessgroundAfterMove( move );
+		this._postMoveAdmin( move );
+	}
+	// Make a move programmatically from long algebraic notation (LAN) string,
+	// as returned by UCI engines.
+	moveLan( moveLan: string ) {
+		const from = moveLan.slice(0,2);
+		const to = moveLan.slice(2,4);
+		const promotion = moveLan.charAt(4) || undefined;
+		this.move( { from, to, promotion } );
 	}
 
-	// Called after chess.js move and chessground move to update chess-logic details Chessground doesn't handle
-	private _updateChessgroundAfterMove( move: Move ) {
+	// Called after a move (chess.js or chessground) to:
+	// - update chess-logic details Chessground doesn't handle
+	// - dispatch events
+	// - play engine move 
+	private _postMoveAdmin( move: Move ) {
+
 		// reload FEN after en-passant or promotion. TODO make promotion smoother
 		if ( move.flags.includes('e') || move.flags.includes('p') ) {
 			this.cg.set({ fen: this.chessJS.fen() });
@@ -108,9 +135,32 @@ export class Api {
 		// dispatch gameOver event if applicable
 		this._checkForGameOver();
 		// set legal moves
-		this._updateChessgroundWithPossibleMoves();
+		if ( this._enginePlaysNextMove() ) {
+			this.cg.set({ movable: { dests: new Map() } }); // no legal moves
+		} else {
+			this._updateChessgroundWithPossibleMoves();
+		}
 		// update state props
 		this.stateChangeCallback(this);
+		
+		// engine move
+		if ( ! this.gameIsOver && this._enginePlaysNextMove() ) {
+			this.playEngineMove();
+		}
+
+	}
+
+	private playEngineMove() {
+		if ( ! this.engine ) {
+			throw Error('playEngineMove called without initialised engine');
+		}
+		this.engine.getMove( this.chessJS.fen() ).then( (lan) => {
+			this.moveLan(lan);
+		});
+	}
+
+	private _enginePlaysNextMove() {
+		return this.engine && ( this.engine.getColor() === 'both' || this.engine.getColor() === this.chessJS.turn() );
 	}
 
 	private _updateChessgroundWithPossibleMoves() {

@@ -1,14 +1,15 @@
 # Svelte-chess: Playable chess component 
 
-Fully playable chess component for Svelte, combining chess logic from [chess.js](https://github.com/jhlywa/chess.js) and chessboard display from [chessground](https://github.com/lichess-org/chessground).
+Fully playable chess component for Svelte, combining chess logic from [chess.js](https://github.com/jhlywa/chess.js), chessboard display from [chessground](https://github.com/lichess-org/chessground) and chess AI from [stockfish](https://github.com/official-stockfish/Stockfish).
 
 ![Svelte-chess screenshots](https://github.com/gtim/svelte-chess/blob/main/static/screenshot.png?raw=true)
 
 ## Features
 
 * Track game state via props or detailed events
-* Pawn promotion dialog
+* Includes chess AI Stockfish 14 (beta)
 * Undo moves
+* Pawn promotion dialog
 * Fully restylable
 * Move history
 * Typed
@@ -41,6 +42,7 @@ Game state can be observed by binding to props.
 | `isGameOver` |           ✓           |          | True if the game is over. See also the [gameOver event](#events).                    |
 | `fen`        |           ✓           |    ✓     | Current position in [FEN](https://www.chessprogramming.org/Forsyth-Edwards_Notation) |
 | `orientation`|           ✓           |    ✓     | Orientation of the board: `w` or `b`.                                                |
+| `engine`     |                       |    ✓     | Options for the Stockfish chess AI. See [Engine](#engine-stockfish)).                |
 | `class`      |                       |    ✓     | CSS class applied to children instead of default (see [Styling](#styling)).          |
 
 All readable props are bindable and updated whenever the game state changes.
@@ -113,6 +115,33 @@ Example listening for `move` and `gameOver` events ([REPL](https://svelte.dev/re
     <Chess on:move={moveListener} on:gameOver={gameOverListener} />
 
 Svelte-chess exports the MoveEvent and GameOverEvent types.
+
+### Engine / Stockfish
+
+Svelte-chess can be used to play against the chess AI Stockfish 14. You need to download the Stockfish web worker script separately: [stockfish.js web worker (1.6MB)](https://raw.githubusercontent.com/gtim/svelte-chess/stockfish/static/stockfish.js) and serve it at `/stockfish.js`. If you're using SvelteKit, do this by putting it in the static folder.
+
+Example playing White versus Stockfish:
+
+    <script>
+        import Chess, { Engine } from 'svelte-chess';
+        // Note: stockfish.js must be manually downloaded (see Readme)
+    </script>
+    <Chess engine={new Engine({depth: 20, moveTime: 1500, color: 'b'})} />
+
+The `engine` prop is an object with the following keys, all optional:
+
+| Key         | Default | Description                                                                 |
+| ----------- | ------- | --------------------------------------------------------------------------- |
+| `color`     | `b`     | Color the engine plays: `w` or `b`, or `both` for an engine-vs-engine game. | 
+| `moveTime`  | 2000    | Max time in milliseconds for the engine to spend on a move.                 |
+| `depth`     | 40      | Max depth in ply for the engine to search.                                  |
+
+Engine play was recently implemented. These engine-related bugs have not yet been fixed:
+- UI interaction is allwoed before the engine is loaded
+- calling move() while the engine is searching for a move puts the engine in an invalid state
+- calling undo() puts the engine in an invalid state
+- wrong king is hilighted when the engine checks
+- since there is no opening book, the engine always plays the best opening it finds.
 
 ### Styling
 
