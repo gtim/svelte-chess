@@ -35,13 +35,7 @@
 		"!dist/**/*.spec.*"
 	],
 	"peerDependencies": {
-		"svelte": "^3.54.0",
-		"stockfish.js": "^10.0.2"
-	},
-	"peerDependenciesMeta": {
-		"stockfish.js": {
-			"optional": true
-		}
+		"svelte": "^3.54.0"
 	},
 	"devDependencies": {
 		"@sveltejs/adapter-static": "^2.0.2",
