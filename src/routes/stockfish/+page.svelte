@@ -4,5 +4,5 @@
 </script>
 
 <div style="max-width:512px;margin:0 auto;">
-	<Chess engine={new Engine({depth: 20, moveTime: 1500, color: 'b'})} />
+	<Chess orientation="b" engine={new Engine({depth: 20, moveTime: 1500, color: 'w'})} />
 </div>
