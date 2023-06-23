@@ -150,7 +150,7 @@ export class Api {
 
 	}
 
-	private playEngineMove() {
+	playEngineMove() {
 		if ( ! this.engine ) {
 			throw Error('playEngineMove called without initialised engine');
 		}

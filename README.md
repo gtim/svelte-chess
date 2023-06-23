@@ -137,9 +137,8 @@ The `engine` prop is an object with the following keys, all optional:
 | `depth`     | 40      | Max depth in ply for the engine to search.                                  |
 
 Engine play was recently implemented. These engine-related bugs have not yet been fixed:
-- UI interaction is allwoed before the engine is loaded
+- UI interaction is allowed before the engine is loaded
 - calling move() while the engine is searching for a move puts the engine in an invalid state
-- calling undo() puts the engine in an invalid state
 - wrong king is hilighted when the engine checks
 - since there is no opening book, the engine always plays the best opening it finds.
 

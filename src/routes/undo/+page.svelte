@@ -1,17 +1,13 @@
 <script lang="ts">
-	import Chess, { Engine } from '$lib/Chess.svelte';
+	import Chess from '$lib/Chess.svelte';
 	let chess: Chess;
 </script>
 
 <div style="max-width:512px;margin:0 auto;">
-	<Chess
-		bind:this={chess} 
-		orientation='b'
-		engine={new Engine({depth: 20, moveTime: 1500, color: 'w'})}
-	/>
+	<Chess bind:this={chess} />
 	<button on:click={()=>chess?.reset()}>Reset board</button>
 	<button on:click={()=>chess?.undo()}>Undo</button>
-	<button on:click={()=>chess?.playEngineMove()}>Play engine move</button>
+	<button on:click={()=>chess?.toggleOrientation()}>Flip board</button>
 </div>
 
 <style>

@@ -1,12 +1,11 @@
 // TODO:
 //   don't allow UI interaction until engine loaded? 
 //   make move() etc disable engine if it was currently searching for a move?
-//   fix undo interaction with engine
+//   allow color='none' (interaction through playEngineMove())
 //   UCI isready after initialization and move
 //   on:uci to forward all uci messages
 //   bug: wrong king is hilighted when engine checks
 //   default opening book
-//   how to test with web worker?
 import type { Color } from '$lib/api.js';
 
 export interface EngineOptions {
@@ -17,10 +16,10 @@ export interface EngineOptions {
 };
 
 enum State {
-	Uninitialised,
-	Initialising,
-	Waiting,
-	FindingMove,
+	Uninitialised = 'uninitialised',
+	Initialising = 'initialising',
+	Waiting = 'waiting',
+	FindingMove = 'finding move',
 };
 
 export class Engine {
@@ -74,6 +73,8 @@ export class Engine {
 		return new Promise((resolve) => {
 			if ( ! this.stockfish )
 				throw new Error('Engine not initialised');
+			if ( this.state !== State.Waiting )
+				throw new Error('Engine not ready (state: ' + this.state);
 			this.state = State.FindingMove;
 			this.stockfish.postMessage('position fen ' + fen);
 			this.stockfish.postMessage(`go depth ${this.depth} movetime ${this.moveTime}`);

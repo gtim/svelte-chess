@@ -76,6 +76,10 @@
 		if ( ! api ) throw new Error( 'component not mounted yet' );
 		api.toggleOrientation();
 	}
+	export function playEngineMove(): void {
+		if ( ! api ) throw new Error( 'component not mounted yet' );
+		api.playEngineMove();
+	}
 
 	/*
 	 * API Construction
