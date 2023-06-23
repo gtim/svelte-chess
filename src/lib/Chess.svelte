@@ -2,6 +2,7 @@
 	export type GameOverEvent = CustomEvent<GameOver>;
 	export type MoveEvent = CustomEvent<Move>;
 	export type { Square, Color, PieceSymbol, Move, GameOver };
+	export { Engine } from '$lib/engine.js';
 </script>
 <script lang="ts">
 	import { Chessground } from 'svelte-chessground';
