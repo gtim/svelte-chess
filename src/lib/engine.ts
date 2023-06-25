@@ -12,7 +12,7 @@ export interface EngineOptions {
 	//skill?: number, // 1-20
 	moveTime?: number, // Maximum time in ms to spend on a move
 	depth?: number, // Maximum depth to search per move
-	color?: Color | 'both',
+	color?: Color | 'both' | 'none',
 };
 
 enum State {
@@ -27,7 +27,7 @@ export class Engine {
 	private state = State.Uninitialised;
 	private moveTime: number;
 	private depth: number;
-	private color: Color | 'both';
+	private color: Color | 'both' | 'none';
 	// Callbacks used when waiting for specific UCI messages
 	private onUciOk: ( () => void ) | undefined = undefined; // "uciok" marks end of initialisation
 	private onBestMove: ( (uci:string) => void ) | undefined = undefined; // "uciok", used during initialisation

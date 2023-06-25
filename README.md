@@ -42,7 +42,7 @@ Game state can be observed by binding to props.
 | `isGameOver` |           ✓           |          | True if the game is over. See also the [gameOver event](#events).                    |
 | `fen`        |           ✓           |    ✓     | Current position in [FEN](https://www.chessprogramming.org/Forsyth-Edwards_Notation) |
 | `orientation`|           ✓           |    ✓     | Orientation of the board: `w` or `b`.                                                |
-| `engine`     |                       |    ✓     | Options for the Stockfish chess AI. See [Engine](#engine--stockfish)).               |
+| `engine`     |                       |    ✓     | Options for the Stockfish chess AI. See [Engine](#engine--stockfish).               |
 | `class`      |                       |    ✓     | CSS class applied to children instead of default (see [Styling](#styling)).          |
 
 All readable props are bindable and updated whenever the game state changes.
@@ -81,6 +81,7 @@ Methods for manipulating game/board state:
 * `reset()`: Resets the game to the initial position.
 * `undo()`: Undoes the last move and returns it.
 * `toggleOrientation()`: Flips the board.
+* `makeEngineMove()`: Make the best move according to the engine. See [Engine / Stockfish](#engine--stockfish) for loading the engine.
 
 Example implementing undo/reset buttons ([REPL](https://svelte.dev/repl/7dd7b6454b12466e90ac78a842151311?version=3.59.1)):
 
@@ -132,7 +133,7 @@ The `engine` prop is an object with the following keys, all optional:
 
 | Key         | Default | Description                                                                 |
 | ----------- | ------- | --------------------------------------------------------------------------- |
-| `color`     | `b`     | Color the engine plays: `w` or `b`, or `both` for an engine-vs-engine game. | 
+| `color`     | `b`     | Color the engine plays: `w` or `b`, or `both` for an engine-vs-engine game, or `none` if the engine should only make a move when `makeEngineMove()` is called. | 
 | `moveTime`  | 2000    | Max time in milliseconds for the engine to spend on a move.                 |
 | `depth`     | 40      | Max depth in ply for the engine to search.                                  |
 
