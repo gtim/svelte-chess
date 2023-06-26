@@ -1,7 +1,5 @@
 import { Engine } from '../src/lib/engine.js';
 import { Chess as ChessJS } from 'chess.js';
-
-import { expect, test, vi } from 'vitest';
 import '@vitest/web-worker';
 
 const INITIAL_FEN = 'rnbqkbnr/pppppppp/8/8/8/8/PPPPPPPP/RNBQKBNR w KQkq - 0 1';
@@ -58,7 +56,7 @@ describe("basic engine tests", () => {
 		await new Promise(resolve => setTimeout(resolve, 100));
 		expect( engine.isSearching() ).toBeTruthy();
 		expect( engine['state'] ).toEqual( 'searching' ); // test private prop 
-		engine.stopSearch();
+		await engine.stopSearch();
 		expect( engine.isSearching() ).toBeFalsy();
 		expect( engine['state'] ).toEqual( 'waiting' ); // test private prop 
 	});
@@ -94,21 +92,3 @@ test( "getMove throws if initialisation hasn't finished", async () => {
 	engine.init();
 	await expect( ()=>engine.getMove( INITIAL_FEN ) ).rejects.toThrow(/not ready/);
 });
-
-
-// Engine-related tests for Chess.svelte/Api.ts: should go in another file
-
-test.todo( "engine plays first move when white/both, not when black/none" );
-test.todo( "engine plays first move when white/both and game is reset" );
-test.todo( "engine plays first move when black/both and black-to-move position is loaded, not when white/none" );
-test.todo( "playEngineMove() plays an engine move");
-test.todo( "playEngineMove() throws before engine is loaded" );
-test.todo( "engine-vs-engine game plays out and ends properly (test from appropriate position)" );
-test.todo( "chessground interactions are disabled before engine is loaded" );
-test.todo( "chessground interactions are enabled after engine is loaded" );
-test.todo( "chessground interactions are disabled while engine is searching" );
-test.todo( "move()/chessground move do not throw if the engine was searching" );
-test.todo( "move()/chessground move stop engine move search if the engine was searching" );
-test.todo( "engine moves or does not move correctly after undo()" );
-test.todo( "on:uci forwards UCI messages");
-test.todo( "correct king is hilighted on check");
