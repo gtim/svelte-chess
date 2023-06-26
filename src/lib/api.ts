@@ -173,11 +173,11 @@ export class Api {
 
 	}
 
-	playEngineMove() {
+	async playEngineMove() {
 		if ( ! this.engine ) {
 			throw Error('playEngineMove called without initialised engine');
 		}
-		this.engine.getMove( this.chessJS.fen() ).then( (lan) => {
+		return this.engine.getMove( this.chessJS.fen() ).then( (lan) => {
 			this.moveLan(lan);
 		});
 	}
