@@ -1,11 +1,10 @@
 // TODO:
 //   don't allow UI interaction until engine loaded? 
-//   make move() etc disable engine if it was currently searching for a move?
-//   allow color='none' (interaction through playEngineMove())
 //   UCI isready after initialization and move
 //   on:uci to forward all uci messages
 //   bug: wrong king is hilighted when engine checks
 //   default opening book
+//   expose a bindable engine-is-searching boolean from the Chess component? or from this class?
 import type { Color } from '$lib/api.js';
 
 export interface EngineOptions {
@@ -19,7 +18,7 @@ enum State {
 	Uninitialised = 'uninitialised',
 	Initialising = 'initialising',
 	Waiting = 'waiting',
-	FindingMove = 'finding move',
+	Searching = 'searching', // searching for the best move
 };
 
 export class Engine {
@@ -75,7 +74,7 @@ export class Engine {
 				throw new Error('Engine not initialised');
 			if ( this.state !== State.Waiting )
 				throw new Error('Engine not ready (state: ' + this.state);
-			this.state = State.FindingMove;
+			this.state = State.Searching;
 			this.stockfish.postMessage('position fen ' + fen);
 			this.stockfish.postMessage(`go depth ${this.depth} movetime ${this.moveTime}`);
 			this.onBestMove = ( uci: string ) => {
@@ -92,4 +91,15 @@ export class Engine {
 		return this.color;
 	}
 
+	isSearching() {
+		return this.state === State.Searching;
+	}
+
+	stopSearch() {
+		if ( ! this.stockfish )
+			throw new Error('Engine not initialised');
+		this.onBestMove = undefined;
+		this.state = State.Waiting;
+		this.stockfish.postMessage('stop');
+	}
 }

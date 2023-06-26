@@ -1,13 +1,17 @@
 # Svelte-chess: Playable chess component 
 
-Fully playable chess component for Svelte, combining chess logic from [chess.js](https://github.com/jhlywa/chess.js), chessboard display from [chessground](https://github.com/lichess-org/chessground) and chess AI from [stockfish](https://github.com/official-stockfish/Stockfish).
+Fully playable chess component for Svelte. Combines:
+
+* Chess logic from [chess.js](https://github.com/jhlywa/chess.js)
+* Chessboard display from [chessground](https://github.com/lichess-org/chessground)
+* Chess AI from [stockfish](https://github.com/official-stockfish/Stockfish)
 
 ![Svelte-chess screenshots](https://github.com/gtim/svelte-chess/blob/main/static/screenshot.png?raw=true)
 
 ## Features
 
 * Track game state via props or detailed events
-* Includes chess AI Stockfish 14 (beta)
+* Play against Stockfish
 * Undo moves
 * Pawn promotion dialog
 * Fully restylable
@@ -137,9 +141,8 @@ The `engine` prop is an object with the following keys, all optional:
 | `moveTime`  | 2000    | Max time in milliseconds for the engine to spend on a move.                 |
 | `depth`     | 40      | Max depth in ply for the engine to search.                                  |
 
-Engine play was recently implemented. These engine-related bugs have not yet been fixed:
+Engine play was recently implemented. These engine-related issues have not yet been fixed:
 - UI interaction is allowed before the engine is loaded
-- calling move() while the engine is searching for a move puts the engine in an invalid state
 - wrong king is hilighted when the engine checks
 - since there is no opening book, the engine always plays the best opening it finds.
 

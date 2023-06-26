@@ -81,6 +81,8 @@ export class Api {
 			// the Chessground square type (Key) includes a0
 			throw Error('invalid square');
 		}
+		if ( this.engine && this.engine.isSearching() )
+			this.engine.stopSearch();
 		let cjsMove: CjsMove;
 		if ( this._moveIsPromotion( orig, dest ) ) {
 			const promotion = await this.promotionCallback( dest );
@@ -102,6 +104,8 @@ export class Api {
 	move( moveSanOrObj: string | { from: string, to: string, promotion?: string } ) {
 		if ( this.gameIsOver )
 			throw new Error('Invalid move: Game is over.');
+		if ( this.engine && this.engine.isSearching() )
+			this.engine.stopSearch();
 		const cjsMove = this.chessJS.move( moveSanOrObj ); // throws on illegal move
 		const move = Api._cjsMoveToMove( cjsMove );
 		this.cg.move( move.from, move.to );
