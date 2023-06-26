@@ -17,6 +17,7 @@ export type GameOver = {
 export class Api {
 	private chessJS: ChessJS;
 	private gameIsOver = false;
+	private initialised = false;
 	constructor(
 		private cg: Chessground,
 		fen = 'rnbqkbnr/pppppppp/8/8/8/8/PPPPPPPP/RNBQKBNR w KQkq - 0 1',
@@ -45,14 +46,19 @@ export class Api {
 				}
 			});
 		}
+		this.initialised = true;
 	}
 
 	// Load FEN. Throws exception on invalid FEN.
 	load( fen: string ) {
+		let engineStopSearchPromise;
+		if ( this.initialised && this.engine?.isSearching() )
+			engineStopSearchPromise = this.engine.stopSearch();
 		this.chessJS.load( fen );
 		this._checkForGameOver();
 		this.cg.set( { animation: { enabled: false } } );
 		const cgColor = Api._colorToCgColor( this.chessJS.turn() );
+		const enginePlaysNextMove = this._enginePlaysNextMove();
 		this.cg.set( {
 			fen: fen,
 			turnColor: cgColor,
@@ -62,13 +68,23 @@ export class Api {
 			movable: {
 				free: false,
 				color: cgColor,
-				dests: this._enginePlaysNextMove() ? new Map() : this.possibleMovesDests(),
+				dests: enginePlaysNextMove ? new Map() : this.possibleMovesDests(),
 				events: {
 					after: (orig, dest) => { this._chessgroundMoveCallback(orig,dest) },
 				},
 			},
 		} );
 		this.cg.set( { animation: { enabled: true } } );
+		if ( this.initialised && enginePlaysNextMove ) {
+			// Play immediate engine move, but wait until stopSearch has finished
+			if ( engineStopSearchPromise ) {
+				engineStopSearchPromise.then( () => {
+					this.playEngineMove();
+				});
+			} else {
+				this.playEngineMove();
+			}
+		}
 		this.stateChangeCallback(this);
 	}
 

@@ -120,10 +120,10 @@
 
 	onMount( async () => {
 		api = new Api( chessground, fen, stateChangeCallback, promotionCallback, moveCallback, gameOverCallback, orientation, engine );
-		await api.init();
-		// Dispatch ready-event: Simply letting the parent observe when
-		// the component is mounted is not enough due to async onMount.
-		dispatch( 'ready' ); 
+		api.init().then( () => {
+			// Dispatch ready-event: Simply letting the parent observe when the component is mounted is not enough due to async onMount.
+			dispatch( 'ready' ); 
+		} );
 	} );
 	
 </script>

@@ -75,7 +75,7 @@ export class Engine {
 			if ( ! this.stockfish )
 				throw new Error('Engine not initialised');
 			if ( this.state !== State.Waiting )
-				throw new Error('Engine not ready (state: ' + this.state);
+				throw new Error('Engine not ready (state: ' + this.state + ')');
 			this.state = State.Searching;
 			this.stockfish.postMessage('position fen ' + fen);
 			this.stockfish.postMessage(`go depth ${this.depth} movetime ${this.moveTime}`);
@@ -97,11 +97,18 @@ export class Engine {
 		return this.state === State.Searching;
 	}
 
-	stopSearch() {
-		if ( ! this.stockfish )
-			throw new Error('Engine not initialised');
-		this.onBestMove = undefined;
-		this.state = State.Waiting;
-		this.stockfish.postMessage('stop');
+	async stopSearch() {
+		return new Promise<void>((resolve) => {
+			if ( ! this.stockfish )
+				throw new Error('Engine not initialised');
+			if ( this.state !== State.Searching )
+				resolve();
+			this.onBestMove = ( uci: string ) => {
+				this.state = State.Waiting;
+				this.onBestMove = undefined;
+				resolve();
+			}
+			this.stockfish.postMessage('stop');
+		});
 	}
 }
