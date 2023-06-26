@@ -34,3 +34,4 @@ test.todo( 'board displayed on screen' );
 test.todo( 'pieces displayed on screen' );
 test.todo( 'promotion dialog displayed on screen' );
 test.todo( 'non-programmatic moves (click board)' );
+test.todo( 'class attribute applies style ' );

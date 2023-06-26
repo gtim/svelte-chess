@@ -126,6 +126,6 @@
 </script>
 
 <div style="position:relative;" bind:this={container}>
-	<Chessground bind:this={chessground} {className}/>
+	<Chessground bind:this={chessground} class={className}/>
 </div>
 
