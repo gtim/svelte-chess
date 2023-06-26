@@ -281,3 +281,8 @@ describe("start from FEN", () => {
 		api.move('Ng4');
 	} );
 } );
+
+test.todo( 'stateChangeCallback is called' );
+test.todo( 'promotionCallback is called' );
+test.todo( 'moveCallback is called' );
+test.todo( 'gameOverCallback is called' );
