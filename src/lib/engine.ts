@@ -62,7 +62,6 @@ export class Engine {
 	// Callback when receiving UCI messages from Stockfish.
 	private _onUci( { data }: { data: string } ): void {
 		const uci = data;
-		console.log('UCI: ' + uci);
 		if ( this.onUciOk && uci === 'uciok' ) {
 			this.onUciOk();
 		}
