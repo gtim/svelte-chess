@@ -12,6 +12,7 @@ export interface EngineOptions {
 	moveTime?: number, // Maximum time in ms to spend on a move
 	depth?: number, // Maximum depth to search per move
 	color?: Color | 'both' | 'none',
+	stockfishPath?: string,
 };
 
 enum State {
@@ -27,6 +28,7 @@ export class Engine {
 	private moveTime: number;
 	private depth: number;
 	private color: Color | 'both' | 'none';
+	private stockfishPath: string;
 	// Callbacks used when waiting for specific UCI messages
 	private onUciOk: ( () => void ) | undefined = undefined; // "uciok" marks end of initialisation
 	private onBestMove: ( (uci:string) => void ) | undefined = undefined; // "uciok", used during initialisation
@@ -35,6 +37,7 @@ export class Engine {
 		this.moveTime = options.moveTime || 2000;
 		this.depth = options.depth || 40;
 		this.color = options.color || 'b';
+		this.stockfishPath = options.stockfishPath || 'stockfish.js';
 	}
 
 	// Initialise Stockfish. Resolve promise after receiving uciok.
@@ -43,7 +46,7 @@ export class Engine {
 			this.state = State.Initialising;
 			// NOTE: stockfish.js is not part of the npm package due to its size (1-2 MB).
 			// You can find the file here: https://github.com/gtim/svelte-chess/tree/main/static
-			this.stockfish = new Worker('stockfish.js');
+			this.stockfish = new Worker(this.stockfishPath);
 			this.stockfish.addEventListener('message', (e)=>this._onUci(e) );
 			this.onUciOk = () => {
 				if ( this.state === State.Initialising ) {
