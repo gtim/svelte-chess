@@ -28,6 +28,7 @@ export class Api {
 		private engine: Engine | undefined = undefined,
 	) {
 		this.cg.set( {
+			fen,
 			orientation: Api._colorToCgColor( _orientation ),
 			movable: { free: false },
 			premovable: { enabled: false },
@@ -38,11 +39,10 @@ export class Api {
 
 	async init() {
 		if ( this.engine ) {
-			this.engine.init().then( () => {
-				if ( this._enginePlaysNextMove() ) {
-					this.playEngineMove()
-				}
-			} );
+			await this.engine.init();
+			if ( this._enginePlaysNextMove() ) {
+				this.playEngineMove();
+			}
 		}
 	}
 

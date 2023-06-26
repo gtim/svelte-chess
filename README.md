@@ -99,6 +99,11 @@ Example implementing undo/reset buttons ([REPL](https://svelte.dev/repl/7dd7b645
 
 ### Events
 
+A `ready` event is dispatched when the Chess component is ready for interaction,
+which is generally immediately on mount. If an [engine](#engine--stockfish) was
+specified, the event is dispatched after engine initialisation, which might take
+a second.
+
 A `move` event is dispatched after every move, containing the corresponding [Move object](#move).
 
 A `gameOver` event is emitted after a move that ends the game. The GameOver object has two keys:
