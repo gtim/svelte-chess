@@ -18,11 +18,18 @@
 		} );
 		messages = messages;
 	}
+	function readyHandler( event: GameOverEvent ) {
+		messages.unshift( {
+			title: "Ready Event",
+			details: ""
+		} );
+		messages = messages;
+	}
 </script>
 
 <div style="max-width:512px;margin:0 auto;">
 	<p>This example listens for <code>move</code> and <code>gameOver</code> events.</p>
-	<Chess on:move={moveHandler} on:gameOver={gameOverHandler} />
+	<Chess on:move={moveHandler} on:gameOver={gameOverHandler} on:ready={readyHandler} />
 </div>
 	<div class="messages">
 		{#each messages as message (message.details)}
