@@ -18,7 +18,7 @@
 		} );
 		messages = messages;
 	}
-	function readyHandler( event: GameOverEvent ) {
+	function readyHandler( event: CustomEvent<{}> ) {
 		messages.unshift( {
 			title: "Ready Event",
 			details: ""
