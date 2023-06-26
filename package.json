@@ -5,7 +5,13 @@
 		"chess",
 		"svelte",
 		"chessground",
-		"chess.js"
+		"chess.js",
+		"stockfish",
+		"chess-engine",
+		"chessboard",
+		"lichess",
+		"ui",
+		"typescript"
 	],
 	"version": "0.10.2",
 	"license": "GPL-3.0",
