@@ -1,6 +1,6 @@
 {
 	"name": "svelte-chess",
-	"description": "Fully playable chess component for Svelte.",
+	"description": "Fully playable chess component for Svelte. Powered by Chess.js logic, Chessground chessboard and optionally Stockfish chess AI.",
 	"keywords": [
 		"chess",
 		"svelte",

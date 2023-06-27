@@ -1,10 +1,10 @@
 # Svelte-chess: Playable chess component 
 
-Fully playable chess component for Svelte. Combines:
-
-* Chess logic from [chess.js](https://github.com/jhlywa/chess.js)
-* Chessboard display from [chessground](https://github.com/lichess-org/chessground)
-* Chess AI from [stockfish](https://github.com/official-stockfish/Stockfish)
+Fully playable chess component for Svelte.
+Powered by
+[Chess.js](https://github.com/jhlywa/chess.js) logic,
+[Chessground](https://github.com/lichess-org/chessground) chessboard
+and optionally [Stockfish](https://github.com/official-stockfish/Stockfish) chess AI.
 
 ![Svelte-chess screenshots](https://github.com/gtim/svelte-chess/blob/main/static/screenshot.png?raw=true)
 
