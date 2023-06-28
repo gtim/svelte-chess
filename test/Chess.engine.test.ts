@@ -1,5 +1,8 @@
 // Tests for the engine glue part of the Chess component.
 // Very slow since the engine is loaded many times.
+// This file and engine.test.ts should probably be split up into
+//   a) actual unit tests with mocked web worker, and
+//   b) integration tests with theactual web worker.
 
 import Chess from '../src/lib/Chess.svelte';
 import type { Move } from '../src/lib/Chess.svelte';
