@@ -10,19 +10,6 @@ import { Engine } from '../src/lib/engine.js';
 import { render, screen, waitFor, act } from '@testing-library/svelte';
 import '@vitest/web-worker';
 
-describe("playEngineMove", async () => {
-	test( "playEngineMove() plays an engine move", async () => {
-		const engine = new Engine({
-			stockfishPath: 'static/stockfish.js',
-			color: 'none',
-			moveTime: 50,
-		});
-		const { component } = render( Chess, { props: { engine } } );
-		component.$on( 'ready', () => {component.playEngineMove()} );
-		await waitFor( () => expect( component.getHistory() ).toHaveLength(1), { timeout: 10e3 } );
-	}, 10e3 );
-}, 15e3);
-
 describe("Engine auto-plays moves", async () => {
 	test( 'Auto-plays first and third half-moves as White', async () => {
 		const engine = new Engine({
@@ -136,41 +123,54 @@ describe("Engine auto-plays moves", async () => {
 }, 120e3);
 
 
-test( "move()/playEngineMove() throw if called before ready-event" , async () => {
-	const engine = new Engine({
-		stockfishPath: 'static/stockfish.js',
-		color: 'none',
-		moveTime: 50,
+describe("move / playEngineMove", async () => {
+	test( "playEngineMove() plays an engine move", async () => {
+		const engine = new Engine({
+			stockfishPath: 'static/stockfish.js',
+			color: 'none',
+			moveTime: 50,
+		});
+		const { component } = render( Chess, { props: { engine } } );
+		component.$on( 'ready', () => {component.playEngineMove()} );
+		await waitFor( () => expect( component.getHistory() ).toHaveLength(1), { timeout: 10e3 } );
+	}, 10e3 );
+	test( "move() while engine is searching stops search and performs move", async () => {
+		const engine = new Engine({
+			stockfishPath: 'static/stockfish.js',
+			color: 'none',
+			moveTime: 300,
+		});
+		const { component, container } = render( Chess, { props: { engine } } );
+		const onReady = vi.fn( async () => {
+			expect( engine.isSearching() ).toBeFalsy();
+			component.playEngineMove();
+			expect( engine.isSearching() ).toBeTruthy();
+			component.move('d4');
+		});
+		const onMove = vi.fn();
+		component.$on( 'ready', onReady );
+		component.$on( 'move', onMove );
+		expect( onMove ).toHaveBeenCalledTimes(0);
+		await waitFor( () => expect(onReady).toHaveReturned(), { timeout: 10e3 } );
+		expect( onMove ).toHaveBeenCalledTimes(1);
+		await new Promise(resolve => setTimeout(resolve, 500));
+		expect( onMove ).toHaveBeenCalledTimes(1);
+		expect( component.fen ).toEqual( 'rnbqkbnr/pppppppp/8/8/3P4/8/PPP1PPPP/RNBQKBNR b KQkq - 0 1' );
+	}, 15e3);
+	test( "move()/playEngineMove() throw if called before ready-event" , async () => {
+		// this test must run after the above (move-during-search test) -- why?
+		const engine = new Engine({
+			stockfishPath: 'static/stockfish.js',
+			color: 'none',
+			moveTime: 50,
+		});
+		const { component, container } = render( Chess, { props: { engine } } );
+		const onReady = vi.fn();
+		component.$on( 'ready', onReady );
+		expect( () => component.move('d4') ).toThrow();
+		expect( () => component.playEngineMove() ).rejects.toThrow();
 	});
-	const { component, container } = render( Chess, { props: { engine } } );
-	const onReady = vi.fn();
-	component.$on( 'ready', onReady );
-	expect( () => component.move('d4') ).toThrow();
-	expect( () => component.playEngineMove() ).rejects.toThrow();
-});
-test( "move() while engine is searching stops search and performs move", async () => {
-	const engine = new Engine({
-		stockfishPath: 'static/stockfish.js',
-		color: 'none',
-		moveTime: 300,
-	});
-	const { component, container } = render( Chess, { props: { engine } } );
-	const onReady = vi.fn( async () => {
-		expect( engine.isSearching() ).toBeFalsy();
-		component.playEngineMove();
-		expect( engine.isSearching() ).toBeTruthy();
-		component.move('d4');
-	});
-	const onMove = vi.fn();
-	component.$on( 'ready', onReady );
-	component.$on( 'move', onMove );
-	expect( onMove ).toHaveBeenCalledTimes(0);
-	await waitFor( () => expect(onReady).toHaveReturned(), { timeout: 10e3 } );
-	expect( onMove ).toHaveBeenCalledTimes(1);
-	await new Promise(resolve => setTimeout(resolve, 500));
-	expect( onMove ).toHaveBeenCalledTimes(1);
-	expect( component.fen ).toEqual( 'rnbqkbnr/pppppppp/8/8/3P4/8/PPP1PPPP/RNBQKBNR b KQkq - 0 1' );
-}, 15e3);
+}, 30e3);
 
 
 
