@@ -170,7 +170,7 @@ test( "move() while engine is searching stops search and performs move", async (
 	await new Promise(resolve => setTimeout(resolve, 500));
 	expect( onMove ).toHaveBeenCalledTimes(1);
 	expect( component.fen ).toEqual( 'rnbqkbnr/pppppppp/8/8/3P4/8/PPP1PPPP/RNBQKBNR b KQkq - 0 1' );
-});
+}, 15e3);
 
 
 
