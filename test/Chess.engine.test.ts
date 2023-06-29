@@ -2,13 +2,12 @@
 // Very slow since the engine is loaded many times.
 // This file and engine.test.ts should probably be split up into
 //   a) actual unit tests with mocked web worker, and
-//   b) integration tests with theactual web worker.
+//   b) integration tests with actual web worker.
 
 import Chess from '../src/lib/Chess.svelte';
 import type { Move } from '../src/lib/Chess.svelte';
 import { Engine } from '../src/lib/engine.js';
-import { render, screen, waitFor } from '@testing-library/svelte';
-import userEvent from '@testing-library/user-event';
+import { render, screen, waitFor, act } from '@testing-library/svelte';
 import '@vitest/web-worker';
 
 describe("playEngineMove", async () => {
@@ -137,12 +136,27 @@ describe("Engine auto-plays moves", async () => {
 }, 120e3);
 
 
+test( "move() called before ready throws" , async () => {
+	const engine = new Engine({
+		stockfishPath: 'static/stockfish.js',
+		color: 'none',
+		moveTime: 50,
+	});
+	const { component, container } = render( Chess, { props: { engine } } );
+	const onReady = vi.fn();
+	component.$on( 'ready', onReady );
+	expect( () => component.move('d4') ).toThrow();
+	expect( () => component.playEngineMove() ).rejects.toThrow();
+});
+test.todo( "move() while engine is searching stops search and performs move" );
 
-test.todo( "chessground interactions are disabled before engine is loaded" ); //const user = userEvent.setup();
-test.todo( "chessground interactions are enabled after engine is loaded" );
-test.todo( "chessground interactions are disabled while engine is searching" );
-test.todo( "move()/chessground move do not throw if the engine was searching" );
-test.todo( "move()/chessground move stop engine move search if the engine was searching" );
-test.todo( "engine moves or does not move correctly after undo()" );
+
+
+test.todo( "engine moves (or does not move) correctly after undo()" );
 test.todo( "on:uci forwards UCI messages");
 test.todo( "correct king is hilighted on check");
+
+// How to test these?
+test.todo( "chessground interactions are disabled before engine is loaded" );
+test.todo( "chessground interactions are enabled after engine is loaded" );
+test.todo( "chessground interactions are disabled while engine is searching" );

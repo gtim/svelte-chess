@@ -11,8 +11,9 @@ vi.mock('svelte-chessground', () => {
 });
 
 let api: Api;
-beforeEach(() => {
+beforeEach(async () => {
 	api = new Api( new Chessground() );
+	await api.init();
 } );
 
 describe("possibleMovesDests", () => {
@@ -273,8 +274,9 @@ describe("game end", () => {
 } );
 
 describe("start from FEN", () => {
-	test( "start from FEN", () => {
+	test( "start from FEN", async () => {
 		api = new Api( new Chessground(), 'rnbqkb1r/1p2pppp/p2p1n2/8/3NP3/2N1B3/PPP2PPP/R2QKB1R b KQkq - 1 6' );
+		await api.init();
 		expect( api.moveNumber() ).toEqual(6);
 		expect( api.turn() ).toEqual('b');
 		expect( () => api.move('d6') ).toThrowError();

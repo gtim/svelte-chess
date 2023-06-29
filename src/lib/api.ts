@@ -119,6 +119,8 @@ export class Api {
 	// argument is either a short algebraic notation (SAN) string
 	// or an object with from/to/promotion (see chess.js move())
 	move( moveSanOrObj: string | { from: string, to: string, promotion?: string } ) {
+		if ( ! this.initialised )
+			throw new Error('Called move before initialisation finished.');
 		if ( this.gameIsOver )
 			throw new Error('Invalid move: Game is over.');
 		if ( this.engine && this.engine.isSearching() )
@@ -174,9 +176,8 @@ export class Api {
 	}
 
 	async playEngineMove() {
-		if ( ! this.engine ) {
-			throw Error('playEngineMove called without initialised engine');
-		}
+		if ( ! this.engine )
+			throw new Error('playEngineMove called without initialised engine');
 		return this.engine.getMove( this.chessJS.fen() ).then( (lan) => {
 			this.moveLan(lan);
 		});
