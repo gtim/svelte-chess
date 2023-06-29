@@ -136,7 +136,7 @@ describe("Engine auto-plays moves", async () => {
 }, 120e3);
 
 
-test( "move() called before ready throws" , async () => {
+test( "move()/playEngineMove() throw if called before ready-event" , async () => {
 	const engine = new Engine({
 		stockfishPath: 'static/stockfish.js',
 		color: 'none',
@@ -148,7 +148,30 @@ test( "move() called before ready throws" , async () => {
 	expect( () => component.move('d4') ).toThrow();
 	expect( () => component.playEngineMove() ).rejects.toThrow();
 });
-test.todo( "move() while engine is searching stops search and performs move" );
+test( "move() while engine is searching stops search and performs move", async () => {
+	const engine = new Engine({
+		stockfishPath: 'static/stockfish.js',
+		color: 'none',
+		moveTime: 300,
+	});
+	const { component, container } = render( Chess, { props: { engine } } );
+	const onReady = vi.fn( async () => {
+		expect( engine.isSearching() ).toBeFalsy();
+		component.playEngineMove();
+		expect( engine.isSearching() ).toBeTruthy();
+		component.move('d4');
+	});
+	const onMove = vi.fn();
+	component.$on( 'ready', onReady );
+	component.$on( 'move', onMove );
+	expect( onMove ).toHaveBeenCalledTimes(0);
+	await waitFor( () => expect(onReady).toHaveReturned(), { timeout: 10e3 } );
+	expect( onMove ).toHaveBeenCalledTimes(1);
+	await new Promise(resolve => setTimeout(resolve, 500));
+	expect( onMove ).toHaveBeenCalledTimes(1);
+	expect( component.fen ).toEqual( 'rnbqkbnr/pppppppp/8/8/3P4/8/PPP1PPPP/RNBQKBNR b KQkq - 0 1' );
+});
+
 
 
 
