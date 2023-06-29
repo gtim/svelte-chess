@@ -284,7 +284,66 @@ describe("start from FEN", () => {
 	} );
 } );
 
-test.todo( 'stateChangeCallback is called' );
-test.todo( 'promotionCallback is called' );
-test.todo( 'moveCallback is called' );
-test.todo( 'gameOverCallback is called' );
+describe("callbacks are called", async () => {
+	const fen = 'rnbqkbnr/pppppppp/8/8/8/8/PPPPPPPP/RNBQKBNR w KQkq - 0 1';
+	let api, stateChangeCallback, promotionCallback, moveCallback, gameOverCallback;
+	beforeEach( async () => {
+		stateChangeCallback = vi.fn();
+		promotionCallback = vi.fn();
+		moveCallback = vi.fn();
+		gameOverCallback = vi.fn();
+		api = new Api( new Chessground(), fen, stateChangeCallback, promotionCallback, moveCallback, gameOverCallback );
+		await api.init();
+	});
+	test( 'moveCallback is called with move object', () => {
+		expect( moveCallback ).not.toHaveBeenCalled();
+		api.move( 'f4' );
+		expect( moveCallback ).toHaveBeenLastCalledWith({
+			after: "rnbqkbnr/pppppppp/8/8/5P2/8/PPPPP1PP/RNBQKBNR b KQkq - 0 1",
+			before: "rnbqkbnr/pppppppp/8/8/8/8/PPPPPPPP/RNBQKBNR w KQkq - 0 1",
+			san: "f4",
+			lan: "f2f4",
+			from: "f2",
+			to: "f4",
+			color: "w",
+			flags: "b",
+			piece: "p",
+			check: false,
+			checkmate: false,
+		});
+		expect( moveCallback ).toHaveBeenCalledTimes(1);
+	});
+	test( 'stateChangeCallback is called on move/undo/reset/toggleOrientation', () => {
+		expect( stateChangeCallback ).toHaveBeenCalled();
+
+		let numCalls = stateChangeCallback.mock.calls.length;
+		api.move('d4');
+		expect( stateChangeCallback.mock.calls.length ).toBeGreaterThan(numCalls);
+		api.move('e6');
+
+		numCalls = stateChangeCallback.mock.calls.length;
+		api.undo();
+		expect( stateChangeCallback.mock.calls.length ).toBeGreaterThan(numCalls);
+
+		numCalls = stateChangeCallback.mock.calls.length;
+		api.reset();
+		expect( stateChangeCallback.mock.calls.length ).toBeGreaterThan(numCalls);
+
+		numCalls = stateChangeCallback.mock.calls.length;
+		api.toggleOrientation();
+		expect( stateChangeCallback.mock.calls.length ).toBeGreaterThan(numCalls);
+	});
+	test( 'gameOverCallback is called on mate', () => {
+		api.move('f4');
+		api.move('e6');
+		api.move('g4');
+		expect( gameOverCallback ).not.toHaveBeenCalled();
+		api.move('Qh4');
+		expect( gameOverCallback ).toHaveBeenCalledWith({ reason:'checkmate', result: 0 });
+	});
+	test.todo( 'gameOverCallback is called on stalemate' );
+	test.todo( 'gameOverCallback is called on insufficient material' );
+	test.todo( 'gameOverCallback is called on repetition' );
+	test.todo( 'gameOverCallback is called on fifty-move rule' );
+	test.todo( 'promotionCallback is called' ); // must play move through chessground 
+});
