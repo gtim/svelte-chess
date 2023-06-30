@@ -341,9 +341,39 @@ describe("callbacks are called", async () => {
 		api.move('Qh4');
 		expect( gameOverCallback ).toHaveBeenCalledWith({ reason:'checkmate', result: 0 });
 	});
-	test.todo( 'gameOverCallback is called on stalemate' );
-	test.todo( 'gameOverCallback is called on insufficient material' );
-	test.todo( 'gameOverCallback is called on repetition' );
-	test.todo( 'gameOverCallback is called on fifty-move rule' );
+	test( 'gameOverCallback is called on stalemate', () => {
+		api.load('8/7k/4K3/8/8/6Q1/8/8 b - - 0 1');
+		api.move('Kh8');
+		expect( gameOverCallback ).not.toHaveBeenCalled();
+		api.move('Qg6');
+		expect( gameOverCallback ).toHaveBeenCalledWith({ reason:'stalemate', result: 0.5 });
+	} );
+	test( 'gameOverCallback is called on insufficient material', () => {
+		api.load('7b/7k/4K3/8/8/6Q1/8/8 w - - 0 1');
+		api.move('Qg7');
+		expect( gameOverCallback ).not.toHaveBeenCalled();
+		api.move('Kxg7');
+		expect( gameOverCallback ).toHaveBeenCalledWith({ reason:'insufficient material', result: 0.5 });
+	} );
+	test( 'gameOverCallback is called on repetition', () => {
+		api.move('a3');
+		api.move('Na6'); api.move('Nh3'); api.move('Nb8'); api.move('Ng1');
+		api.move('Na6'); api.move('Nh3'); api.move('Nb8');
+		expect( gameOverCallback ).not.toHaveBeenCalled();
+		api.move('Ng1');
+		expect( gameOverCallback ).toHaveBeenCalledWith({ reason:'repetition', result: 0.5 });
+	} );
+	test( 'gameOverCallback is called on fifty-move rule', () => {
+		api.load('R7/r7/8/8/8/k7/8/K7 w - - 0 1');
+		const path = ['a8','b8','c8','d8','e8','f8','g8','h8','h7','g7','f7','e7','d7','c7','b7','b6','c6','d6','e6','f6','g6','h6','h5','g5','f5','e5','d5','c5','b5','b4','c4','d4','e4','f4','g4','h4','h2','g2','f2','e2','d2','c2','b2','b8','c8','d8','e8','f8','g8','h8'];
+		for ( let i = 1; i < path.length; i++ ) {
+			api.move('R' + path[i]);   // white move
+			api.move('R' + path[i-1]); // black move
+		}
+		api.move('Rh7');
+		expect( gameOverCallback ).not.toHaveBeenCalled();
+		api.move('Rg7');
+		expect( gameOverCallback ).toHaveBeenCalledWith({ reason:'fifty-move rule', result: 0.5 });
+	} );
 	test.todo( 'promotionCallback is called' ); // must play move through chessground 
 });
