@@ -2,7 +2,6 @@
 //   don't allow UI interaction until engine loaded? 
 //   UCI isready after initialization and move
 //   on:uci to forward all uci messages
-//   bug: wrong king is hilighted when engine checks
 //   default opening book
 //   expose a bindable engine-is-searching boolean from the Chess component? or from this class?
 import type { Color } from '$lib/api.js';

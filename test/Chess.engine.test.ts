@@ -177,9 +177,9 @@ describe("move / playEngineMove", async () => {
 
 test.todo( "engine moves (or does not move) correctly after undo()" );
 test.todo( "on:uci forwards UCI messages");
-test.todo( "correct king is hilighted on check");
 
 // How to test these?
 test.todo( "chessground interactions are disabled before engine is loaded" );
 test.todo( "chessground interactions are enabled after engine is loaded" );
 test.todo( "chessground interactions are disabled while engine is searching" );
+test.todo( "correct king is hilighted on check"); // chessground adds <square class="check"/> translated to the king's square

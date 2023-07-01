@@ -128,6 +128,7 @@ export class Api {
 		const cjsMove = this.chessJS.move( moveSanOrObj ); // throws on illegal move
 		const move = Api._cjsMoveToMove( cjsMove );
 		this.cg.move( move.from, move.to );
+		this.cg.set({ turnColor: Api._colorToCgColor( this.chessJS.turn() ) });
 		this._postMoveAdmin( move );
 	}
 	// Make a move programmatically from long algebraic notation (LAN) string,

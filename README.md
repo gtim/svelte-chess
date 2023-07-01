@@ -148,7 +148,6 @@ The `engine` prop is an object with the following keys, all optional:
 
 Engine play was recently implemented. These engine-related issues have not yet been fixed:
 - UI interaction is allowed before the engine is loaded
-- wrong king is hilighted when the engine checks
 - since there is no opening book, the engine always plays the best opening it finds.
 
 ### Styling
