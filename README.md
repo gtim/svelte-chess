@@ -146,10 +146,6 @@ The `engine` prop is an object with the following keys, all optional:
 | `moveTime`  | 2000    | Max time in milliseconds for the engine to spend on a move.                 |
 | `depth`     | 40      | Max depth in ply for the engine to search.                                  |
 
-Engine play was recently implemented. These engine-related issues have not yet been fixed:
-- UI interaction is allowed before the engine is loaded
-- since there is no opening book, the engine always plays the best opening it finds.
-
 ### Styling
 
 The stylesheet shipped with Chessground is used by default. To restyle the 

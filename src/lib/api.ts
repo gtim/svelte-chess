@@ -35,16 +35,17 @@ export class Api {
 			premovable: { enabled: false },
 		} );
 		this.chessJS = new ChessJS( fen );
-		this.load( fen );
 	}
 
 	async init() {
 		if ( this.engine ) {
-			await this.engine.init().then( () => {
-				if ( this._enginePlaysNextMove() ) {
-					this.playEngineMove();
-				}
-			});
+			await this.engine.init();
+			this.load( this.chessJS.fen() );
+			if ( this._enginePlaysNextMove() ) {
+				this.playEngineMove();
+			}
+		} else {
+			this.load( this.chessJS.fen() );
 		}
 		this.initialised = true;
 	}

@@ -124,6 +124,19 @@ describe("Engine auto-plays moves", async () => {
 
 
 describe("move / playEngineMove", async () => {
+	test( "move()/playEngineMove() throw if called before ready-event" , async () => {
+		const engine = new Engine({
+			stockfishPath: 'static/stockfish.js',
+			color: 'none',
+			moveTime: 50,
+		});
+		const { component, container } = render( Chess, { props: { engine } } );
+		const onReady = vi.fn();
+		component.$on( 'ready', onReady );
+		expect( () => component.move('d4') ).toThrow();
+		expect( () => component.playEngineMove() ).rejects.toThrow();
+		await waitFor( () => expect(onReady).toHaveReturned(), { timeout: 10e3 } );
+	});
 	test( "playEngineMove() plays an engine move", async () => {
 		const engine = new Engine({
 			stockfishPath: 'static/stockfish.js',
@@ -157,21 +170,7 @@ describe("move / playEngineMove", async () => {
 		expect( onMove ).toHaveBeenCalledTimes(1);
 		expect( component.fen ).toEqual( 'rnbqkbnr/pppppppp/8/8/3P4/8/PPP1PPPP/RNBQKBNR b KQkq - 0 1' );
 	}, 15e3);
-	test( "move()/playEngineMove() throw if called before ready-event" , async () => {
-		// this test must run after the above (move-during-search test) -- why?
-		const engine = new Engine({
-			stockfishPath: 'static/stockfish.js',
-			color: 'none',
-			moveTime: 50,
-		});
-		const { component, container } = render( Chess, { props: { engine } } );
-		const onReady = vi.fn();
-		component.$on( 'ready', onReady );
-		expect( () => component.move('d4') ).toThrow();
-		expect( () => component.playEngineMove() ).rejects.toThrow();
-	});
 }, 30e3);
-
 
 
 
@@ -179,7 +178,10 @@ test.todo( "engine moves (or does not move) correctly after undo()" );
 test.todo( "on:uci forwards UCI messages");
 
 // How to test these?
-test.todo( "chessground interactions are disabled before engine is loaded" );
-test.todo( "chessground interactions are enabled after engine is loaded" );
-test.todo( "chessground interactions are disabled while engine is searching" );
+describe.todo("Chessground interaction", () => {
+	// access the chessground instance?
+	test.todo( "interactions are disabled before engine is loaded");
+	test.todo( "interactions are enabled after engine is loaded" );
+	test.todo( "interactions are disabled while engine is searching" );
+});
 test.todo( "correct king is hilighted on check"); // chessground adds <square class="check"/> translated to the king's square
