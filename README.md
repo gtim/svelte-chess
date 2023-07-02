@@ -185,4 +185,3 @@ A `Move` describes a chess move. Properties:
 ## Future
 
 * Programmatically draw arrows/circles on the board
-* Stockfish?
