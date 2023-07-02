@@ -89,6 +89,7 @@ test("engine does not solve hard puzzle at low depth", async () => {
 
 test( "getMove throws if initialisation hasn't finished", async () => {
 	const engine = new Engine({ stockfishPath: 'static/stockfish.js' });
-	engine.init();
+	const initPromise = engine.init();
 	await expect( ()=>engine.getMove( INITIAL_FEN ) ).rejects.toThrow(/not ready/);
+	await initPromise;
 });
