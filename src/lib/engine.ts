@@ -1,8 +1,7 @@
 // TODO:
-//   don't allow UI interaction until engine loaded? 
-//   UCI isready after initialization and move
-//   on:uci to forward all uci messages
 //   default opening book
+//   skill level
+//   setMoveTime, setDepth, setSkill
 //   expose a bindable engine-is-searching boolean from the Chess component? or from this class?
 import type { Color } from '$lib/api.js';
 
@@ -28,6 +27,7 @@ export class Engine {
 	private depth: number;
 	private color: Color | 'both' | 'none';
 	private stockfishPath: string;
+	private externalUciCallback: ( (uci:string) => void ) | undefined = undefined;
 	// Callbacks used when waiting for specific UCI messages
 	private onUciOk: ( () => void ) | undefined = undefined; // "uciok" marks end of initialisation
 	private onBestMove: ( (uci:string) => void ) | undefined = undefined; // "uciok", used during initialisation
@@ -67,6 +67,12 @@ export class Engine {
 		if ( this.onBestMove && uci.slice(0,8) === 'bestmove' ) {
 			this.onBestMove( uci );
 		}
+		if ( this.externalUciCallback ) {
+			this.externalUciCallback( uci );
+		}
+	}
+	setUciCallback( callback: (uci:string)=>void ) {
+		this.externalUciCallback = callback;
 	}
 
 	getMove( fen: string ): Promise<string> {

@@ -1,6 +1,7 @@
 <script lang="ts" context="module">
 	export type GameOverEvent = CustomEvent<GameOver>;
 	export type MoveEvent = CustomEvent<Move>;
+	export type UciEvent = CustomEvent<string>;
 	export type { Square, Color, PieceSymbol, Move, GameOver };
 	export { Engine } from '$lib/engine.js';
 </script>
@@ -12,7 +13,7 @@
 
 	import { onMount, createEventDispatcher } from 'svelte';
 
-	const dispatch = createEventDispatcher<{ move: Move, gameOver: GameOver, ready: {} }>();
+	const dispatch = createEventDispatcher<{ move: Move, gameOver: GameOver, ready: {}, uci: string }>();
 
 	let chessground: Chessground;
 	let container: HTMLElement;
@@ -119,6 +120,9 @@
 	}
 
 	onMount( async () => {
+		if ( engine ) {
+			engine.setUciCallback( (message) => dispatch( 'uci', message ) );
+		}
 		api = new Api( chessground, fen, stateChangeCallback, promotionCallback, moveCallback, gameOverCallback, orientation, engine );
 		api.init().then( () => {
 			// Dispatch ready-event: Simply letting the parent observe when the component is mounted is not enough due to async onMount.

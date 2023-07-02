@@ -37,3 +37,4 @@ test.todo( 'non-programmatic moves (click board)' );
 test.todo( 'class attribute applies style ' );
 test.todo( 'dispatches move event' );
 test.todo( 'dispatches gameOver event' );
+test.todo( 'dispatches uci event' );

@@ -93,3 +93,16 @@ test( "getMove throws if initialisation hasn't finished", async () => {
 	await expect( ()=>engine.getMove( INITIAL_FEN ) ).rejects.toThrow(/not ready/);
 	await initPromise;
 });
+
+test( "uci callback is called on init and move", async () => {
+	const engine = new Engine({ stockfishPath: 'static/stockfish.js' });
+	const uciCallback = vi.fn();
+	engine.setUciCallback( uciCallback );
+	expect( uciCallback ).not.toHaveBeenCalled();
+	await engine.init();
+	expect( uciCallback ).toHaveBeenCalled();
+	const numCallsBeforeMove = uciCallback.mock.calls.length;
+	await engine.getMove( INITIAL_FEN );
+	const numCallsAfterMove = uciCallback.mock.calls.length;
+	expect( numCallsAfterMove ).toBeGreaterThan( numCallsBeforeMove );
+} );

@@ -110,6 +110,8 @@ A `gameOver` event is emitted after a move that ends the game. The GameOver obje
 * `reason`: `checkmate`, `stalemate`, `repetition`, `insufficient material` or `fifty-move rule`.
 * `result`: 1 for White win, 0 for Black win, or 0.5 for a draw.
 
+A `uci` event is emitted when Stockfish, if enabled, sends a UCI message.
+
 Example listening for `move` and `gameOver` events ([REPL](https://svelte.dev/repl/6fc2874d1a594d76aede4834722e4f83?version=3.59.1)):
 
     <script>
@@ -124,7 +126,7 @@ Example listening for `move` and `gameOver` events ([REPL](https://svelte.dev/re
     </script>
     <Chess on:move={moveListener} on:gameOver={gameOverListener} />
 
-Svelte-chess exports the MoveEvent and GameOverEvent types.
+Svelte-chess exports the MoveEvent, GameOverEvent, ReadyEvent and UciEvent types.
 
 ### Engine / Stockfish
 
@@ -145,6 +147,8 @@ The `engine` prop is an object with the following keys, all optional:
 | `color`     | `b`     | Color the engine plays: `w` or `b`, or `both` for an engine-vs-engine game, or `none` if the engine should only make a move when `makeEngineMove()` is called. | 
 | `moveTime`  | 2000    | Max time in milliseconds for the engine to spend on a move.                 |
 | `depth`     | 40      | Max depth in ply for the engine to search.                                  |
+
+To inspect Stockfish's current evaluation and other engine details, you can listen to `uci` events from the Chess component to read all [UCI](https://www.chessprogramming.org/UCI) messages sent by Stockfish.
 
 ### Styling
 
