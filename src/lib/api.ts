@@ -248,9 +248,11 @@ export class Api {
 	undo(): Move | null {
 		const cjsMove = this.chessJS.undo();
 		const move = cjsMove ? Api._cjsMoveToMove( cjsMove ) : null;
+		const turnColor = Api._colorToCgColor( this.chessJS.turn() );
 		this.cg.set({
 			fen: this.chessJS.fen(),
-			turnColor: Api._colorToCgColor( this.chessJS.turn() ),
+			check: this.chessJS.inCheck() ? turnColor : undefined,
+			turnColor: turnColor,
 			lastMove: undefined,
 		});
 		this.gameIsOver = false;
