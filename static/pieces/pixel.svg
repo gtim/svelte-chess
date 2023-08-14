@@ -1,0 +1,163 @@
+<!--
+The lila Pixel pieces set from
+https://github.com/ornicar/lila/tree/master/public/piece/pixel
+modified by buhodev (https://github.com/buhodev) for the usage in svelte-chess.
+https://github.com/gtim/svelte-chess
+
+License: GNU Affero General Public License (AGPLv3+)
+https://www.gnu.org/licenses/agpl-3.0.en.html
+
+See also: https://github.com/ornicar/lila/blob/master/COPYING.md
+-->
+<svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 16 16">
+  <g id="bB" fill-rule="evenodd" clip-rule="evenodd">
+    <path fill="#000" d="M7 1.5h2Zm-1 1h1Zm3 0h1Zm-3 1h1Zm3 0h1Zm-2 1h2Zm-1 1h1Zm3 0h1Zm-4 1h1Zm5 0h1Zm-6 1h1Zm5 0h1Zm2 0h1Zm-7 1h1Zm4 0h1Zm3 0h1Zm-7 1h1Zm7 0h1Zm-7 1h1Zm7 0h1Zm-6 1h1Zm5 0h1Zm-6 1h8Zm-1 1h1Zm9 0h1Zm-9 1h10Z"/>
+    <path stroke="#000" d="M7 1.5h2m-3 1h1m2 0h1m-4 1h1m2 0h1m-3 1h2m-3 1h1m2 0h1m-5 1h1m4 0h1m-7 1h1m4 0h1m1 0h1m-8 1h1m3 0h1m2 0h1m-8 1h1m6 0h1m-8 1h1m6 0h1m-7 1h1m4 0h1m-7 1h8m-9 1h1m8 0h1m-10 1h10"/>
+    <path fill="#000" d="M7 2.5h1Zm-1 4h1Zm-1 1h1Z"/>
+    <path stroke="#6D6D6D" d="M7 2.5h1m-2 4h1m-2 1h1"/>
+    <path fill="#000" d="M8 2.5h1Zm0 1h1Zm0 2h1Zm2 2h1Zm0 1h1Zm0 1h1Zm0 1h1Zm-1 1h1Zm0 2h3Z"/>
+    <path stroke="#151515" d="M8 2.5h1m-1 1h1m-1 2h1m1 2h1m-1 1h1m-1 1h1m-1 1h1m-2 1h1m-1 2h3"/>
+    <path fill="#000" d="M7 3.5h1Zm0 2h1Zm-2 3h1Zm0 1h1Zm0 1h1Zm1 1h1Zm-2 2h2Z"/>
+    <path stroke="#494949" d="M7 3.5h1m-1 2h1m-3 3h1m-1 1h1m-1 1h1m0 1h1m-3 2h2"/>
+    <path fill="#000" d="M7 6.5h2Zm-1 1h2Zm0 1h2Zm3 0h1Zm-3 1h4Zm0 1h4Zm1 1h2Zm-1 2h3Z"/>
+    <path stroke="#242424" d="M7 6.5h2m-3 1h2m-2 1h2m1 0h1m-4 1h4m-4 1h4m-3 1h2m-3 2h3"/>
+  </g>
+  <g id="bK" fill-rule="evenodd" clip-rule="evenodd">
+    <path fill="#000" d="M7 1.5h2Zm-1 1h1Zm3 0h1Zm-3 1h1Zm3 0h1Zm-6 1h3Zm4 0h2Zm3 0h3Zm-8 1h1Zm4 0h1Zm3 0h1Zm4 0h1Zm-11 1h1Zm3 0h1Zm2 0h2Zm3 0h1Zm3 0h1Zm-11 1h1Zm4 0h1Zm3 0h1Zm4 0h1Zm-11 1h1Zm2 0h1Zm7 0h1Zm2 0h1Zm-10 1h1Zm2 0h2Zm4 0h2Zm3 0h1Zm-9 1h1Zm9 0h1Zm-8 1h1Zm7 0h1Zm-7 1h8Zm-1 1h1Zm9 0h1Zm-9 1h10Z"/>
+    <path stroke="#000" d="M7 1.5h2m-3 1h1m2 0h1m-4 1h1m2 0h1m-7 1h3m1 0h2m1 0h3m-11 1h1m3 0h1m2 0h1m3 0h1m-12 1h1m2 0h1m1 0h2m1 0h1m2 0h1m-12 1h1m3 0h1m2 0h1m3 0h1m-12 1h1m1 0h1m6 0h1m1 0h1m-11 1h1m1 0h2m2 0h2m1 0h1m-10 1h1m8 0h1m-9 1h1m6 0h1m-8 1h8m-9 1h1m8 0h1m-10 1h10"/>
+    <path fill="#000" d="M7 2.5h1Zm-4 3h1Z"/>
+    <path stroke="#6D6D6D" d="M7 2.5h1m-5 3h1"/>
+    <path fill="#000" d="M8 2.5h1Zm0 1h1Zm4 2h1Zm0 1h1Zm0 1h1Zm0 1h1Zm-1 1h1Zm-1 1h2Zm-1 1h2Zm0 2h3Z"/>
+    <path stroke="#151515" d="M8 2.5h1m-1 1h1m3 2h1m-1 1h1m-1 1h1m-1 1h1m-2 1h1m-2 1h2m-3 1h2m-2 2h3"/>
+    <path fill="#000" d="M7 3.5h1Zm-4 3h1Zm0 1h1Zm0 1h1Zm1 1h1Zm0 1h2Zm1 1h1Zm-1 2h2Z"/>
+    <path stroke="#494949" d="M7 3.5h1m-5 3h1m-1 1h1m-1 1h1m0 1h1m-1 1h2m-1 1h1m-2 2h2"/>
+    <path fill="#000" d="M4 5.5h2Zm6 0h2Zm-4 1h1Zm3 0h1Zm-2 1h2Zm0 1h2Zm0 1h2Zm-1 1h4Zm0 1h3Zm0 2h3Z"/>
+    <path stroke="#242424" d="M4 5.5h2m4 0h2m-6 1h1m2 0h1m-3 1h2m-2 1h2m-2 1h2m-3 1h4m-4 1h3m-3 2h3"/>
+  </g>
+  <g id="bN" fill-rule="evenodd" clip-rule="evenodd">
+    <path fill="#000" d="M4 1.5h4Zm0 1h1Zm4 0h3Zm-3 1h1Zm6 0h1Zm-7 1h1Zm2 0h1Zm6 0h1Zm-9 1h1Zm9 0h1Zm-10 1h1Zm6 0h1Zm4 0h1Zm-10 1h1Zm3 0h3Zm7 0h1Zm-9 1h2Zm4 0h1Zm5 0h1Zm-6 1h1Zm6 0h1Zm-7 1h1Zm6 0h1Zm-7 1h1Zm7 0h1Zm-7 1h8Zm-1 1h1Zm9 0h1Zm-9 1h10Z"/>
+    <path stroke="#000" d="M4 1.5h4m-4 1h1m3 0h3m-6 1h1m5 0h1m-8 1h1m1 0h1m5 0h1m-10 1h1m8 0h1m-11 1h1m5 0h1m3 0h1m-11 1h1m2 0h3m4 0h1m-10 1h2m2 0h1m4 0h1m-7 1h1m5 0h1m-8 1h1m5 0h1m-8 1h1m6 0h1m-8 1h8m-9 1h1m8 0h1m-10 1h10"/>
+    <path fill="#000" d="M5 2.5h1Zm0 9h1Z"/>
+    <path stroke="#6D6D6D" d="M5 2.5h1m-1 9h1"/>
+    <path fill="#000" d="M6 2.5h1Zm0 1h1Zm-1 1h1Zm-1 1h1Zm-1 1h1Zm0 1h1Zm5 0h1Zm0 1h1Zm-1 1h1Zm-1 1h1Zm0 1h1Zm-2 2h2Z"/>
+    <path stroke="#494949" d="M6 2.5h1m-1 1h1m-2 1h1m-2 1h1m-2 1h1m-1 1h1m4 0h1m-1 1h1m-2 1h1m-2 1h1m-1 1h1m-3 2h2"/>
+    <path fill="#000" d="M7 2.5h1Zm0 1h3Zm0 1h4Zm-2 1h3Zm4 0h2Zm-5 1h3Zm5 0h2Zm-5 1h1Zm5 0h2Zm0 1h2Zm-1 1h3Zm-1 1h3Zm0 1h2Zm-1 2h3Z"/>
+    <path stroke="#242424" d="M7 2.5h1m-1 1h3m-3 1h4m-6 1h3m1 0h2m-7 1h3m2 0h2m-7 1h1m4 0h2m-2 1h2m-3 1h3m-4 1h3m-3 1h2m-3 2h3"/>
+    <path fill="#000" d="M10 3.5h1Zm1 1h1Zm-3 1h1Zm3 0h1Zm-4 1h1Zm4 0h1Zm0 1h1Zm0 1h1Zm0 1h1Zm-1 1h1Zm-1 1h2Zm0 2h3Z"/>
+    <path stroke="#151515" d="M10 3.5h1m0 1h1m-4 1h1m2 0h1m-5 1h1m3 0h1m-1 1h1m-1 1h1m-1 1h1m-2 1h1m-2 1h2m-2 2h3"/>
+  </g>
+  <g id="bP" fill-rule="evenodd" clip-rule="evenodd">
+    <path fill="#000" d="M6 2.5h4Zm-1 1h1Zm5 0h1Zm-5 1h1Zm5 0h1Zm-5 1h1Zm5 0h1Zm-4 1h1Zm3 0h1Zm-4 1h1Zm5 0h1Zm-5 1h1Zm5 0h1Zm-4 1h1Zm3 0h1Zm-4 1h1Zm5 0h1Zm-6 1h1Zm7 0h1Zm-7 1h1Zm7 0h1Zm-7 1h8Z"/>
+    <path stroke="#000" d="M6 2.5h4m-5 1h1m4 0h1m-6 1h1m4 0h1m-6 1h1m4 0h1m-5 1h1m2 0h1m-5 1h1m4 0h1m-6 1h1m4 0h1m-5 1h1m2 0h1m-5 1h1m4 0h1m-7 1h1m6 0h1m-8 1h1m6 0h1m-8 1h8"/>
+    <path fill="#000" d="M6 3.5h1Zm0 4h1Zm0 3h1Zm-1 1h1Z"/>
+    <path stroke="#6D6D6D" d="M6 3.5h1m-1 4h1m-1 3h1m-2 1h1"/>
+    <path fill="#000" d="M7 3.5h2Zm-1 1h1Zm1 3h1Zm-1 4h1Zm-1 1h1Z"/>
+    <path stroke="#494949" d="M7 3.5h2m-3 1h1m0 3h1m-2 4h1m-2 1h1"/>
+    <path fill="#000" d="M9 3.5h1Zm0 1h1Zm0 1h1Zm-1 1h1Zm1 1h1Zm-2 1h3Zm1 1h1Zm1 1h1Zm1 1h1Zm-4 1h5Z"/>
+    <path stroke="#151515" d="M9 3.5h1m-1 1h1m-1 1h1m-2 1h1m0 1h1m-3 1h3m-2 1h1m0 1h1m0 1h1m-5 1h5"/>
+    <path fill="#000" d="M7 4.5h2Zm-1 1h3Zm1 1h1Zm1 1h1Zm-2 1h1Zm1 1h1Zm0 1h2Zm0 1h3Z"/>
+    <path stroke="#242424" d="M7 4.5h2m-3 1h3m-2 1h1m0 1h1m-3 1h1m0 1h1m-1 1h2m-2 1h3"/>
+  </g>
+  <g id="bQ" fill-rule="evenodd" clip-rule="evenodd">
+    <path fill="#000" d="M7 1.5h2Zm-1 1h1Zm3 0h1Zm-3 1h1Zm3 0h1Zm-2 1h2Zm-6 1h1Zm13 0h1Zm-12 1h2Zm5 0h2Zm5 0h2Zm-10 1h1Zm2 0h1Zm2 0h1Zm3 0h1Zm2 0h1Zm2 0h1Zm-11 1h1Zm3 0h1Zm5 0h1Zm3 0h1Zm-10 1h1Zm9 0h1Zm-9 1h1Zm9 0h1Zm-8 1h1Zm7 0h1Zm-7 1h8Zm-1 1h1Zm9 0h1Zm-9 1h10Z"/>
+    <path stroke="#000" d="M7 1.5h2m-3 1h1m2 0h1m-4 1h1m2 0h1m-3 1h2m-8 1h1m12 0h1m-13 1h2m3 0h2m3 0h2m-12 1h1m1 0h1m1 0h1m2 0h1m1 0h1m1 0h1m-12 1h1m2 0h1m4 0h1m2 0h1m-11 1h1m8 0h1m-10 1h1m8 0h1m-9 1h1m6 0h1m-8 1h8m-9 1h1m8 0h1m-10 1h10"/>
+    <path fill="#000" d="M7 2.5h1Zm-4 5h1Zm0 1h1Z"/>
+    <path stroke="#6D6D6D" d="M7 2.5h1m-5 5h1m-1 1h1"/>
+    <path fill="#000" d="M8 2.5h1Zm0 1h1Zm4 4h1Zm-1 1h2Zm0 1h1Zm-1 1h2Zm-1 1h2Zm0 2h3Z"/>
+    <path stroke="#151515" d="M8 2.5h1m-1 1h1m3 4h1m-2 1h2m-2 1h1m-2 1h2m-3 1h2m-2 2h3"/>
+    <path fill="#000" d="M7 3.5h1Zm0 4h1Zm-3 1h1Zm2 0h1Zm-2 1h2Zm0 1h2Zm1 1h1Zm-1 2h2Z"/>
+    <path stroke="#494949" d="M7 3.5h1m-1 4h1m-4 1h1m1 0h1m-3 1h2m-2 1h2m-1 1h1m-2 2h2"/>
+    <path fill="#000" d="M8 7.5h1Zm-1 1h3Zm-1 1h5Zm0 1h4Zm0 1h3Zm0 2h3Z"/>
+    <path stroke="#242424" d="M8 7.5h1m-2 1h3m-4 1h5m-5 1h4m-4 1h3m-3 2h3"/>
+  </g>
+  <g id="bR" fill-rule="evenodd" clip-rule="evenodd">
+    <path fill="#000" d="M3 1.5h3Zm4 0h6Zm-4 1h1Zm2 0h1Zm2 0h1Zm5 0h1Zm-9 1h1Zm2 0h3Zm7 0h1Zm-9 1h1Zm9 0h1Zm-9 1h10Zm1 1h1Zm7 0h1Zm-6 1h6Zm0 1h1Zm5 0h1Zm-5 1h1Zm5 0h1Zm-5 1h1Zm5 0h1Zm-6 1h1Zm7 0h1Zm-8 1h10Zm-1 1h1Zm11 0h1Zm-11 1h12Z"/>
+    <path stroke="#000" d="M3 1.5h3m1 0h6m-10 1h1m1 0h1m1 0h1m4 0h1m-10 1h1m1 0h3m4 0h1m-10 1h1m8 0h1m-10 1h10m-9 1h1m6 0h1m-7 1h6m-6 1h1m4 0h1m-6 1h1m4 0h1m-6 1h1m4 0h1m-7 1h1m6 0h1m-9 1h10m-11 1h1m10 0h1m-12 1h12"/>
+    <path fill="#000" d="M4 2.5h1Zm1 4h1Zm0 5h1Zm-2 2h1Z"/>
+    <path stroke="#6D6D6D" d="M4 2.5h1m0 4h1m-1 5h1m-3 2h1"/>
+    <path fill="#000" d="M8 2.5h3Zm0 1h3Zm-3 1h5Zm2 2h2Zm0 2h2Zm0 1h2Zm0 1h2Zm0 1h2Zm-1 2h4Z"/>
+    <path stroke="#242424" d="M8 2.5h3m-3 1h3m-6 1h5m-3 2h2m-2 2h2m-2 1h2m-2 1h2m-2 1h2m-3 2h4"/>
+    <path fill="#000" d="M11 2.5h1Zm0 1h1Zm-1 1h2Zm-1 2h2Zm0 2h1Zm0 1h1Zm0 1h1Zm0 1h2Zm1 2h3Z"/>
+    <path stroke="#151515" d="M11 2.5h1m-1 1h1m-2 1h2m-3 2h2m-2 2h1m-1 1h1m-1 1h1m-1 1h2m-1 2h3"/>
+    <path fill="#000" d="M4 3.5h1Zm0 1h1Zm2 2h1Zm0 2h1Zm0 1h1Zm0 1h1Zm0 1h1Zm-2 2h2Z"/>
+    <path stroke="#494949" d="M4 3.5h1m-1 1h1m1 2h1m-1 2h1m-1 1h1m-1 1h1m-1 1h1m-3 2h2"/>
+  </g>
+  <g id="wB" fill-rule="evenodd" clip-rule="evenodd">
+    <path fill="#000" d="M7 1.5h2Zm-1 1h1Zm3 0h1Zm-3 1h1Zm3 0h1Zm-2 1h2Zm-1 1h1Zm3 0h1Zm-4 1h1Zm5 0h1Zm-6 1h1Zm5 0h1Zm2 0h1Zm-7 1h1Zm4 0h1Zm3 0h1Zm-7 1h1Zm7 0h1Zm-7 1h1Zm7 0h1Zm-6 1h1Zm5 0h1Zm-6 1h8Zm-1 1h1Zm9 0h1Zm-9 1h10Z"/>
+    <path stroke="#000" d="M7 1.5h2m-3 1h1m2 0h1m-4 1h1m2 0h1m-3 1h2m-3 1h1m2 0h1m-5 1h1m4 0h1m-7 1h1m4 0h1m1 0h1m-8 1h1m3 0h1m2 0h1m-8 1h1m6 0h1m-8 1h1m6 0h1m-7 1h1m4 0h1m-7 1h8m-9 1h1m8 0h1m-10 1h10"/>
+    <path fill="#000" d="M7 2.5h1Zm-1 4h1Zm-1 1h1Z"/>
+    <path stroke="#FDFDFD" d="M7 2.5h1m-2 4h1m-2 1h1"/>
+    <path fill="#000" d="M8 2.5h1Zm0 1h1Zm0 2h1Zm2 2h1Zm0 1h1Zm0 1h1Zm0 1h1Zm-1 1h1Zm0 2h3Z"/>
+    <path stroke="#A7A7A7" d="M8 2.5h1m-1 1h1m-1 2h1m1 2h1m-1 1h1m-1 1h1m-1 1h1m-2 1h1m-1 2h3"/>
+    <path fill="#000" d="M7 3.5h1Zm-2 5h1Zm0 1h1Zm0 1h1Zm1 1h1Zm-2 2h2Z"/>
+    <path stroke="#E1E1E1" d="M7 3.5h1m-3 5h1m-1 1h1m-1 1h1m0 1h1m-3 2h2"/>
+    <path fill="#000" d="M7 5.5h1Zm0 1h2Zm-1 1h2Zm0 1h2Zm3 0h1Zm-3 1h4Zm0 1h4Zm1 1h2Zm-1 2h3Z"/>
+    <path stroke="#C1C1C1" d="M7 5.5h1m-1 1h2m-3 1h2m-2 1h2m1 0h1m-4 1h4m-4 1h4m-3 1h2m-3 2h3"/>
+  </g>
+  <g id="wK" fill-rule="evenodd" clip-rule="evenodd">
+    <path fill="#000" d="M7 1.5h2Zm-1 1h1Zm3 0h1Zm-3 1h1Zm3 0h1Zm-6 1h3Zm4 0h2Zm3 0h3Zm-8 1h1Zm4 0h1Zm3 0h1Zm4 0h1Zm-11 1h1Zm3 0h1Zm2 0h2Zm3 0h1Zm3 0h1Zm-11 1h1Zm4 0h1Zm3 0h1Zm4 0h1Zm-11 1h1Zm2 0h1Zm7 0h1Zm2 0h1Zm-10 1h1Zm2 0h2Zm4 0h2Zm3 0h1Zm-9 1h1Zm9 0h1Zm-8 1h1Zm7 0h1Zm-7 1h8Zm-1 1h1Zm9 0h1Zm-9 1h10Z"/>
+    <path stroke="#000" d="M7 1.5h2m-3 1h1m2 0h1m-4 1h1m2 0h1m-7 1h3m1 0h2m1 0h3m-11 1h1m3 0h1m2 0h1m3 0h1m-12 1h1m2 0h1m1 0h2m1 0h1m2 0h1m-12 1h1m3 0h1m2 0h1m3 0h1m-12 1h1m1 0h1m6 0h1m1 0h1m-11 1h1m1 0h2m2 0h2m1 0h1m-10 1h1m8 0h1m-9 1h1m6 0h1m-8 1h8m-9 1h1m8 0h1m-10 1h10"/>
+    <path fill="#000" d="M7 2.5h1Zm-4 3h1Z"/>
+    <path stroke="#FDFDFD" d="M7 2.5h1m-5 3h1"/>
+    <path fill="#000" d="M8 2.5h1Zm0 1h1Zm4 2h1Zm0 1h1Zm0 1h1Zm0 1h1Zm-1 1h1Zm-1 1h2Zm-1 1h2Zm0 2h3Z"/>
+    <path stroke="#A7A7A7" d="M8 2.5h1m-1 1h1m3 2h1m-1 1h1m-1 1h1m-1 1h1m-2 1h1m-2 1h2m-3 1h2m-2 2h3"/>
+    <path fill="#000" d="M7 3.5h1Zm-4 3h1Zm0 1h1Zm0 1h1Zm1 1h1Zm0 1h2Zm1 1h1Zm-1 2h2Z"/>
+    <path stroke="#E1E1E1" d="M7 3.5h1m-5 3h1m-1 1h1m-1 1h1m0 1h1m-1 1h2m-1 1h1m-2 2h2"/>
+    <path fill="#000" d="M4 5.5h2Zm6 0h2Zm-4 1h1Zm3 0h1Zm-2 1h2Zm0 1h2Zm0 1h2Zm-1 1h4Zm0 1h3Zm0 2h3Z"/>
+    <path stroke="#C1C1C1" d="M4 5.5h2m4 0h2m-6 1h1m2 0h1m-3 1h2m-2 1h2m-2 1h2m-3 1h4m-4 1h3m-3 2h3"/>
+  </g>
+  <g id="wN" fill-rule="evenodd" clip-rule="evenodd">
+    <path fill="#000" d="M4 1.5h4Zm0 1h1Zm4 0h3Zm-3 1h1Zm6 0h1Zm-7 1h1Zm8 0h1Zm-9 1h1Zm9 0h1Zm-10 1h1Zm6 0h1Zm4 0h1Zm-10 1h1Zm3 0h3Zm7 0h1Zm-9 1h2Zm4 0h1Zm5 0h1Zm-6 1h1Zm6 0h1Zm-7 1h1Zm6 0h1Zm-7 1h1Zm7 0h1Zm-7 1h8Zm-1 1h1Zm9 0h1Zm-9 1h10Z"/>
+    <path stroke="#000" d="M4 1.5h4m-4 1h1m3 0h3m-6 1h1m5 0h1m-8 1h1m7 0h1m-10 1h1m8 0h1m-11 1h1m5 0h1m3 0h1m-11 1h1m2 0h3m4 0h1m-10 1h2m2 0h1m4 0h1m-7 1h1m5 0h1m-8 1h1m5 0h1m-8 1h1m6 0h1m-8 1h8m-9 1h1m8 0h1m-10 1h10"/>
+    <path fill="#000" d="M5 2.5h1Zm0 9h1Zm-1 2h1Z"/>
+    <path stroke="#FDFDFD" d="M5 2.5h1m-1 9h1m-2 2h1"/>
+    <path fill="#000" d="M6 2.5h1Zm0 1h1Zm-1 1h1Zm-1 1h1Zm-1 1h1Zm0 1h1Zm5 0h1Zm0 1h1Zm-1 1h1Zm-1 1h1Zm0 1h1Zm-1 2h1Z"/>
+    <path stroke="#E1E1E1" d="M6 2.5h1m-1 1h1m-2 1h1m-2 1h1m-2 1h1m-1 1h1m4 0h1m-1 1h1m-2 1h1m-2 1h1m-1 1h1m-2 2h1"/>
+    <path fill="#000" d="M7 2.5h1Zm0 1h3Zm0 1h4Zm-2 1h3Zm4 0h2Zm-5 1h3Zm5 0h2Zm-5 1h1Zm5 0h2Zm0 1h2Zm-1 1h3Zm-1 1h3Zm0 1h2Zm-1 2h3Z"/>
+    <path stroke="#C1C1C1" d="M7 2.5h1m-1 1h3m-3 1h4m-6 1h3m1 0h2m-7 1h3m2 0h2m-7 1h1m4 0h2m-2 1h2m-3 1h3m-4 1h3m-3 1h2m-3 2h3"/>
+    <path fill="#000" d="M10 3.5h1Zm1 1h1Zm-3 1h1Zm3 0h1Zm-4 1h1Zm4 0h1Zm0 1h1Zm0 1h1Zm0 1h1Zm-1 1h1Zm-1 1h2Zm0 2h3Z"/>
+    <path stroke="#A7A7A7" d="M10 3.5h1m0 1h1m-4 1h1m2 0h1m-5 1h1m3 0h1m-1 1h1m-1 1h1m-1 1h1m-2 1h1m-2 1h2m-2 2h3"/>
+    <path fill="#000" d="M6 4.5h1Z"/>
+    <path stroke="#494949" d="M6 4.5h1"/>
+  </g>
+  <g id="wP" fill-rule="evenodd" clip-rule="evenodd">
+    <path fill="#000" d="M6 2.5h4Zm-1 1h1Zm5 0h1Zm-5 1h1Zm5 0h1Zm-5 1h1Zm5 0h1Zm-4 1h1Zm3 0h1Zm-4 1h1Zm5 0h1Zm-5 1h1Zm5 0h1Zm-4 1h1Zm3 0h1Zm-4 1h1Zm5 0h1Zm-6 1h1Zm7 0h1Zm-7 1h1Zm7 0h1Zm-7 1h8Z"/>
+    <path stroke="#000" d="M6 2.5h4m-5 1h1m4 0h1m-6 1h1m4 0h1m-6 1h1m4 0h1m-5 1h1m2 0h1m-5 1h1m4 0h1m-6 1h1m4 0h1m-5 1h1m2 0h1m-5 1h1m4 0h1m-7 1h1m6 0h1m-8 1h1m6 0h1m-8 1h8"/>
+    <path fill="#000" d="M6 3.5h1Z"/>
+    <path stroke="#FDFDFD" d="M6 3.5h1"/>
+    <path fill="#000" d="M7 3.5h2Zm-1 1h1Zm0 3h2Zm0 3h1Zm-1 1h2Zm0 1h1Z"/>
+    <path stroke="#E1E1E1" d="M7 3.5h2m-3 1h1m-1 3h2m-2 3h1m-2 1h2m-2 1h1"/>
+    <path fill="#000" d="M9 3.5h1Zm0 1h1Zm0 1h1Zm-1 1h1Zm1 1h1Zm-2 1h3Zm1 1h1Zm1 1h1Zm1 1h1Zm-4 1h5Z"/>
+    <path stroke="#A7A7A7" d="M9 3.5h1m-1 1h1m-1 1h1m-2 1h1m0 1h1m-3 1h3m-2 1h1m0 1h1m0 1h1m-5 1h5"/>
+    <path fill="#000" d="M7 4.5h2Zm-1 1h3Zm1 1h1Zm1 1h1Zm-2 1h1Zm1 1h1Zm0 1h2Zm0 1h3Z"/>
+    <path stroke="#C1C1C1" d="M7 4.5h2m-3 1h3m-2 1h1m0 1h1m-3 1h1m0 1h1m-1 1h2m-2 1h3"/>
+  </g>
+  <g id="wQ" fill-rule="evenodd" clip-rule="evenodd">
+    <path fill="#000" d="M7 1.5h2Zm-1 1h1Zm3 0h1Zm-3 1h1Zm3 0h1Zm-2 1h2Zm-6 1h1Zm13 0h1Zm-12 1h2Zm5 0h2Zm5 0h2Zm-10 1h1Zm2 0h1Zm2 0h1Zm3 0h1Zm2 0h1Zm2 0h1Zm-11 1h1Zm3 0h1Zm5 0h1Zm3 0h1Zm-10 1h1Zm9 0h1Zm-9 1h1Zm9 0h1Zm-8 1h1Zm7 0h1Zm-7 1h8Zm-1 1h1Zm9 0h1Zm-9 1h10Z"/>
+    <path stroke="#000" d="M7 1.5h2m-3 1h1m2 0h1m-4 1h1m2 0h1m-3 1h2m-8 1h1m12 0h1m-13 1h2m3 0h2m3 0h2m-12 1h1m1 0h1m1 0h1m2 0h1m1 0h1m1 0h1m-12 1h1m2 0h1m4 0h1m2 0h1m-11 1h1m8 0h1m-10 1h1m8 0h1m-9 1h1m6 0h1m-8 1h8m-9 1h1m8 0h1m-10 1h10"/>
+    <path fill="#000" d="M7 2.5h1Zm-4 5h1Zm0 1h1Z"/>
+    <path stroke="#FDFDFD" d="M7 2.5h1m-5 5h1m-1 1h1"/>
+    <path fill="#000" d="M8 2.5h1Zm0 1h1Zm4 4h1Zm-1 1h2Zm0 1h1Zm-1 1h2Zm-1 1h2Zm0 2h3Z"/>
+    <path stroke="#A7A7A7" d="M8 2.5h1m-1 1h1m3 4h1m-2 1h2m-2 1h1m-2 1h2m-3 1h2m-2 2h3"/>
+    <path fill="#000" d="M7 3.5h1Zm0 4h1Zm-3 1h1Zm2 0h1Zm-2 1h2Zm0 1h2Zm1 1h1Zm-1 2h2Z"/>
+    <path stroke="#E1E1E1" d="M7 3.5h1m-1 4h1m-4 1h1m1 0h1m-3 1h2m-2 1h2m-1 1h1m-2 2h2"/>
+    <path fill="#000" d="M8 7.5h1Zm-1 1h3Zm-1 1h5Zm0 1h4Zm0 1h3Zm0 2h3Z"/>
+    <path stroke="#C1C1C1" d="M8 7.5h1m-2 1h3m-4 1h5m-5 1h4m-4 1h3m-3 2h3"/>
+  </g>
+  <g id="wR" fill-rule="evenodd" clip-rule="evenodd">
+    <path fill="#000" d="M3 1.5h3Zm4 0h6Zm-4 1h1Zm2 0h1Zm2 0h1Zm5 0h1Zm-9 1h1Zm2 0h3Zm7 0h1Zm-9 1h1Zm9 0h1Zm-9 1h10Zm1 1h1Zm7 0h1Zm-6 1h6Zm0 1h1Zm5 0h1Zm-5 1h1Zm5 0h1Zm-5 1h1Zm5 0h1Zm-6 1h1Zm7 0h1Zm-8 1h10Zm-1 1h1Zm11 0h1Zm-11 1h12Z"/>
+    <path stroke="#000" d="M3 1.5h3m1 0h6m-10 1h1m1 0h1m1 0h1m4 0h1m-10 1h1m1 0h3m4 0h1m-10 1h1m8 0h1m-10 1h10m-9 1h1m6 0h1m-7 1h6m-6 1h1m4 0h1m-6 1h1m4 0h1m-6 1h1m4 0h1m-7 1h1m6 0h1m-9 1h10m-11 1h1m10 0h1m-12 1h12"/>
+    <path fill="#000" d="M4 2.5h1Zm1 4h1Zm0 5h1Zm-2 2h3Z"/>
+    <path stroke="#FDFDFD" d="M4 2.5h1m0 4h1m-1 5h1m-3 2h3"/>
+    <path fill="#000" d="M8 2.5h3Zm0 1h3Zm-3 1h5Zm2 2h2Zm0 2h2Zm0 1h2Zm0 1h2Zm0 1h2Zm0 2h3Z"/>
+    <path stroke="#C1C1C1" d="M8 2.5h3m-3 1h3m-6 1h5m-3 2h2m-2 2h2m-2 1h2m-2 1h2m-2 1h2m-2 2h3"/>
+    <path fill="#000" d="M11 2.5h1Zm0 1h1Zm-1 1h2Zm-1 2h2Zm0 2h1Zm0 1h1Zm0 1h1Zm0 1h2Zm1 2h3Z"/>
+    <path stroke="#A7A7A7" d="M11 2.5h1m-1 1h1m-2 1h2m-3 2h2m-2 2h1m-1 1h1m-1 1h1m-1 1h2m-1 2h3"/>
+    <path fill="#000" d="M4 3.5h1Zm0 1h1Zm2 2h1Zm0 2h1Zm0 1h1Zm0 1h1Zm0 1h1Zm0 2h1Z"/>
+    <path stroke="#E1E1E1" d="M4 3.5h1m-1 1h1m1 2h1m-1 2h1m-1 1h1m-1 1h1m-1 1h1m-1 2h1"/>
+  </g>
+  <style>
+    g {display: none;}
+    g:target {display: inline;}
+  </style>
+</svg>

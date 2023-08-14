@@ -1,0 +1,95 @@
+<!--
+The lila Cburnett pieces set from
+https://github.com/ornicar/lila/tree/master/public/piece/cburnett
+modified by buhodev (https://github.com/buhodev) for the usage in svelte-chess.
+https://github.com/gtim/svelte-chess
+
+License: GNU General Public License, version 2 (GPLv2+)
+https://www.gnu.org/licenses/old-licenses/gpl-2.0
+
+See also: https://github.com/ornicar/lila/blob/master/COPYING.md
+-->
+<svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 32 32">
+  <g id="bB" fill-rule="evenodd" clip-rule="evenodd">
+    <path fill="#000" stroke="#000" stroke-linejoin="round" stroke-width="1.06" d="M6.4 25.6c2.41-.69 7.19.3 9.6-1.42 2.41 1.73 7.19.73 9.6 1.42 0 0 1.17.38 2.13 1.42-.48.7-1.17.7-2.13.36-2.41-.7-7.19.32-9.6-.71-2.41 1.03-7.19.02-9.6.7-.96.36-1.65.34-2.13-.35.96-1.38 2.13-1.42 2.13-1.42Z"/>
+    <path fill="#000" stroke="#000" stroke-linejoin="round" stroke-width="1.06" d="M10.67 22.76c1.77 1.77 8.89 1.77 10.66 0 .36-1.07 0-1.43 0-1.43 0-1.77-1.77-2.84-1.77-2.84 3.9-1.07 4.26-8.18-3.56-11.02-7.82 2.84-7.47 9.95-3.56 11.02 0 0-1.77 1.07-1.77 2.84 0 0-.36.36 0 1.43Z"/>
+    <path fill="#000" stroke="#000" stroke-linejoin="round" stroke-width="1.06" d="M17.78 5.69a1.78 1.78 0 1 1-3.56 0 1.78 1.78 0 0 1 3.56 0Z"/>
+    <path stroke="#ECECEC" stroke-linecap="round" stroke-width="1.06" d="M12.44 18.49h7.12m-8.9 2.84h10.67M16 11.03v3.55m-1.78-1.78h3.56"/>
+  </g>
+  <g id="bK" fill-rule="evenodd" clip-rule="evenodd">
+    <path stroke="#000" stroke-linecap="round" stroke-width="1.06" d="M16 8.27v-4"/>
+    <path fill="#000" stroke="#000" stroke-width="1.06" d="M16 17.78s3.2-5.34 2.13-7.47c0 0-.7-1.78-2.13-1.78-1.42 0-2.13 1.78-2.13 1.78C12.8 12.44 16 17.78 16 17.78Z"/>
+    <path fill="#000" d="M8.18 26.31c3.9 2.49 11.02 2.49 14.93 0v-4.98s6.4-3.2 4.27-7.46c-2.85-4.63-9.6-2.5-11.38 2.84-2.49-5.33-9.24-7.47-11.38-2.84-2.13 4.26 3.56 7.1 3.56 7.1v5.34Z"/>
+    <path stroke="#000" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.06" d="M16 16.71c1.78-5.33 8.53-7.47 11.38-2.84 2.13 4.26-4.27 7.46-4.27 7.46v4.98c-3.91 2.49-11.02 2.49-14.93 0v-5.33s-5.7-2.85-3.56-7.11c2.14-4.63 8.9-2.5 11.38 2.84Zm0 0v2.49"/>
+    <path stroke="#000" stroke-linecap="round" stroke-width="1.06" d="M14.22 5.69h3.56"/>
+    <path stroke="#ECECEC" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.06" d="M22.76 20.98s6.04-2.85 4.28-6.86c-2.76-4.16-9.26-1.32-11.04 3.3m0 0v1.5m0-1.5c-1.78-4.62-8.96-7.46-11.02-3.3-1.78 4.01 3.45 6.4 3.45 6.4m-.25.81c3.9-2.13 11.02-2.13 14.93 0m-14.93 2.5c3.9-2.14 11.02-2.14 14.93 0M8.18 26.3c3.9-2.13 11.02-2.13 14.93 0"/>
+  </g>
+  <g id="bN" fill-rule="evenodd" clip-rule="evenodd">
+    <path fill="#000" d="M15.64 7.11c7.47.71 11.74 5.69 11.38 20.62H10.67c0-6.4 7.1-4.62 5.69-14.93"/>
+    <path stroke="#000" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.06" d="M15.64 7.11c7.47.71 11.74 5.69 11.38 20.62H10.67c0-6.4 7.1-4.62 5.69-14.93"/>
+    <path fill="#000" d="M17.07 12.8c.27 2.07-3.95 5.24-5.7 6.4-2.13 1.42-2 3.09-3.55 2.84-.74-.66 1-2.16 0-2.13-.7 0 .14.88-.7 1.42-.72 0-2.86.71-2.85-2.84 0-1.42 4.26-8.53 4.26-8.53s1.35-1.36 1.43-2.5c-.52-.7-.36-1.42-.36-2.13.71-.7 2.13 1.78 2.13 1.78h1.43s.55-1.42 1.77-2.13c.71 0 .71 2.13.71 2.13"/>
+    <path stroke="#000" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.06" d="M17.07 12.8c.27 2.07-3.95 5.24-5.7 6.4-2.13 1.42-2 3.09-3.55 2.84-.74-.66 1-2.16 0-2.13-.7 0 .14.88-.7 1.42-.72 0-2.86.71-2.85-2.84 0-1.42 4.26-8.53 4.26-8.53s1.35-1.36 1.43-2.5c-.52-.7-.36-1.42-.36-2.13.71-.7 2.13 1.78 2.13 1.78h1.43s.55-1.42 1.77-2.13c.71 0 .71 2.13.71 2.13"/>
+    <path fill="#ECECEC" stroke="#ECECEC" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.06" d="M6.76 18.13a.36.36 0 1 1-.72 0 .36.36 0 0 1 .72 0Zm3.86-6.93a3.04 3.04 0 0 1-.47.6.76.76 0 0 1-.22.15c-.06.02-.12.03-.16 0-.04-.02-.06-.07-.07-.14a.76.76 0 0 1 .01-.26 3.02 3.02 0 0 1 .76-1.31.76.76 0 0 1 .22-.14c.06-.03.12-.03.16 0 .04.02.06.06.08.13 0 .07 0 .16-.02.26l-.1.34c-.06.12-.12.25-.2.37Z"/>
+    <path fill="#ECECEC" d="m17.46 7.4-.32 1.03.35.1c2.24.71 4.02 1.77 5.62 4.8 1.6 3.03 2.31 7.33 1.96 14.4l-.04.36h1.6l.04-.36c.35-7.15-.63-11.98-2.31-15.17-1.69-3.2-4.12-4.72-6.54-5.1l-.36-.06Z"/>
+  </g>
+  <g id="bP" fill-rule="evenodd" clip-rule="evenodd">
+    <path fill="#000" stroke="#000" stroke-linecap="round" stroke-width="1.06" d="M16 6.4a2.84 2.84 0 0 0-2.29 4.54 4.61 4.61 0 0 0-.62 7.57c-2.13.75-5.27 3.95-5.27 9.58h16.36c0-5.63-3.14-8.83-5.27-9.58a4.6 4.6 0 0 0-.62-7.57A2.85 2.85 0 0 0 16 6.4Z"/>
+  </g>
+  <g id="bQ" fill-rule="evenodd" clip-rule="evenodd">
+    <path fill="#000" d="M4.27 10.49a1.96 1.96 0 1 0 0-3.91 1.96 1.96 0 0 0 0 3.9Zm5.69-2.13a1.96 1.96 0 1 0 0-3.92 1.96 1.96 0 0 0 0 3.92ZM16 7.64a1.96 1.96 0 1 0 0-3.9 1.96 1.96 0 0 0 0 3.9Zm6.04.72a1.96 1.96 0 1 0 0-3.92 1.96 1.96 0 0 0 0 3.92Zm5.69 2.13a1.96 1.96 0 1 0 0-3.91 1.96 1.96 0 0 0 0 3.9Z"/>
+    <path fill="#000" stroke="#000" stroke-linejoin="round" stroke-width="1.06" d="M6.4 18.49c6.04-1.07 14.93-1.07 19.2 0l1.78-8.89-5.34 8.18-.2-10.03-3.7 9.67L16 7.12l-2.13 10.3-3.7-9.67-.21 10.03L4.62 9.6l1.78 8.89Z"/>
+    <path fill="#000" stroke="#000" stroke-linejoin="round" stroke-width="1.06" d="M6.4 18.49c0 1.42 1.07 1.42 1.78 2.84.7 1.07.7.71.35 2.5-1.06.7-1.06 1.77-1.06 1.77-1.07 1.07.35 1.78.35 1.78 4.62.7 11.74.7 16.36 0 0 0 1.06-.71 0-1.78 0 0 .35-1.07-.71-1.78-.36-1.78-.36-1.42.35-2.49.71-1.42 1.78-1.42 1.78-2.84a58 58 0 0 0-19.2 0Z"/>
+    <path stroke="#000" stroke-linejoin="round" stroke-width="1.06" d="M7.82 27.38a24.89 24.89 0 0 0 16.36 0"/>
+    <path stroke="#ECECEC" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.06" d="M7.82 20.62a24.89 24.89 0 0 1 16.36 0M8.88 22.4h14.23M8.18 24.53a24.89 24.89 0 0 0 15.64 0M7.47 26.67a24.89 24.89 0 0 0 17.06 0"/>
+  </g>
+  <g id="bR" fill-rule="evenodd" clip-rule="evenodd">
+    <path fill="#000" stroke="#000" stroke-linejoin="round" stroke-width="1.06" d="M6.4 27.73h19.2V25.6H6.4v2.13Zm2.49-4.97 1.07-1.78h12.08l1.07 1.78H8.9Zm-.36 2.84v-2.84h14.94v2.84H8.53Z"/>
+    <path fill="#000" stroke="#000" stroke-width="1.06" d="M9.96 20.98v-9.25h12.08v9.25H9.96Z"/>
+    <path fill="#000" d="M9.96 11.73 7.82 9.96h16.36l-2.14 1.77H9.96ZM7.82 9.96V6.4h2.85v1.42h3.55V6.4h3.56v1.42h3.55V6.4h2.85v3.56H7.82Z"/>
+    <path stroke="#000" stroke-linejoin="round" stroke-width="1.06" d="m7.82 9.96 2.14 1.77h12.08l2.14-1.77m-16.36 0h16.36m-16.36 0V6.4h2.85v1.42h3.55V6.4h3.56v1.42h3.55V6.4h2.85v3.56"/>
+    <path stroke="#ECECEC" stroke-linecap="round" stroke-width=".7" d="M8.53 25.24h14.94M9.24 22.4h13.52m-12.8-1.42h12.08M9.96 11.73h12.08M7.82 9.96h16.36"/>
+  </g>
+  <g id="wB" fill-rule="evenodd" clip-rule="evenodd">
+    <path fill="#fff" stroke="#000" stroke-linejoin="round" stroke-width="1.06" d="M6.4 25.6c2.41-.69 7.19.3 9.6-1.42 2.41 1.73 7.19.73 9.6 1.42 0 0 1.17.38 2.13 1.42-.48.7-1.17.7-2.13.36-2.41-.7-7.19.32-9.6-.71-2.41 1.03-7.19.02-9.6.7-.96.36-1.65.34-2.13-.35.96-1.38 2.13-1.42 2.13-1.42Z"/>
+    <path fill="#fff" stroke="#000" stroke-linejoin="round" stroke-width="1.06" d="M10.67 22.76c1.77 1.77 8.89 1.77 10.66 0 .36-1.07 0-1.43 0-1.43 0-1.77-1.77-2.84-1.77-2.84 3.9-1.07 4.26-8.18-3.56-11.02-7.82 2.84-7.47 9.95-3.56 11.02 0 0-1.77 1.07-1.77 2.84 0 0-.36.36 0 1.43Z"/>
+    <path fill="#fff" stroke="#000" stroke-linejoin="round" stroke-width="1.06" d="M17.78 5.69a1.78 1.78 0 1 1-3.56 0 1.78 1.78 0 0 1 3.56 0Z"/>
+    <path stroke="#000" stroke-linecap="round" stroke-width="1.06" d="M12.44 18.49h7.12m-8.9 2.84h10.67M16 11.03v3.55m-1.78-1.78h3.56"/>
+  </g>
+  <g id="wK" fill-rule="evenodd" clip-rule="evenodd">
+    <path stroke="#000" stroke-linecap="round" stroke-width="1.06" d="M16 8.27v-4m-1.78 1.42h3.56"/>
+    <path fill="#fff" stroke="#000" stroke-width="1.06" d="M16 17.78s3.2-5.34 2.13-7.47c0 0-.7-1.78-2.13-1.78-1.42 0-2.13 1.78-2.13 1.78C12.8 12.44 16 17.78 16 17.78Z"/>
+    <path fill="#fff" d="M8.18 26.31c3.9 2.49 11.02 2.49 14.93 0v-4.98s6.4-3.2 4.27-7.46c-2.85-4.63-9.6-2.5-11.38 2.84-2.49-5.33-9.24-7.47-11.38-2.84-2.13 4.26 3.56 7.1 3.56 7.1v5.34Z"/>
+    <path stroke="#000" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.06" d="M16 16.71c1.78-5.33 8.53-7.47 11.38-2.84 2.13 4.26-4.27 7.46-4.27 7.46v4.98c-3.91 2.49-11.02 2.49-14.93 0v-5.33s-5.7-2.85-3.56-7.11c2.14-4.63 8.9-2.5 11.38 2.84Zm0 0v2.49"/>
+    <path stroke="#000" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.06" d="M8.18 21.33c3.9-2.13 11.02-2.13 14.93 0m-14.93 2.5c3.9-2.14 11.02-2.14 14.93 0M8.18 26.3c3.9-2.13 11.02-2.13 14.93 0"/>
+  </g>
+  <g id="wN" fill-rule="evenodd" clip-rule="evenodd">
+    <path fill="#fff" d="M15.64 7.11c7.47.71 11.74 5.69 11.38 20.62H10.67c0-6.4 7.1-4.62 5.69-14.93"/>
+    <path stroke="#000" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.06" d="M15.64 7.11c7.47.71 11.74 5.69 11.38 20.62H10.67c0-6.4 7.1-4.62 5.69-14.93"/>
+    <path fill="#fff" d="M17.07 12.8c.27 2.07-3.95 5.24-5.7 6.4-2.13 1.42-2 3.09-3.55 2.84-.74-.66 1-2.16 0-2.13-.7 0 .14.88-.7 1.42-.72 0-2.86.71-2.85-2.84 0-1.42 4.26-8.53 4.26-8.53s1.35-1.36 1.43-2.5c-.52-.7-.36-1.42-.36-2.13.71-.7 2.13 1.78 2.13 1.78h1.43s.55-1.42 1.77-2.13c.71 0 .71 2.13.71 2.13"/>
+    <path stroke="#000" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.06" d="M17.07 12.8c.27 2.07-3.95 5.24-5.7 6.4-2.13 1.42-2 3.09-3.55 2.84-.74-.66 1-2.16 0-2.13-.7 0 .14.88-.7 1.42-.72 0-2.86.71-2.85-2.84 0-1.42 4.26-8.53 4.26-8.53s1.35-1.36 1.43-2.5c-.52-.7-.36-1.42-.36-2.13.71-.7 2.13 1.78 2.13 1.78h1.43s.55-1.42 1.77-2.13c.71 0 .71 2.13.71 2.13"/>
+    <path fill="#000" stroke="#000" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.06" d="M6.76 18.13a.36.36 0 1 1-.72 0 .36.36 0 0 1 .72 0Zm3.86-6.93a3.03 3.03 0 0 1-.47.6.76.76 0 0 1-.22.15c-.06.02-.12.03-.16 0-.04-.02-.06-.07-.07-.14a.76.76 0 0 1 .01-.26 3.02 3.02 0 0 1 .76-1.31.76.76 0 0 1 .22-.15c.06-.02.12-.02.16 0 .04.03.06.07.08.14 0 .07 0 .16-.02.26l-.1.34c-.06.12-.12.25-.2.37Z"/>
+  </g>
+  <g id="wP" fill-rule="evenodd" clip-rule="evenodd">
+    <path fill="#fff" stroke="#000" stroke-linecap="round" stroke-width="1.06" d="M16 6.4a2.84 2.84 0 0 0-2.29 4.54 4.61 4.61 0 0 0-.62 7.57c-2.13.75-5.27 3.95-5.27 9.58h16.36c0-5.63-3.14-8.83-5.27-9.58a4.6 4.6 0 0 0-.62-7.57A2.85 2.85 0 0 0 16 6.4Z"/>
+  </g>
+  <g id="wQ" fill-rule="evenodd" clip-rule="evenodd">
+    <path fill="#fff" stroke="#000" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.06" d="M5.69 8.53a1.42 1.42 0 1 1-2.85 0 1.42 1.42 0 0 1 2.85 0Zm11.73-3.2a1.42 1.42 0 1 1-2.84 0 1.42 1.42 0 0 1 2.84 0Zm11.74 3.2a1.42 1.42 0 1 1-2.85 0 1.42 1.42 0 0 1 2.85 0ZM11.38 6.04a1.42 1.42 0 1 1-2.85 0 1.42 1.42 0 0 1 2.85 0Zm12.09.36a1.42 1.42 0 1 1-2.85 0 1.42 1.42 0 0 1 2.85 0Z"/>
+    <path fill="#fff" stroke="#000" stroke-linejoin="round" stroke-width="1.06" d="M6.4 18.49c6.04-1.07 14.93-1.07 19.2 0l1.42-8.53-4.98 7.82V7.82l-3.9 9.6L16 6.76l-2.13 10.66-3.91-9.95v10.3l-4.98-7.8L6.4 18.5Z"/>
+    <path fill="#fff" stroke="#000" stroke-linejoin="round" stroke-width="1.06" d="M6.4 18.49c0 1.42 1.07 1.42 1.78 2.84.7 1.07.7.71.35 2.5-1.06.7-1.06 1.77-1.06 1.77-1.07 1.07.35 1.78.35 1.78 4.62.7 11.74.7 16.36 0 0 0 1.06-.71 0-1.78 0 0 .35-1.07-.71-1.78-.36-1.78-.36-1.42.35-2.49.71-1.42 1.78-1.42 1.78-2.84a58 58 0 0 0-19.2 0Z"/>
+    <path stroke="#000" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.06" d="M8.18 21.33c2.49-.7 13.15-.7 15.64 0m-15.29 2.5a52.53 52.53 0 0 1 14.94 0"/>
+  </g>
+  <g id="wR" fill-rule="evenodd" clip-rule="evenodd">
+    <path fill="#fff" d="M6.4 27.73h19.2V25.6H6.4v2.13Zm2.13-2.13v-2.84h14.94v2.84H8.53Zm-.7-15.64V6.4h2.84v1.42h3.55V6.4h3.56v1.42h3.55V6.4h2.85v3.56"/>
+    <path stroke="#000" stroke-linejoin="round" stroke-width="1.06" d="M7.82 9.96V6.4h2.85v1.42h3.55V6.4h3.56v1.42h3.55V6.4h2.85v3.56M6.4 27.73h19.2V25.6H6.4v2.13Zm2.13-2.13v-2.84h14.94v2.84H8.53Z"/>
+    <path fill="#fff" d="m24.18 9.96-2.14 2.13H9.96L7.82 9.96"/>
+    <path stroke="#000" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.06" d="m24.18 9.96-2.14 2.13H9.96L7.82 9.96"/>
+    <path fill="#fff" d="M22.04 12.09v8.89H9.96v-8.9"/>
+    <path stroke="#000" stroke-width="1.06" d="M22.04 12.09v8.89H9.96v-8.9"/>
+    <path fill="#fff" d="m22.04 20.98 1.07 1.78H8.9l1.07-1.78"/>
+    <path stroke="#000" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.06" d="m22.04 20.98 1.07 1.78H8.9l1.07-1.78"/>
+    <path stroke="#000" stroke-linecap="round" stroke-width="1.06" d="M7.82 9.96h16.36"/>
+  </g>
+  <style>
+    g{display:none}g:target{display:inline}
+  </style>
+</svg>

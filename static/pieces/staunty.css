@@ -1,0 +1,14 @@
+.staunty {
+    --wP: url('staunty.svg#wP');
+    --wB: url('staunty.svg#wB');
+    --wN: url('staunty.svg#wN');
+    --wR: url('staunty.svg#wR');
+    --wQ: url('staunty.svg#wQ');
+    --wK: url('staunty.svg#wK');
+    --bP: url('staunty.svg#bP');
+    --bB: url('staunty.svg#bB');
+    --bN: url('staunty.svg#bN');
+    --bR: url('staunty.svg#bR');
+    --bQ: url('staunty.svg#bQ');
+    --bK: url('staunty.svg#bK');
+}

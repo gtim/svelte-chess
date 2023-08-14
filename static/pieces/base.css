@@ -1,0 +1,12 @@
+piece.pawn.white {background-image: var(--wP)}
+piece.bishop.white {background-image: var(--wB)}
+piece.knight.white {background-image: var(--wN)}
+piece.rook.white {background-image: var(--wR)}
+piece.queen.white {background-image: var(--wQ)}
+piece.king.white {background-image: var(--wK)}
+piece.pawn.black {background-image: var(--bP)}
+piece.bishop.black {background-image: var(--bB)}
+piece.knight.black {background-image: var(--bN)}
+piece.rook.black {background-image: var(--bR)}
+piece.queen.black {background-image: var(--bQ)}
+piece.king.black {background-image: var(--bK)}

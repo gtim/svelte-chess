@@ -1,0 +1,14 @@
+.pixel {
+    --wP: url('pixel.svg#wP');
+    --wB: url('pixel.svg#wB');
+    --wN: url('pixel.svg#wN');
+    --wR: url('pixel.svg#wR');
+    --wQ: url('pixel.svg#wQ');
+    --wK: url('pixel.svg#wK');
+    --bP: url('pixel.svg#bP');
+    --bB: url('pixel.svg#bB');
+    --bN: url('pixel.svg#bN');
+    --bR: url('pixel.svg#bR');
+    --bQ: url('pixel.svg#bQ');
+    --bK: url('pixel.svg#bK');
+}
