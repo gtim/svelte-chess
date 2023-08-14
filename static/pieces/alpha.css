@@ -1,0 +1,14 @@
+.alpha {
+    --wP: url('alpha.svg#wP');
+    --wB: url('alpha.svg#wB');
+    --wN: url('alpha.svg#wN');
+    --wR: url('alpha.svg#wR');
+    --wQ: url('alpha.svg#wQ');
+    --wK: url('alpha.svg#wK');
+    --bP: url('alpha.svg#bP');
+    --bB: url('alpha.svg#bB');
+    --bN: url('alpha.svg#bN');
+    --bR: url('alpha.svg#bR');
+    --bQ: url('alpha.svg#bQ');
+    --bK: url('alpha.svg#bK');
+}
